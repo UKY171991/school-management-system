@@ -685,16 +685,16 @@
         // Dynamic Print Blank Link Logic
         function updatePrintBlankLink() {
             let schoolId = $('#filter_school_id').val();
-            let baseUrl = "{{ route('admissions.print-blank') }}";
+            let baseUrl = "{{ route('admissions.print.blank') }}";
             let $link = $('#printBlankLink');
 
             @if(auth()->user()->isMasterAdmin())
                 if (schoolId) {
                     $link.attr('href', baseUrl + '?school_id=' + schoolId);
-                    $link.removeClass('disabled opacity-50');
+                    $link.removeClass('disabled opacity-50 text-muted');
                 } else {
                     $link.attr('href', 'javascript:void(0)');
-                    $link.addClass('disabled opacity-50');
+                    $link.addClass('disabled opacity-50 text-muted');
                 }
             @else
                 $link.attr('href', baseUrl + '?school_id={{ auth()->user()->school_id }}');
@@ -705,10 +705,19 @@
             $('#filter_school_id').on('change', function() {
                 updatePrintBlankLink();
             });
-            // Click handler for disabled link
-            $(document).on('click', '#printBlankLink.disabled', function(e) {
-                e.preventDefault();
-                Swal.fire("{{ __('Information') }}", "{{ __('Please select a School/Admin first to print its blank admission form.') }}", 'info');
+
+            // Click handler for alert if no school selected
+            $(document).on('click', '#printBlankLink', function(e) {
+                let schoolId = $('#filter_school_id').val();
+                if (!schoolId && $(this).hasClass('disabled')) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: "{{ __('School Required') }}",
+                        text: "{{ __('Please select a school first to print its branded form.') }}",
+                        icon: 'warning',
+                        confirmButtonText: "{{ __('OK') }}"
+                    });
+                }
             });
             updatePrintBlankLink(); // Initial check
         @endif
