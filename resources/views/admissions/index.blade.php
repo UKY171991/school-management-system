@@ -19,13 +19,13 @@
     <!-- Compact Filter Bar -->
     <div class="card shadow-sm border-0 mb-4 bg-light">
         <div class="card-body p-3">
-            <form id="filterForm" class="row align-items-end g-3">
+            <form id="filterForm" class="row align-items-end g-2 flex-nowrap overflow-auto py-2">
                 @if(auth()->user()->isMasterAdmin())
-                <div class="col-md-3">
+                <div class="col-auto">
                     <label class="small font-weight-bold text-muted mb-1 text-uppercase">
                         <i class="fas fa-user-tie mr-1"></i> {{ __('Admin / School') }}
                     </label>
-                    <select class="form-control select2 shadow-none" id="filter_school_id" name="school_id">
+                    <select class="form-control select2 shadow-none" id="filter_school_id" name="school_id" style="min-width: 150px;">
                         <option value="">{{ __('All Admins') }}</option>
                         @foreach($admins as $admin)
                             <option value="{{ $admin->school_id }}">{{ $admin->name }} ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
@@ -33,44 +33,44 @@
                     </select>
                 </div>
                 @endif
-                <div class="col-md-3">
+                <div class="col-auto">
                     <label class="small font-weight-bold text-muted mb-1 text-uppercase">
                         <i class="fas fa-graduation-cap mr-1"></i> {{ __('Class') }}
                     </label>
-                    <select class="form-control select2 shadow-none" id="filter_grade_id" name="grade_id">
+                    <select class="form-control select2 shadow-none" id="filter_grade_id" name="grade_id" style="min-width: 120px;">
                         <option value="">{{ __('All Classes') }}</option>
                         @foreach($grades as $grade)
                             <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">{{ $grade->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-auto">
                     <label class="small font-weight-bold text-muted mb-1 text-uppercase">
                         <i class="fas fa-layer-group mr-1"></i> {{ __('Section') }}
                     </label>
-                    <select class="form-control select2 shadow-none" id="filter_section_id" name="section_id">
+                    <select class="form-control select2 shadow-none" id="filter_section_id" name="section_id" style="min-width: 120px;">
                         <option value="">{{ __('All Sections') }}</option>
                         @foreach($sections as $section)
                             <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">{{ $section->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-auto">
-                    <button type="submit" class="btn btn-primary shadow-sm px-4">
-                        <i class="fas fa-search mr-1"></i> {{ __('Filter') }}
+                <div class="col-auto d-flex gap-1">
+                    <button type="submit" class="btn btn-primary shadow-sm px-3">
+                        <i class="fas fa-search me-1"></i> {{ __('Filter') }}
                     </button>
-                    <button type="button" class="btn btn-outline-secondary shadow-sm ml-1" id="resetFilter">
+                    <button type="button" class="btn btn-outline-secondary shadow-sm px-2" id="resetFilter">
                         <i class="fas fa-undo"></i>
                     </button>
                 </div>
-                <div class="col-md-auto ms-auto d-flex align-items-center gap-2">
-                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-4">
+                <div class="col-auto ms-auto d-flex align-items-center gap-2">
+                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-3 text-nowrap">
                         <i class="fas fa-file-import me-1"></i> {{ __('Bulk Admission') }}
                     </a>
-                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-4">
+                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-3 text-nowrap">
                         <i class="fas fa-print me-1"></i> {{ __('Print Blank Form') }}
                     </a>
-                    <button type="button" class="btn btn-success shadow-sm px-4" id="createNewStudent">
+                    <button type="button" class="btn btn-success shadow-sm px-3 text-nowrap" id="createNewStudent">
                         <i class="fas fa-user-plus me-1"></i> {{ __('New Admission') }}
                     </button>
                 </div>
