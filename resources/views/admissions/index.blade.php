@@ -544,13 +544,6 @@
                     }
                 },
                 {
-                    data: 'school',
-                    name: 'school',
-                    render: function (data) {
-                        return data ? `<span class="badge badge-light border text-secondary font-weight-500"><i class="fas fa-school mr-1 small"></i>${data.name}</span>` : "{{ __('N/A') }}";
-                    }
-                },
-                {
                     data: 'branch',
                     name: 'branch.name',
                     render: function (data, type, row) {
