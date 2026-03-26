@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,54 +8,128 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit:300,400,600,700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <style>
-        body { font-family: 'Outfit', sans-serif; background: #fff; color: #333; }
-        .no-print { margin: 20px auto; max-width: 900px; text-align: center; }
-        @media print {
-            .no-print { display: none; }
-            body { margin: 0; padding: 0; }
-            .form-container { border: none !important; margin: 0 !important; width: 100% !important; max-width: none !important; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #fff;
+            color: #333;
         }
-        .form-container { 
-            max-width: 900px; 
-            margin: 20px auto; 
-            padding: 40px; 
+
+        .no-print {
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .form-container {
+                border: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+            }
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 40px;
             border: 2px solid #333;
             background: #fff;
         }
+
         .header-container {
             border-bottom: 2px solid #333;
             padding-bottom: 15px;
             margin-bottom: 25px;
         }
-        .school-name { font-size: 28px; font-weight: 800; text-transform: uppercase; margin: 0; color: #1a237e; }
-        .form-title { 
-            text-align: center; 
-            background: #1a237e; 
-            color: #fff; 
-            padding: 5px; 
-            font-size: 18px; 
-            font-weight: 700; 
+
+        .school-name {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin: 0;
+            color: #1a237e;
+        }
+
+        .form-title {
+            text-align: center;
+            background: #1a237e;
+            color: #fff;
+            padding: 5px;
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 20px;
         }
-        .field-row { margin-bottom: 15px; display: flex; align-items: baseline; }
-        .field-label { font-weight: 700; min-width: 180px; font-size: 15px; }
-        .field-value { border-bottom: 1px dotted #333; flex-grow: 1; padding: 0 5px; font-size: 16px; min-height: 24px; }
-        .photo-box { 
-            width: 120px; 
-            height: 140px; 
-            border: 2px solid #333; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 12px; 
+
+        .field-row {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .field-label {
+            font-weight: 700;
+            min-width: 180px;
+            font-size: 15px;
+        }
+
+        .field-value {
+            border-bottom: 1px dotted #333;
+            flex-grow: 1;
+            padding: 0 5px;
+            font-size: 16px;
+            min-height: 24px;
+        }
+
+        .photo-box {
+            width: 120px;
+            height: 140px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
             text-align: center;
         }
-        .photo-box img { max-width: 100%; max-height: 100%; }
-        .section-title { font-weight: 800; text-decoration: underline; margin-top: 20px; margin-bottom: 10px; font-size: 17px; }
-        .footer { margin-top: 50px; display: flex; justify-content: space-between; }
-        .sig-box { border-top: 1px solid #333; width: 200px; text-align: center; padding-top: 5px; font-weight: 700; }
+
+        .photo-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .section-title {
+            font-weight: 800;
+            text-decoration: underline;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sig-box {
+            border-top: 1px solid #333;
+            width: 200px;
+            text-align: center;
+            padding-top: 5px;
+            font-weight: 700;
+        }
     </style>
 </head>
+
 <body>
     <div class="no-print">
         <button onclick="window.print()" class="btn btn-primary btn-lg px-5">Print Form</button>
@@ -64,21 +139,17 @@
     <div class="form-container">
         <div class="header-container d-flex justify-content-between align-items-start mb-4">
             <div class="logo-box" style="width: 120px;">
-                @php $activeSchool = $student->school ?? ($school ?? null); @endphp
-                @if($activeSchool && $activeSchool->logo_url)
-                    <img src="{{ $activeSchool->logo_url }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
+                @if($student->school && $student->school->logo_url)
+                    <img src="{{ $student->school->logo_url }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
                 @endif
             </div>
 
             <div class="header text-center flex-grow-1 border-0 mb-0 pb-0">
-                <h1 class="school-name">{{ ($student->school ?? ($school ?? null))->name ?? 'School Management System' }}</h1>
-                <p class="mb-0">{{ ($student->school ?? ($school ?? null))->address ?? 'Main Campus, Academic Square' }}</p>
-                <p class="mb-0">Contact: {{ ($student->school ?? ($school ?? null))->phone ?? 'XXXX-XXXXXX' }}</p>
-                @if(isset($student->school) || isset($school))
-                    @php $activeSchool = $student->school ?? $school; @endphp
-                    @if($activeSchool && $activeSchool->email)
-                        <p class="mb-0">Email: {{ $activeSchool->email }}</p>
-                    @endif
+                <h1 class="school-name">{{ $student->school->name ?? 'School Management System' }}</h1>
+                <p class="mb-0">{{ $student->school->address ?? 'Main Campus, Academic Square' }}</p>
+                <p class="mb-0">Contact: {{ $student->school->phone ?? 'XXXX-XXXXXX' }}</p>
+                @if($student->school && $student->school->email)
+                    <p class="mb-0">Email: {{ $student->school->email }}</p>
                 @endif
             </div>
 
@@ -94,7 +165,7 @@
         <div class="form-title">ADMISSION REGISTRATION FORM</div>
 
         <div class="section-title">STUDENT DETAILS</div>
-        
+
         <div class="field-row" style="margin-right: 150px;">
             <span class="field-label">Student Name:</span>
             <span class="field-value">{{ $student->name }}</span>
@@ -111,7 +182,6 @@
                 <div class="field-row">
                     <span class="field-label">Roll Number:</span>
                     <span class="field-value">{{ $student->roll_number }}</span>
-                    <div class="ml-2 small font-italic text-muted" style="min-width: 120px; white-space: nowrap;">(Only for Office Use)</div>
                 </div>
             </div>
         </div>
@@ -126,7 +196,8 @@
             <div class="col-6">
                 <div class="field-row">
                     <span class="field-label">Admission Date:</span>
-                    <span class="field-value">{{ $student->admission_date ? date('d-m-Y', strtotime($student->admission_date)) : '' }}</span>
+                    <span
+                        class="field-value">{{ $student->admission_date ? date('d-m-Y', strtotime($student->admission_date)) : '' }}</span>
                 </div>
             </div>
         </div>
@@ -222,4 +293,5 @@
         </div>
     </div>
 </body>
+
 </html>

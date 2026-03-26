@@ -16,10 +16,10 @@ class AdmissionController extends Controller
         if ($request->ajax()) {
             if ($request->has('next_roll')) {
                 $lastRoll = \App\Models\Student::max('roll_number');
-                return response()->json(['next_roll' => ($lastRoll ? (int)$lastRoll + 1 : 1001)]);
+                return response()->json(['next_roll' => ($lastRoll ? (int) $lastRoll + 1 : 1001)]);
             }
             $query = \App\Models\Student::with(['grade', 'section', 'school'])->latest();
-            
+
             if (auth()->user()->isMasterAdmin() && $request->has('school_id') && !empty($request->school_id)) {
                 $query->where('school_id', $request->school_id);
             }
@@ -39,7 +39,7 @@ class AdmissionController extends Controller
         $admins = collect();
 
         if (auth()->user()->isMasterAdmin()) {
-            $admins = \App\Models\User::whereHas('role', function($q) {
+            $admins = \App\Models\User::whereHas('role', function ($q) {
                 $q->where('slug', 'admin');
             })->with('school')->get();
 
@@ -131,7 +131,7 @@ class AdmissionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email,'.$student->id,
+            'email' => 'required|email|unique:students,email,' . $student->id,
             'roll_number' => [
                 'required',
                 'string',
@@ -187,7 +187,7 @@ class AdmissionController extends Controller
     public function deletePhoto(string $id)
     {
         $student = \App\Models\Student::findOrFail($id);
-        
+
         if ($student->photo) {
             if (file_exists(public_path('storage/' . $student->photo))) {
                 @unlink(public_path('storage/' . $student->photo));
@@ -195,7 +195,7 @@ class AdmissionController extends Controller
             $student->photo = null;
             $student->save();
         }
-        
+
         return response()->json(['success' => __('Photo deleted successfully.')]);
     }
 
@@ -220,20 +220,40 @@ class AdmissionController extends Controller
         ];
 
         $columns = [
-            'Name', 'Email', 'Roll Number', 'DOB (YYYY-MM-DD)', 
-            'Gender (Male/Female/Other)', 'Admission Date (YYYY-MM-DD)',
-            'Father Name', 'Father Phone', 'Mother Name', 'Mother Phone',
-            'Caste', 'Previous School', 'Adhaar Number', 'Apaar ID'
+            'Name',
+            'Email',
+            'Roll Number',
+            'DOB (YYYY-MM-DD)',
+            'Gender (Male/Female/Other)',
+            'Admission Date (YYYY-MM-DD)',
+            'Father Name',
+            'Father Phone',
+            'Mother Name',
+            'Mother Phone',
+            'Caste',
+            'Previous School',
+            'Adhaar Number',
+            'Apaar ID'
         ];
 
-        $callback = function() use ($columns) {
+        $callback = function () use ($columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             fputcsv($file, [
-                'John Doe', 'john@example.com', '1001', '2010-05-15', 
-                'Male', date('Y-m-d'), 
-                'Richard Doe', '9876543210', 'Jane Doe', '9876543211',
-                'General', 'ABC School', '123456789012', 'APAAR-123'
+                'John Doe',
+                'john@example.com',
+                '1001',
+                '2010-05-15',
+                'Male',
+                date('Y-m-d'),
+                'Richard Doe',
+                '9876543210',
+                'Jane Doe',
+                '9876543211',
+                'General',
+                'ABC School',
+                '123456789012',
+                'APAAR-123'
             ]);
             fclose($file);
         };
@@ -252,7 +272,7 @@ class AdmissionController extends Controller
 
         $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
         $file = $request->file('csv_file');
-        
+
         $handle = fopen($file->getRealPath(), "r");
         $header = fgetcsv($handle); // Skip header
 
@@ -262,7 +282,8 @@ class AdmissionController extends Controller
 
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $row_num++;
-            if (empty(array_filter($data))) continue; // Skip empty rows
+            if (empty(array_filter($data)))
+                continue; // Skip empty rows
 
             if (count($data) < 6) {
                 $errors[] = "Row {$row_num}: Missing required columns (Name, Email, Roll, DOB, Gender, Admission Date).";
@@ -324,7 +345,8 @@ class AdmissionController extends Controller
 
         if (count($errors) > 0) {
             $errorMsg = count($errors) . " records failed. Successfully imported " . $count . " records. Errors: " . implode(" | ", array_slice($errors, 0, 5));
-            if (count($errors) > 5) $errorMsg .= " (and more...)";
+            if (count($errors) > 5)
+                $errorMsg .= " (and more...)";
             return redirect()->back()->with('error', $errorMsg);
         }
 
@@ -340,14 +362,12 @@ class AdmissionController extends Controller
     public function printBlank(Request $request)
     {
         $student = new \App\Models\Student();
-        $school = null;
         if ($request->has('school_id') && !empty($request->school_id)) {
-            $school = \App\Models\School::find($request->school_id);
-            if ($school) {
-                $student->setRelation('school', $school);
-                $student->school_id = $school->id;
+            $student->school = \App\Models\School::find($request->school_id);
+            if ($student->school) {
+                $student->school_id = $student->school->id;
             }
         }
-        return view('admissions.print', compact('student', 'school'));
+        return view('admissions.print', compact('student'));
     }
 }
