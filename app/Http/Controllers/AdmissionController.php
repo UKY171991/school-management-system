@@ -123,7 +123,7 @@ class AdmissionController extends Controller
 
     public function show(string $id)
     {
-        $student = \App\Models\Student::with(['grade', 'section', 'school'])->findOrFail($id);
+        $student = \App\Models\Student::with(['grade', 'section', 'school', 'branch'])->findOrFail($id);
         return response()->json($student);
     }
 

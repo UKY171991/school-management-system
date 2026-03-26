@@ -975,56 +975,97 @@
 
         $('body').on('click', '.viewStudent', function () {
             let id = $(this).data('id');
+            console.log("Viewing student ID:", id);
             $.get(`/admin/admissions/${id}`, function (data) {
+                console.log("Full Student Data:", data);
                 // Create a detailed view modal
                 let modalHtml = `
                     <div class="modal fade" id="viewStudentModal" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
+                            <div class="modal-content border-0 shadow-lg">
                                 <div class="modal-header bg-info text-white">
-                                    <h5 class="modal-title">
-                                        <i class="fas fa-user-graduate mr-2"></i>{{ __('Student Details') }}
+                                    <h5 class="modal-title font-weight-bold">
+                                        <i class="fas fa-file-invoice mr-2 text-white"></i>{{ __('Admission Record - Details') }}
                                     </h5>
                                     <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6 text-center">
-                                            ${data.photo_url ? `<img src="${data.photo_url}" class="rounded-circle shadow-lg mb-3" width="120" height="120" alt="{{ __('Student Photo') }}">` : '<div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center shadow-lg mb-3" style="width: 120px; height: 120px;"><i class="fas fa-user fa-2x text-white"></i></div>'}
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4 class="text-primary font-weight-bold">${data.name}</h4>
-                                            <p class="text-muted mb-1"><i class="fas fa-id-badge mr-1"></i> ${data.roll_number}</p>
-                                            <p class="mb-1"><i class="fas fa-envelope mr-1"></i> ${data.email}</p>
-                                            <p class="mb-1"><i class="fas fa-calendar mr-1"></i> ${data.dob}</p>
+                                <div class="modal-body p-4 bg-light">
+                                    <div class="card shadow-sm border-0 mb-4 overflow-hidden rounded-lg">
+                                        <div class="card-body bg-white py-4">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4 text-center border-right">
+                                                    ${data.photo_url ? `<img src="${data.photo_url}" class="rounded-circle shadow-lg mb-3 border border-light" width="140" height="140" alt="{{ __('Student Photo') }}" style="object-fit:cover;">` : '<div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center shadow-lg mb-3 mx-auto" style="width: 140px; height: 140px;"><i class="fas fa-user-circle fa-4x text-white-50"></i></div>'}
+                                                    <h5 class="font-weight-bold text-dark mb-0">${data.name}</h5>
+                                                    <span class="badge badge-pill badge-primary px-3 py-2 mt-2 font-weight-normal shadow-sm">Roll: ${data.roll_number}</span>
+                                                </div>
+                                                <div class="col-md-8 pl-md-4">
+                                                    <div class="row g-3">
+                                                        <div class="col-6 mb-3">
+                                                            <div class="small text-muted text-uppercase ls-1 mb-1 font-weight-bold">{{ __('Email Address') }}</div>
+                                                            <div class="text-dark">${data.email}</div>
+                                                        </div>
+                                                        <div class="col-6 mb-3">
+                                                            <div class="small text-muted text-uppercase ls-1 mb-1 font-weight-bold">{{ __('Date of Birth') }}</div>
+                                                            <div class="text-dark">${data.dob} <small class="text-info">(${calculateAge(data.dob)} {{ __('Years') }})</small></div>
+                                                        </div>
+                                                        <div class="col-6 mb-3">
+                                                            <div class="small text-muted text-uppercase ls-1 mb-1 font-weight-bold">{{ __('Gender') }}</div>
+                                                            <div class="text-dark">${data.gender || '{{ __('N/A') }}'}</div>
+                                                        </div>
+                                                        <div class="col-6 mb-3">
+                                                            <div class="small text-muted text-uppercase ls-1 mb-1 font-weight-bold">{{ __('Admission Date') }}</div>
+                                                            <div class="text-dark">${data.admission_date || '{{ __('N/A') }}'}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <p><strong>{{ __('Gender') }}:</strong> ${data.gender || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Caste') }}:</strong> ${data.caste || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Admission Date') }}:</strong> ${data.admission_date || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Father Name') }}:</strong> ${data.father_name || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Father Phone') }}:</strong> ${data.father_phone || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Mother Name') }}:</strong> ${data.mother_name || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Mother Phone') }}:</strong> ${data.mother_phone || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Age') }}:</strong> ${calculateAge(data.dob)} {{ __('Years') }}</p>
-                                            <p><strong>{{ __('Registration #') }}:</strong> ${data.registration_number || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Session') }}:</strong> ${data.session_year || '{{ __('N/A') }}'}</p>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card shadow-sm border-0 h-100 rounded-lg">
+                                                <div class="card-header bg-white border-bottom-0 pb-0">
+                                                    <h6 class="font-weight-bold text-primary mb-0"><i class="fas fa-users mr-2"></i>{{ __('Family & Profile') }}</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Father Name') }}:</strong> <span>${data.father_name || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Father Phone') }}:</strong> <span>${data.father_phone || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Mother Name') }}:</strong> <span>${data.mother_name || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Mother Phone') }}:</strong> <span>${data.mother_phone || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Caste') }}:</strong> <span>${data.caste || 'N/A'}</span></li>
+                                                        <li class="mt-3"><strong>{{ __('Address') }}:</strong> <div class="text-muted small">${data.address || 'N/A'}</div></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <p><strong><i class="fas fa-school mr-1"></i>{{ __('School') }}:</strong> ${data.school ? data.school.name : '{{ __('N/A') }}'}</p>
-                                            <p><strong><i class="fas fa-code-branch mr-1 text-primary"></i>{{ __('Branch') }}:</strong> ${data.branch ? data.branch.name : '{{ __('Main') }}'}</p>
-                                            <p><strong><i class="fas fa-chalkboard-teacher mr-1"></i>{{ __('Class') }}:</strong> ${data.grade ? data.grade.name : '{{ __('N/A') }}'} - {{ __('Section') }}: ${data.section ? data.section.name : '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Previous School') }}:</strong> ${data.previous_school || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Adhaar Number') }}:</strong> ${data.adhaar_number || '{{ __('N/A') }}'}</p>
-                                            <p><strong>{{ __('Apaar ID') }}:</strong> ${data.apaar_id || '{{ __('N/A') }}'}</p>
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card shadow-sm border-0 h-100 rounded-lg">
+                                                <div class="card-header bg-white border-bottom-0 pb-0">
+                                                    <h6 class="font-weight-bold text-info mb-0"><i class="fas fa-university mr-2"></i>{{ __('Academic Info') }}</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('School') }}:</strong> <span class="text-truncate" style="max-width: 150px;">${data.school ? data.school.name : 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Branch') }}:</strong> <span>${data.branch ? data.branch.name : 'Main'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Class - Section') }}:</strong> <span class="badge badge-light-primary">${data.grade ? data.grade.name : 'N/A'} - ${data.section ? data.section.name : 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Registration #') }}:</strong> <span>${data.registration_number || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Session') }}:</strong> <span>${data.session_year || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Apaar ID') }}:</strong> <span>${data.apaar_id || 'N/A'}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <a href="/admin/admissions/print/${data.id}" target="_blank" class="btn btn-primary"><i class="fas fa-print mr-1"></i> {{ __('Print Form') }}</a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                                <div class="modal-footer bg-white border-top">
+                                    <div class="d-flex gap-2 w-100">
+                                        <a href="/admin/admissions/print/${data.id}" target="_blank" class="btn btn-primary px-4 shadow-sm">
+                                            <i class="fas fa-print mr-2"></i> {{ __('Print Record Form') }}
+                                        </a>
+                                        <button type="button" class="btn btn-light border px-4 ms-auto" data-dismiss="modal">{{ __('Close Panel') }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1040,6 +1081,9 @@
                 $('#viewStudentModal').on('hidden.bs.modal', function () {
                     $(this).remove();
                 });
+            }).fail(function(err) {
+                console.error("View Ajax Error:", err);
+                Swal.fire("{{ __('Connection Error') }}", "{{ __('Failed to fetch student details. Please try again later.') }}", 'error');
             });
         });
 
@@ -1144,6 +1188,14 @@
             });
         });
 
+        // Helper Functions
+        function calculateAge(dob) {
+            if (!dob) return 'N/A';
+            let birthDate = new Date(dob);
+            let ageDifMs = Date.now() - birthDate.getTime();
+            let ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
     });
 </script>
 @stop
