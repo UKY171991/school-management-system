@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use \App\Traits\SchoolScoped;
-    protected $fillable = ['school_id', 'branch_id', 'name', 'email', 'roll_number', 'dob', 'grade_id', 'section_id', 'photo', 'father_name', 'mother_name', 'gender', 'caste', 'father_phone', 'mother_phone', 'admission_date', 'previous_school', 'adhaar_number', 'apaar_id'];
+    protected $fillable = ['school_id', 'branch_id', 'name', 'email', 'roll_number', 'dob', 'grade_id', 'section_id', 'photo', 'father_name', 'mother_name', 'gender', 'caste', 'father_phone', 'mother_phone', 'address', 'admission_date', 'previous_school', 'adhaar_number', 'apaar_id'];
 
     protected $appends = ['photo_url'];
 

@@ -95,6 +95,7 @@ class AdmissionController extends Controller
             'caste' => 'nullable|string|max:255',
             'father_phone' => 'nullable|string|max:20',
             'mother_phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
             'admission_date' => 'required|date',
             'previous_school' => 'nullable|string|max:255',
             'adhaar_number' => 'nullable|string|max:20',
@@ -150,6 +151,7 @@ class AdmissionController extends Controller
             'caste' => 'nullable|string|max:255',
             'father_phone' => 'nullable|string|max:20',
             'mother_phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
             'admission_date' => 'required|date',
             'previous_school' => 'nullable|string|max:255',
             'adhaar_number' => 'nullable|string|max:20',
@@ -230,6 +232,7 @@ class AdmissionController extends Controller
             'Father Phone',
             'Mother Name',
             'Mother Phone',
+            'Address',
             'Caste',
             'Previous School',
             'Adhaar Number',
@@ -251,6 +254,7 @@ class AdmissionController extends Controller
                 'Jane Doe',
                 '9876543211',
                 'General',
+                '123 Main St, Springfield',
                 'ABC School',
                 '123456789012',
                 'APAAR-123'
@@ -290,16 +294,21 @@ class AdmissionController extends Controller
                 continue;
             }
 
-            $gender = trim($data[4]);
-            $adm_date = trim($data[5]);
+            $name = trim($data[0] ?? '');
+            $email = trim($data[1] ?? '');
+            $roll = trim($data[2] ?? '');
+            $dob = trim($data[3] ?? '');
+            $gender = trim($data[4] ?? '');
+            $adm_date = trim($data[5] ?? '');
             $father = trim($data[6] ?? '');
             $f_phone = trim($data[7] ?? '');
             $mother = trim($data[8] ?? '');
             $m_phone = trim($data[9] ?? '');
-            $caste = trim($data[10] ?? '');
-            $prev_school = trim($data[11] ?? '');
-            $adhaar = trim($data[12] ?? '');
-            $apaar = trim($data[13] ?? '');
+            $address = trim($data[10] ?? '');
+            $caste = trim($data[11] ?? '');
+            $prev_school = trim($data[12] ?? '');
+            $adhaar = trim($data[13] ?? '');
+            $apaar = trim($data[14] ?? '');
 
             if (empty($name) || empty($email) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
                 $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB, Gender, Admission Date) are empty.";
@@ -331,6 +340,7 @@ class AdmissionController extends Controller
                     'father_phone' => $f_phone,
                     'mother_name' => $mother,
                     'mother_phone' => $m_phone,
+                    'address' => $address,
                     'caste' => $caste,
                     'previous_school' => $prev_school,
                     'adhaar_number' => $adhaar,

@@ -315,6 +315,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Permanent Address') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-map-marker-alt text-muted"></i></span>
+                                    </div>
+                                    <textarea class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="address" name="address"
+                                        rows="2" placeholder="{{ __('Enter full address') }}"></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Caste') }}</label>
@@ -803,6 +816,7 @@
                 $('#caste').val(data.caste || '');
                 $('#father_phone').val(data.father_phone || '');
                 $('#mother_phone').val(data.mother_phone || '');
+                $('#address').val(data.address || '');
 
                 if (data.admission_date) {
                     admissionDatePicker.setDate(data.admission_date, true);
@@ -916,6 +930,7 @@
                                             <p><strong>{{ __('Father Phone') }}:</strong> ${data.father_phone || '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Mother Name') }}:</strong> ${data.mother_name || '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Mother Phone') }}:</strong> ${data.mother_phone || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Address') }}:</strong> ${data.address || '{{ __('N/A') }}'}</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p><strong><i class="fas fa-school mr-1"></i>{{ __('School') }}:</strong> ${data.school ? data.school.name : '{{ __('N/A') }}'}</p>

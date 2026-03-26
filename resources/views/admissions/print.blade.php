@@ -258,6 +258,10 @@
                     <span class="field-label">Mother's Name:</span>
                     <span class="field-value">{{ $student->mother_name }}</span>
                 </div>
+                <div class="field-row">
+                    <span class="field-label">Permanent Address:</span>
+                    <span class="field-value">{{ $student->address }}</span>
+                </div>
             </div>
             <div class="col-6">
                 <div class="field-row">
