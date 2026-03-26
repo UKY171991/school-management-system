@@ -1,0 +1,5 @@
+﻿Checking en.json:
+Duplicate key 'All Sections...' found on lines: [174, 362]
+
+Checking hi.json:
+Duplicate key 'All Sections...' found on lines: [174, 362]

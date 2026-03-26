@@ -1,0 +1,57 @@
+/* Custom Select2 Styling for Bootstrap 4 */
+.select2-container--bootstrap4 .select2-selection {
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    height: calc(2.25rem + 2px) !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    line-height: 2.25rem !important;
+    padding-left: 0.75rem !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    height: 2.25rem !important;
+    right: 5px !important;
+}
+
+
+.select2-container .select2-selection--single {
+    height: 38px;
+}
+
+/* Fix Select2 in Bootstrap Modals */
+.select2-container--open {
+    z-index: 9999 !important;
+}
+
+.select2-dropdown {
+    z-index: 9999 !important;
+}
+
+/* Ensure the search field is clickable and focusable */
+.select2-search__field {
+    z-index: 10000 !important;
+}
+
+/* Flatpickr Styling Fixes */
+.flatpickr-calendar {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+}
+
+.flatpickr-day.selected {
+    background: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.flatpickr-months .flatpickr-month {
+    background: #f8fafc !important;
+    color: #1a202c !important;
+}
+
+/* Fix for altInput of Flatpickr (the visible one) */
+.form-control[readonly].flatpickr-input {
+    background-color: #fff !important;
+}
