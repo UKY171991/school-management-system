@@ -203,6 +203,9 @@
                 <div class="field-row">
                     <span class="field-label">Session Year:</span>
                     <span class="field-value">{{ $student->session_year }}</span>
+                    @if(!$student->session_year)
+                        <div class="ml-2 small font-italic text-danger font-weight-bold" style="min-width: 140px; white-space: nowrap;">(OFFICE USE ONLY)</div>
+                    @endif
                 </div>
             </div>
         </div>
