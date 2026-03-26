@@ -95,7 +95,7 @@
                             <th class="border-top-0">{{ __('Full Name') }}</th>
                             <th class="border-top-0">{{ __('Father Name') }}</th>
                             <th class="border-top-0">{{ __('Mother Name') }}</th>
-                            <th class="border-top-0">{{ __('School') }}</th>
+                            <th class="border-top-0">{{ __('Branch / School') }}</th>
                             <th class="border-top-0">{{ __('Class / Section') }}</th>
                             <th class="border-top-0 text-center" width="120">{{ __('Actions') }}</th>
                         </tr>
@@ -144,6 +144,18 @@
                         @else
                             <input type="hidden" name="school_id" id="school_id" value="{{ auth()->user()->school_id }}">
                         @endif
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Branch') }}</label>
+                                <select class="form-control select2" id="branch_id" name="branch_id"
+                                    style="width: 100%;">
+                                    <option value="">{{ __('Choose Branch...') }}</option>
+                                    @foreach($branches as $branch)
+                                        <option value="{{ $branch->id }}" data-school="{{ $branch->school_id }}">{{ $branch->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Assigned Class') }} <span
@@ -539,8 +551,17 @@
                     }
                 },
                 {
+                    data: 'branch',
+                    name: 'branch.name',
+                    render: function (data, type, row) {
+                        let branchName = data ? data.name : "{{ __('Main') }}";
+                        let schoolName = row.school ? row.school.name : "{{ __('N/A') }}";
+                        return `<div class="font-weight-bold text-dark mb-0">${branchName}</div><small class="text-muted d-block text-truncate" style="max-width: 150px;">${schoolName}</small>`;
+                    }
+                },
+                {
                     data: 'grade',
-                    name: 'grade',
+                    name: 'grade.name',
                     render: function (data, type, row) {
                         let sectionName = row.section ? row.section.name : "{{ __('N/A') }}";
                         return data ? `<span class="text-primary font-weight-500"><i class="fas fa-chalkboard-teacher mr-1 small"></i>${data.name} - ${sectionName}</span>` : "{{ __('N/A') }}";
@@ -620,8 +641,9 @@
         function resetAdmissionModal() {
             $('#admissionForm').trigger("reset");
             $('#student_id').val('');
-            // Clear Flatpickr date properly
-            if (dobPicker) dobPicker.clear();
+            $('.select2').val('').trigger('change.select2');
+            $('#branch_id').val('').trigger('change.select2');
+            $('#grade_id').val('').trigger('change.select2');
             @if(auth()->user()->isMasterAdmin())
                 $('#school_id').val('').trigger('change.select2');
             @endif
@@ -802,8 +824,18 @@
                 // Set School (UI only to avoid triggering change scripts that clear things)
                 $('#school_id').val(data.school_id).trigger('change.select2');
 
-                // Load Class and Section sequentially to ensure correct selection
+                // Load Branch, Class and Section sequentially to ensure correct selection
                 if (data.school_id) {
+                    // Fetch Branches
+                    $.get("{{ route('branches.index') }}", { school_id: data.school_id }, function (branches) {
+                        let options = '<option value="">{{ __('Choose Branch...') }}</option>';
+                        branches.forEach(branch => {
+                            options += `<option value="${branch.id}" ${branch.id == data.branch_id ? 'selected' : ''}>${branch.name}</option>`;
+                        });
+                        $('#branch_id').html(options).trigger('change.select2');
+                    });
+
+                    // Fetch Grades
                     $.get("{{ route('grades.index') }}", { school_id: data.school_id }, function (grades) {
                         let options = '<option value="">{{ __('Choose Class...') }}</option>';
                         grades.forEach(grade => {
@@ -894,6 +926,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <p><strong><i class="fas fa-school mr-1"></i>{{ __('School') }}:</strong> ${data.school ? data.school.name : '{{ __('N/A') }}'}</p>
+                                            <p><strong><i class="fas fa-code-branch mr-1 text-primary"></i>{{ __('Branch') }}:</strong> ${data.branch ? data.branch.name : '{{ __('Main') }}'}</p>
                                             <p><strong><i class="fas fa-chalkboard-teacher mr-1"></i>{{ __('Class') }}:</strong> ${data.grade ? data.grade.name : '{{ __('N/A') }}'} - {{ __('Section') }}: ${data.section ? data.section.name : '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Previous School') }}:</strong> ${data.previous_school || '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Adhaar Number') }}:</strong> ${data.adhaar_number || '{{ __('N/A') }}'}</p>
@@ -926,20 +959,32 @@
         // 1. School -> Grade (Filter & Modal)
         // 1. School -> Grade (Filter & Modal)
 
-        // Modal School Change -> AJAX fetch Grades
+        // Modal School Change -> AJAX fetch Grades & Branches
         $('#school_id').change(function () {
             let schoolId = $(this).val();
             let $gradeSelect = $('#grade_id');
             let $sectionSelect = $('#section_id');
+            let $branchSelect = $('#branch_id');
 
             // Reset downstream dropdowns
             $gradeSelect.html('<option value="">{{ __('Choose Class...') }}</option>');
             $sectionSelect.html('<option value="">{{ __('Choose Section...') }}</option>');
+            $branchSelect.html('<option value="">{{ __('Choose Branch...') }}</option>');
 
             if (!schoolId) {
                 return;
             }
 
+            // Load Branches
+            $.get("{{ route('branches.index') }}", { school_id: schoolId }, function (data) {
+                let options = '<option value="">{{ __('Choose Branch...') }}</option>';
+                data.forEach(branch => {
+                    options += `<option value="${branch.id}">${branch.name}</option>`;
+                });
+                $branchSelect.html(options);
+            });
+
+            // Load Grades
             $.get("{{ route('grades.index') }}", { school_id: schoolId }, function (data) {
                 let options = '<option value="">{{ __('Choose Class...') }}</option>';
                 data.forEach(grade => {

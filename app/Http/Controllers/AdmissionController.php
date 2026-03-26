@@ -56,7 +56,18 @@ class AdmissionController extends Controller
             $sections = collect();
         }
 
-        return view('admissions.index', compact('grades', 'sections', 'admins'));
+        $branches = collect();
+        if (auth()->user()->isMasterAdmin()) {
+            if ($request->has('school_id') && !empty($request->school_id)) {
+                $branches = \App\Models\Branch::where('school_id', $request->school_id)->get();
+            } else {
+                $branches = \App\Models\Branch::all();
+            }
+        } else {
+            $branches = \App\Models\Branch::where('school_id', auth()->user()->school_id)->get();
+        }
+
+        return view('admissions.index', compact('grades', 'sections', 'admins', 'branches'));
     }
 
     public function store(Request $request)
@@ -77,6 +88,7 @@ class AdmissionController extends Controller
             'grade_id' => 'required|exists:grades,id',
             'section_id' => 'required|exists:sections,id',
             'school_id' => auth()->user()->isMasterAdmin() ? 'required|exists:schools,id' : 'nullable',
+            'branch_id' => 'nullable|exists:branches,id',
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
             'gender' => 'required|string|in:Male,Female,Other',
@@ -131,6 +143,7 @@ class AdmissionController extends Controller
             'grade_id' => 'required|exists:grades,id',
             'section_id' => 'required|exists:sections,id',
             'school_id' => auth()->user()->isMasterAdmin() ? 'required|exists:schools,id' : 'nullable',
+            'branch_id' => 'nullable|exists:branches,id',
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
             'gender' => 'required|string|in:Male,Female,Other',
