@@ -685,7 +685,7 @@
         // Dynamic Print Blank Link Logic
         function updatePrintBlankLink() {
             let schoolId = $('#filter_school_id').val();
-            let baseUrl = "{{ route('admissions.print.blank') }}";
+            let baseUrl = "{{ route('admissions.print-blank') }}";
             let $link = $('#printBlankLink');
 
             @if(auth()->user()->isMasterAdmin())
