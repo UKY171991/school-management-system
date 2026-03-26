@@ -18,7 +18,7 @@ class AdmissionController extends Controller
                 $lastRoll = \App\Models\Student::max('roll_number');
                 return response()->json(['next_roll' => ($lastRoll ? (int) $lastRoll + 1 : 1001)]);
             }
-            $query = \App\Models\Student::with(['grade', 'section', 'school'])->latest();
+            $query = \App\Models\Student::with(['grade', 'section', 'school', 'branch'])->latest();
 
             if (auth()->user()->isMasterAdmin() && $request->has('school_id') && !empty($request->school_id)) {
                 $query->where('school_id', $request->school_id);
