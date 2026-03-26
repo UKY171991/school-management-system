@@ -76,7 +76,7 @@ class AdmissionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email',
+            'email' => 'nullable|email|unique:students,email',
             'roll_number' => [
                 'required',
                 'string',
@@ -134,7 +134,7 @@ class AdmissionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email,' . $student->id,
+            'email' => 'nullable|email|unique:students,email,' . $student->id,
             'roll_number' => [
                 'required',
                 'string',

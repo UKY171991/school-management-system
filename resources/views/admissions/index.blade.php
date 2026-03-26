@@ -246,20 +246,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Email Address') }} <span
-                                        class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i
-                                                class="fas fa-envelope text-muted"></i></span>
-                                    </div>
-                                    <input type="email" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
-                                        id="email" name="email" required placeholder="{{ __('john@example.com') }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Roll Number') }} <span
                                         class="text-danger">*</span></label>
                                 <div class="input-group">
@@ -379,6 +365,19 @@
                                     <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
                                         id="mother_phone" name="mother_phone"
                                         placeholder="{{ __('Enter mother phone number') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Email Address') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-envelope text-muted"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="email" name="email" placeholder="{{ __('john@example.com') }}">
                                 </div>
                             </div>
                         </div>
