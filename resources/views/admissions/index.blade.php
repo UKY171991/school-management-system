@@ -62,7 +62,7 @@
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </div>
-                <div class="col-xl-auto col-lg-6 col-md-6 ms-auto d-flex align-items-center gap-2 mt-lg-0 mt-3">
+                <div class="col-xl-auto col-lg-12 ms-auto d-flex align-items-center justify-content-end gap-2 mt-xl-0 mt-3">
                     <div class="vr mx-2 d-none d-xl-block"></div>
                     <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-3">
                         <i class="fas fa-cloud-upload-alt me-1"></i> {{ __('Bulk') }}
