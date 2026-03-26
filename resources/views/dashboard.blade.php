@@ -160,6 +160,9 @@
                 <a href="{{ route('admin.api-docs') }}" class="btn btn-success btn-sm px-3 shadow-sm font-weight-bold border-0">
                     <i class="fas fa-code mr-1"></i> {{ __('API Documentation') }}
                 </a>
+                <button type="button" class="btn btn-danger btn-sm ml-2 px-3 shadow-sm font-weight-bold border-0" id="clearCacheBtn">
+                    <i class="fas fa-trash-alt mr-1"></i> {{ __('Clear Cache') }}
+                </button>
             </div>
         </div>
     </div>
@@ -563,6 +566,42 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    // Clear Cache Button Handler
+    const $clearBtn = $('#clearCacheBtn');
+    $clearBtn.on('click', function(e) {
+        e.preventDefault();
+        
+        Swal.fire({
+            title: "{{ __('Clear System Cache?') }}",
+            text: "{{ __('This will clear all application, config, and route caches.') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: "{{ __('Yes, clear it!') }}",
+            cancelButtonText: "{{ __('Cancel') }}",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return $.ajax({
+                    url: "{{ route('admin.maintenance.optimize') }}",
+                    type: 'POST',
+                    data: { _token: "{{ csrf_token() }}" }
+                }).catch(error => {
+                    Swal.showValidationMessage(`Request failed: ${error.responseJSON?.error || error.statusText}`);
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "{{ __('Success!') }}",
+                    text: result.value.success || "{{ __('System cache cleared successfully.') }}",
+                    icon: 'success'
+                });
+            }
+        });
+    });
 });
 </script>
 @stop
