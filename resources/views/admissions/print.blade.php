@@ -192,6 +192,21 @@
         <div class="row">
             <div class="col-6">
                 <div class="field-row">
+                    <span class="field-label">Registration No:</span>
+                    <span class="field-value">{{ $student->registration_number }}</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="field-row">
+                    <span class="field-label">Session Year:</span>
+                    <span class="field-value">{{ $student->session_year }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="field-row">
                     <span class="field-label">Date of Birth:</span>
                     <span class="field-value">{{ $student->dob ? date('d-m-Y', strtotime($student->dob)) : '' }}</span>
                 </div>

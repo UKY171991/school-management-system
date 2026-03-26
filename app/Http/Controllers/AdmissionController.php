@@ -84,6 +84,8 @@ class AdmissionController extends Controller
                     return $query->where('school_id', $school_id);
                 })
             ],
+            'registration_number' => 'nullable|string|max:50',
+            'session_year' => 'nullable|string|max:20',
             'dob' => 'required|date',
             'grade_id' => 'required|exists:grades,id',
             'section_id' => 'required|exists:sections,id',
@@ -136,10 +138,12 @@ class AdmissionController extends Controller
             'roll_number' => [
                 'required',
                 'string',
-                Rule::unique('students')->where(function ($query) use ($school_id) {
-                    return $query->where('school_id', $school_id);
-                })->ignore($student->id)
+                Rule::unique('students')->where(function ($query) use ($school_id, $student) {
+                    return $query->where('school_id', $school_id)->where('id', '!=', $student->id);
+                })
             ],
+            'registration_number' => 'nullable|string|max:50',
+            'session_year' => 'nullable|string|max:20',
             'dob' => 'required|date',
             'grade_id' => 'required|exists:grades,id',
             'section_id' => 'required|exists:sections,id',
@@ -225,6 +229,8 @@ class AdmissionController extends Controller
             'Name',
             'Email',
             'Roll Number',
+            'Registration Number',
+            'Session Year',
             'DOB (YYYY-MM-DD)',
             'Gender (Male/Female/Other)',
             'Admission Date (YYYY-MM-DD)',
@@ -246,6 +252,8 @@ class AdmissionController extends Controller
                 'John Doe',
                 'john@example.com',
                 '1001',
+                'REG-2026-001',
+                '2026-2027',
                 '2010-05-15',
                 'Male',
                 date('Y-m-d'),
@@ -297,18 +305,20 @@ class AdmissionController extends Controller
             $name = trim($data[0] ?? '');
             $email = trim($data[1] ?? '');
             $roll = trim($data[2] ?? '');
-            $dob = trim($data[3] ?? '');
-            $gender = trim($data[4] ?? '');
-            $adm_date = trim($data[5] ?? '');
-            $father = trim($data[6] ?? '');
-            $f_phone = trim($data[7] ?? '');
-            $mother = trim($data[8] ?? '');
-            $m_phone = trim($data[9] ?? '');
-            $address = trim($data[10] ?? '');
-            $caste = trim($data[11] ?? '');
-            $prev_school = trim($data[12] ?? '');
-            $adhaar = trim($data[13] ?? '');
-            $apaar = trim($data[14] ?? '');
+            $reg_no = trim($data[3] ?? '');
+            $session = trim($data[4] ?? '');
+            $dob = trim($data[5] ?? '');
+            $gender = trim($data[6] ?? '');
+            $adm_date = trim($data[7] ?? '');
+            $father = trim($data[8] ?? '');
+            $f_phone = trim($data[9] ?? '');
+            $mother = trim($data[10] ?? '');
+            $m_phone = trim($data[11] ?? '');
+            $address = trim($data[12] ?? '');
+            $caste = trim($data[13] ?? '');
+            $prev_school = trim($data[14] ?? '');
+            $adhaar = trim($data[15] ?? '');
+            $apaar = trim($data[16] ?? '');
 
             if (empty($name) || empty($email) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
                 $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB, Gender, Admission Date) are empty.";
@@ -333,6 +343,8 @@ class AdmissionController extends Controller
                     'name' => $name,
                     'email' => $email,
                     'roll_number' => $roll,
+                    'registration_number' => $reg_no,
+                    'session_year' => $session,
                     'dob' => $dob,
                     'gender' => $gender,
                     'admission_date' => $adm_date,
@@ -372,8 +384,16 @@ class AdmissionController extends Controller
     public function printBlank(Request $request)
     {
         $student = new \App\Models\Student();
-        if ($request->has('school_id') && !empty($request->school_id)) {
-            $school = \App\Models\School::find($request->school_id);
+        $schoolId = null;
+
+        if (auth()->user()->isMasterAdmin()) {
+            $schoolId = $request->school_id;
+        } else {
+            $schoolId = auth()->user()->school_id;
+        }
+
+        if ($schoolId) {
+            $school = \App\Models\School::find($schoolId);
             if ($school) {
                 $student->setRelation('school', $school);
                 $student->school_id = $school->id;
