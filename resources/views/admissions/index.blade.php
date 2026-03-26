@@ -63,15 +63,15 @@
                         <i class="fas fa-undo"></i>
                     </button>
                 </div>
-                <div class="col text-right">
-                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-4 mr-1">
-                        <i class="fas fa-file-import mr-1"></i> {{ __('Bulk Admission') }}
+                <div class="col-md-auto ms-auto d-flex align-items-center gap-2">
+                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-4">
+                        <i class="fas fa-file-import me-1"></i> {{ __('Bulk Admission') }}
                     </a>
-                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-4 mr-1">
-                        <i class="fas fa-print mr-1"></i> {{ __('Print Blank Form') }}
+                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-4">
+                        <i class="fas fa-print me-1"></i> {{ __('Print Blank Form') }}
                     </a>
                     <button type="button" class="btn btn-success shadow-sm px-4" id="createNewStudent">
-                        <i class="fas fa-user-plus mr-1"></i> {{ __('New Admission') }}
+                        <i class="fas fa-user-plus me-1"></i> {{ __('New Admission') }}
                     </button>
                 </div>
             </form>
