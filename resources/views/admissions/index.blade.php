@@ -20,11 +20,11 @@
         <div class="card-body p-3 bg-white">
             <form id="filterForm" class="row align-items-end g-2">
                 @if(auth()->user()->isMasterAdmin())
-                <div class="col-xl-3 col-lg-4 col-md-4">
+                <div class="col-xl-3 col-lg-auto col-md-6 mb-2 mb-xl-0">
                     <label class="small font-weight-bold text-secondary mb-1 text-uppercase ls-1">
                         <i class="fas fa-university me-1 text-primary"></i> {{ __('School / Admin') }}
                     </label>
-                    <select class="form-control select2 shadow-none border-light-2" id="filter_school_id" name="school_id">
+                    <select class="form-control select2 shadow-none border-light-2" id="filter_school_id" name="school_id" style="min-width: 200px;">
                         <option value="">{{ __('All Admins') }}</option>
                         @foreach($admins as $admin)
                             <option value="{{ $admin->school_id }}">{{ $admin->name }} ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
@@ -32,29 +32,29 @@
                     </select>
                 </div>
                 @endif
-                <div class="col-xl-2 col-lg-4 col-md-4">
+                <div class="col-xl-2 col-lg-auto col-md-6 mb-2 mb-xl-0">
                     <label class="small font-weight-bold text-secondary mb-1 text-uppercase ls-1">
                         <i class="fas fa-graduation-cap me-1 text-info"></i> {{ __('Class') }}
                     </label>
-                    <select class="form-control select2 shadow-none border-light-2" id="filter_grade_id" name="grade_id">
+                    <select class="form-control select2 shadow-none border-light-2" id="filter_grade_id" name="grade_id" style="min-width: 150px;">
                         <option value="">{{ __('All Classes') }}</option>
                         @foreach($grades as $grade)
                             <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">{{ $grade->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-xl-2 col-lg-4 col-md-4">
+                <div class="col-xl-2 col-lg-auto col-md-6 mb-2 mb-xl-0">
                     <label class="small font-weight-bold text-secondary mb-1 text-uppercase ls-1">
                         <i class="fas fa-layer-group me-1 text-warning"></i> {{ __('Section') }}
                     </label>
-                    <select class="form-control select2 shadow-none border-light-2" id="filter_section_id" name="section_id">
+                    <select class="form-control select2 shadow-none border-light-2" id="filter_section_id" name="section_id" style="min-width: 120px;">
                         <option value="">{{ __('All Sections') }}</option>
                         @foreach($sections as $section)
                             <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">{{ $section->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-xl-auto col-lg-6 col-md-6 d-flex gap-1">
+                <div class="col-xl-auto col-lg-auto col-md-6 d-flex gap-1 mb-2 mb-xl-0">
                     <button type="submit" class="btn btn-primary shadow-sm px-4">
                         <i class="fas fa-filter me-1"></i> {{ __('Filter') }}
                     </button>
@@ -62,7 +62,7 @@
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </div>
-                <div class="col-xl-auto col-lg-12 ms-auto d-flex align-items-center justify-content-end gap-2 mt-xl-0 mt-3">
+                <div class="col-xl-auto col-lg-auto col-md-12 ms-auto d-flex align-items-center justify-content-end gap-2 mt-xl-0 mt-3">
                     <div class="vr mx-2 d-none d-xl-block"></div>
                     <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-3">
                         <i class="fas fa-cloud-upload-alt me-1"></i> {{ __('Bulk') }}
