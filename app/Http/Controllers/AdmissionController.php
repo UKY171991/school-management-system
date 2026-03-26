@@ -134,7 +134,7 @@ class AdmissionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255|unique:students,email,' . $student->id . ',id,school_id,' . $school_id,
+            'email' => 'required|email|unique:students,email,' . $student->id,
             'roll_number' => [
                 'required',
                 'string',
@@ -320,8 +320,8 @@ class AdmissionController extends Controller
             $adhaar = trim($data[15] ?? '');
             $apaar = trim($data[16] ?? '');
 
-            if (empty($name) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
-                $errors[] = "Row {$row_num}: Required fields (Name, Roll, DOB, Gender, Admission Date) are empty.";
+            if (empty($name) || empty($email) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
+                $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB, Gender, Admission Date) are empty.";
                 continue;
             }
 
