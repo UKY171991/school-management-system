@@ -20,13 +20,11 @@
             padding: 40px; 
             border: 2px solid #333;
             background: #fff;
-            position: relative;
         }
-        .header { 
-            text-align: center; 
-            border-bottom: 2px solid #333; 
-            padding-bottom: 10px; 
-            margin-bottom: 20px; 
+        .header-container {
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
         .school-name { font-size: 28px; font-weight: 800; text-transform: uppercase; margin: 0; color: #1a237e; }
         .form-title { 
@@ -45,9 +43,6 @@
             width: 120px; 
             height: 140px; 
             border: 2px solid #333; 
-            position: absolute; 
-            top: 40px; 
-            right: 40px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -67,18 +62,29 @@
     </div>
 
     <div class="form-container">
-        <div class="photo-box">
-            @if($student->photo)
-                <img src="{{ $student->photo_url }}" alt="Student">
-            @else
-                Paste Passport Size Photo
-            @endif
-        </div>
+        <div class="header-container d-flex justify-content-between align-items-start mb-4">
+            <div class="logo-box" style="width: 120px;">
+                @if($student->school && $student->school->logo_url)
+                    <img src="{{ $student->school->logo_url }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
+                @endif
+            </div>
 
-        <div class="header">
-            <h1 class="school-name">{{ $student->school->name ?? 'School Management System' }}</h1>
-            <p class="mb-0">{{ $student->school->address ?? 'Main Campus, Academic Square' }}</p>
-            <p>Contact: {{ $student->school->phone ?? 'XXXX-XXXXXX' }}</p>
+            <div class="header text-center flex-grow-1 border-0 mb-0 pb-0">
+                <h1 class="school-name">{{ $student->school->name ?? 'School Management System' }}</h1>
+                <p class="mb-0">{{ $student->school->address ?? 'Main Campus, Academic Square' }}</p>
+                <p class="mb-0">Contact: {{ $student->school->phone ?? 'XXXX-XXXXXX' }}</p>
+                @if($student->school && $student->school->email)
+                    <p class="mb-0">Email: {{ $student->school->email }}</p>
+                @endif
+            </div>
+
+            <div class="photo-box position-static">
+                @if($student->photo)
+                    <img src="{{ $student->photo_url }}" alt="Student">
+                @else
+                    Paste Passport Size Photo
+                @endif
+            </div>
         </div>
 
         <div class="form-title">ADMISSION REGISTRATION FORM</div>
