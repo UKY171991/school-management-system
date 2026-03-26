@@ -32,8 +32,8 @@
                             <div>
                                 <h6 class="font-weight-bold">{{ __('CSV Format Instructions:') }}</h6>
                                 <p class="mb-2 small">
-                                    {{ __('Column order MUST be exactly: Name, Email, Roll Number, DOB (YYYY-MM-DD), Father Name, Mother Name.') }}<br>
-                                    {{ __('The first row should be the header row.') }}
+                                    {{ __('Column order MUST be exactly: Name, Email, Roll Number, DOB, Gender, Admission Date, Father Name, Father Phone, Mother Name, Mother Phone, Caste, Previous School, Adhaar Number, Apaar ID.') }}<br>
+                                    {{ __('The first row should be the header row. DOB and Admission Date format: YYYY-MM-DD.') }}
                                 </p>
                                 <a href="{{ route('admissions.download-sample') }}" class="btn btn-info btn-sm shadow-sm">
                                     <i class="fas fa-download mr-1"></i> {{ __('Download Sample CSV') }}

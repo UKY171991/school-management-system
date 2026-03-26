@@ -79,6 +79,14 @@ class AdmissionController extends Controller
             'school_id' => auth()->user()->isMasterAdmin() ? 'required|exists:schools,id' : 'nullable',
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
+            'gender' => 'required|string|in:Male,Female,Other',
+            'caste' => 'nullable|string|max:255',
+            'father_phone' => 'nullable|string|max:20',
+            'mother_phone' => 'nullable|string|max:20',
+            'admission_date' => 'required|date',
+            'previous_school' => 'nullable|string|max:255',
+            'adhaar_number' => 'nullable|string|max:20',
+            'apaar_id' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
         ]);
 
@@ -125,6 +133,14 @@ class AdmissionController extends Controller
             'school_id' => auth()->user()->isMasterAdmin() ? 'required|exists:schools,id' : 'nullable',
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
+            'gender' => 'required|string|in:Male,Female,Other',
+            'caste' => 'nullable|string|max:255',
+            'father_phone' => 'nullable|string|max:20',
+            'mother_phone' => 'nullable|string|max:20',
+            'admission_date' => 'required|date',
+            'previous_school' => 'nullable|string|max:255',
+            'adhaar_number' => 'nullable|string|max:20',
+            'apaar_id' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
         ]);
 
@@ -190,13 +206,22 @@ class AdmissionController extends Controller
             "Expires" => "0"
         ];
 
-        $columns = ['Name', 'Email', 'Roll Number', 'DOB (YYYY-MM-DD)', 'Father Name', 'Mother Name'];
+        $columns = [
+            'Name', 'Email', 'Roll Number', 'DOB (YYYY-MM-DD)', 
+            'Gender (Male/Female/Other)', 'Admission Date (YYYY-MM-DD)',
+            'Father Name', 'Father Phone', 'Mother Name', 'Mother Phone',
+            'Caste', 'Previous School', 'Adhaar Number', 'Apaar ID'
+        ];
 
         $callback = function() use ($columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
-            fputcsv($file, ['John Doe', 'john@example.com', '1001', '2010-05-15', 'Richard Doe', 'Jane Doe']);
-            fputcsv($file, ['Jane Smith', 'jane.s@example.com', '1002', '2011-06-20', 'William Smith', 'Mary Smith']);
+            fputcsv($file, [
+                'John Doe', 'john@example.com', '1001', '2010-05-15', 
+                'Male', date('Y-m-d'), 
+                'Richard Doe', '9876543210', 'Jane Doe', '9876543211',
+                'General', 'ABC School', '123456789012', 'APAAR-123'
+            ]);
             fclose($file);
         };
 
@@ -226,8 +251,8 @@ class AdmissionController extends Controller
             $row_num++;
             if (empty(array_filter($data))) continue; // Skip empty rows
 
-            if (count($data) < 4) {
-                $errors[] = "Row {$row_num}: Missing required columns.";
+            if (count($data) < 6) {
+                $errors[] = "Row {$row_num}: Missing required columns (Name, Email, Roll, DOB, Gender, Admission Date).";
                 continue;
             }
 
@@ -235,11 +260,19 @@ class AdmissionController extends Controller
             $email = trim($data[1]);
             $roll = trim($data[2]);
             $dob = trim($data[3]);
-            $father = trim($data[4] ?? '');
-            $mother = trim($data[5] ?? '');
+            $gender = trim($data[4]);
+            $adm_date = trim($data[5]);
+            $father = trim($data[6] ?? '');
+            $f_phone = trim($data[7] ?? '');
+            $mother = trim($data[8] ?? '');
+            $m_phone = trim($data[9] ?? '');
+            $caste = trim($data[10] ?? '');
+            $prev_school = trim($data[11] ?? '');
+            $adhaar = trim($data[12] ?? '');
+            $apaar = trim($data[13] ?? '');
 
-            if (empty($name) || empty($email) || empty($roll) || empty($dob)) {
-                $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB) are empty.";
+            if (empty($name) || empty($email) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
+                $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB, Gender, Admission Date) are empty.";
                 continue;
             }
 
@@ -262,8 +295,16 @@ class AdmissionController extends Controller
                     'email' => $email,
                     'roll_number' => $roll,
                     'dob' => $dob,
+                    'gender' => $gender,
+                    'admission_date' => $adm_date,
                     'father_name' => $father,
+                    'father_phone' => $f_phone,
                     'mother_name' => $mother,
+                    'mother_phone' => $m_phone,
+                    'caste' => $caste,
+                    'previous_school' => $prev_school,
+                    'adhaar_number' => $adhaar,
+                    'apaar_id' => $apaar,
                 ]);
                 $count++;
             } catch (\Exception $e) {
@@ -279,5 +320,18 @@ class AdmissionController extends Controller
         }
 
         return redirect()->route('admissions.index')->with('success', $count . " students imported successfully.");
+    }
+
+    public function print($id)
+    {
+        $student = \App\Models\Student::with(['grade', 'section', 'school'])->findOrFail($id);
+        return view('admissions.print', compact('student'));
+    }
+
+    public function printBlank()
+    {
+        $student = new \App\Models\Student();
+        // Get some defaults if needed, or just leave empty
+        return view('admissions.print', compact('student'));
     }
 }

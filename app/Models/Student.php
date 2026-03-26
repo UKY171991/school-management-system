@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use \App\Traits\SchoolScoped;
-    protected $fillable = ['school_id', 'branch_id', 'name', 'email', 'roll_number', 'dob', 'grade_id', 'section_id', 'photo', 'father_name', 'mother_name'];
+    protected $fillable = ['school_id', 'branch_id', 'name', 'email', 'roll_number', 'dob', 'grade_id', 'section_id', 'photo', 'father_name', 'mother_name', 'gender', 'caste', 'father_phone', 'mother_phone', 'admission_date', 'previous_school', 'adhaar_number', 'apaar_id'];
 
     protected $appends = ['photo_url'];
 
     protected $casts = [
         'dob' => 'date',
+        'admission_date' => 'date',
     ];
 
     public function getDobAttribute($value)
+    {
+        return $value ? \Carbon\Carbon::parse($value)->format('Y-m-d') : null;
+    }
+
+    public function getAdmissionDateAttribute($value)
     {
         return $value ? \Carbon\Carbon::parse($value)->format('Y-m-d') : null;
     }

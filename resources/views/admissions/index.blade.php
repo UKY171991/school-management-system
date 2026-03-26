@@ -67,6 +67,9 @@
                     <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-4 mr-1">
                         <i class="fas fa-file-import mr-1"></i> {{ __('Bulk Admission') }}
                     </a>
+                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-4 mr-1">
+                        <i class="fas fa-print mr-1"></i> {{ __('Print Blank Form') }}
+                    </a>
                     <button type="button" class="btn btn-success shadow-sm px-4" id="createNewStudent">
                         <i class="fas fa-user-plus mr-1"></i> {{ __('New Admission') }}
                     </button>
@@ -166,24 +169,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Father Name') }}</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user-tie text-muted"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="father_name" name="father_name" placeholder="{{ __('Enter father name') }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Mother Name') }}</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user text-muted"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="mother_name" name="mother_name" placeholder="{{ __('Enter mother name') }}">
-                                </div>
+                                <label class="font-weight-bold">{{ __('Gender') }} <span class="text-danger">*</span></label>
+                                <select class="form-control select2" id="gender" name="gender" required style="width: 100%;">
+                                    <option value="">{{ __('Select Gender...') }}</option>
+                                    <option value="Male">{{ __('Male') }}</option>
+                                    <option value="Female">{{ __('Female') }}</option>
+                                    <option value="Other">{{ __('Other') }}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -216,6 +208,105 @@
                                         <span class="input-group-text bg-white border-right-0"><i class="fas fa-calendar-alt text-muted"></i></span>
                                     </div>
                                     <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="form_dob" name="dob" required placeholder="{{ __('YYYY-MM-DD') }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Admission Date') }} <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-calendar-check text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="form_admission_date" name="admission_date" required placeholder="{{ __('YYYY-MM-DD') }}" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Father Name') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user-tie text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="father_name" name="father_name" placeholder="{{ __('Enter father name') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Father Phone Number') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-phone text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="father_phone" name="father_phone" placeholder="{{ __('Enter father phone number') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Mother Name') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="mother_name" name="mother_name" placeholder="{{ __('Enter mother name') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Mother Phone Number') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-phone text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="mother_phone" name="mother_phone" placeholder="{{ __('Enter mother phone number') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Caste') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-users text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="caste" name="caste" placeholder="{{ __('Enter caste') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Previous School Name') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-school text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="previous_school" name="previous_school" placeholder="{{ __('Enter previous school name') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Adhaar Number') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-id-card text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="adhaar_number" name="adhaar_number" placeholder="{{ __('Enter Adhaar number') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Apaar ID') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-id-badge text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="apaar_id" name="apaar_id" placeholder="{{ __('Enter Apaar ID') }}">
                                 </div>
                             </div>
                         </div>
@@ -294,6 +385,12 @@
         dateFormat: 'Y-m-d',
         allowInput: true,
         maxDate: 'today'
+    });
+
+    var admissionDatePicker = flatpickr('#form_admission_date', {
+        dateFormat: 'Y-m-d',
+        allowInput: true,
+        defaultDate: 'today'
     });
 
     $(function () {
@@ -458,6 +555,14 @@
             @endif
             $('#grade_id').html('<option value="">{{ __("Choose Class...") }}</option>');
             $('#section_id').html('<option value="">{{ __("Choose Section...") }}</option>');
+            $('#gender').val('').trigger('change.select2');
+            $('#caste').val('');
+            $('#father_phone').val('');
+            $('#mother_phone').val('');
+            if (admissionDatePicker) admissionDatePicker.setDate(new Date(), true);
+            $('#previous_school').val('');
+            $('#adhaar_number').val('');
+            $('#apaar_id').val('');
             $('#photo').val('');
             $('.custom-file-label').html("{{ __('Choose file') }}");
             $('#previewImg').attr('src', '');
@@ -575,6 +680,20 @@
                 
                 $('#father_name').val(data.father_name || '');
                 $('#mother_name').val(data.mother_name || '');
+                $('#gender').val(data.gender || '').trigger('change.select2');
+                $('#caste').val(data.caste || '');
+                $('#father_phone').val(data.father_phone || '');
+                $('#mother_phone').val(data.mother_phone || '');
+                
+                if (data.admission_date) {
+                    admissionDatePicker.setDate(data.admission_date, true);
+                } else {
+                    admissionDatePicker.setDate(new Date(), true);
+                }
+
+                $('#previous_school').val(data.previous_school || '');
+                $('#adhaar_number').val(data.adhaar_number || '');
+                $('#apaar_id').val(data.apaar_id || '');
                 
                 // Set School (UI only to avoid triggering change scripts that clear things)
                 $('#school_id').val(data.school_id).trigger('change.select2');
@@ -661,16 +780,25 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <p><strong>{{ __('Gender') }}:</strong> ${data.gender || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Caste') }}:</strong> ${data.caste || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Admission Date') }}:</strong> ${data.admission_date || '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Father Name') }}:</strong> ${data.father_name || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Father Phone') }}:</strong> ${data.father_phone || '{{ __('N/A') }}'}</p>
                                             <p><strong>{{ __('Mother Name') }}:</strong> ${data.mother_name || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Mother Phone') }}:</strong> ${data.mother_phone || '{{ __('N/A') }}'}</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p><strong><i class="fas fa-school mr-1"></i>{{ __('School') }}:</strong> ${data.school ? data.school.name : '{{ __('N/A') }}'}</p>
                                             <p><strong><i class="fas fa-chalkboard-teacher mr-1"></i>{{ __('Class') }}:</strong> ${data.grade ? data.grade.name : '{{ __('N/A') }}'} - {{ __('Section') }}: ${data.section ? data.section.name : '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Previous School') }}:</strong> ${data.previous_school || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Adhaar Number') }}:</strong> ${data.adhaar_number || '{{ __('N/A') }}'}</p>
+                                            <p><strong>{{ __('Apaar ID') }}:</strong> ${data.apaar_id || '{{ __('N/A') }}'}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <a href="/admin/admissions/print/${data.id}" target="_blank" class="btn btn-primary"><i class="fas fa-print mr-1"></i> {{ __('Print Form') }}</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
                                 </div>
                             </div>
