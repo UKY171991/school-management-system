@@ -3,15 +3,15 @@
 @section('title', __('Student Admission'))
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>{{ __('Student Admission & Registration') }}</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('Admissions') }}</li>
-            </ol>
-        </nav>
-    </div>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>{{ __('Student Admission & Registration') }}</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+            <li class="breadcrumb-item active">{{ __('Admissions') }}</li>
+        </ol>
+    </nav>
+</div>
 @stop
 
 @section('content')
@@ -19,58 +19,62 @@
     <!-- Compact Filter Bar -->
     <div class="card shadow-sm border-0 mb-4 bg-light">
         <div class="card-body p-3">
-            <form id="filterForm" class="row align-items-end g-2 flex-nowrap overflow-auto py-2">
+            <form id="filterForm" class="row align-items-end g-3">
                 @if(auth()->user()->isMasterAdmin())
-                <div class="col-auto">
-                    <label class="small font-weight-bold text-muted mb-1 text-uppercase">
-                        <i class="fas fa-user-tie mr-1"></i> {{ __('Admin / School') }}
-                    </label>
-                    <select class="form-control select2 shadow-none" id="filter_school_id" name="school_id" style="min-width: 150px;">
-                        <option value="">{{ __('All Admins') }}</option>
-                        @foreach($admins as $admin)
-                            <option value="{{ $admin->school_id }}">{{ $admin->name }} ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <div class="col-md-3">
+                        <label class="small font-weight-bold text-muted mb-1 text-uppercase">
+                            <i class="fas fa-user-tie mr-1"></i> {{ __('Admin / School') }}
+                        </label>
+                        <select class="form-control select2 shadow-none" id="filter_school_id" name="school_id">
+                            <option value="">{{ __('All Admins') }}</option>
+                            @foreach($admins as $admin)
+                                <option value="{{ $admin->school_id }}">{{ $admin->name }}
+                                    ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
+                            @endforeach
+                        </select>
+                    </div>
                 @endif
-                <div class="col-auto">
+                <div class="col-md-3">
                     <label class="small font-weight-bold text-muted mb-1 text-uppercase">
                         <i class="fas fa-graduation-cap mr-1"></i> {{ __('Class') }}
                     </label>
-                    <select class="form-control select2 shadow-none" id="filter_grade_id" name="grade_id" style="min-width: 120px;">
+                    <select class="form-control select2 shadow-none" id="filter_grade_id" name="grade_id">
                         <option value="">{{ __('All Classes') }}</option>
                         @foreach($grades as $grade)
-                            <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">{{ $grade->name }}</option>
+                            <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">{{ $grade->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-auto">
+                <div class="col-md-2">
                     <label class="small font-weight-bold text-muted mb-1 text-uppercase">
                         <i class="fas fa-layer-group mr-1"></i> {{ __('Section') }}
                     </label>
-                    <select class="form-control select2 shadow-none" id="filter_section_id" name="section_id" style="min-width: 120px;">
+                    <select class="form-control select2 shadow-none" id="filter_section_id" name="section_id">
                         <option value="">{{ __('All Sections') }}</option>
                         @foreach($sections as $section)
-                            <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">{{ $section->name }}</option>
+                            <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">{{ $section->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-auto d-flex gap-1">
-                    <button type="submit" class="btn btn-primary shadow-sm px-3">
-                        <i class="fas fa-search me-1"></i> {{ __('Filter') }}
+                <div class="col-md-auto">
+                    <button type="submit" class="btn btn-primary shadow-sm px-4">
+                        <i class="fas fa-search mr-1"></i> {{ __('Filter') }}
                     </button>
-                    <button type="button" class="btn btn-outline-secondary shadow-sm px-2" id="resetFilter">
+                    <button type="button" class="btn btn-outline-secondary shadow-sm ml-1" id="resetFilter">
                         <i class="fas fa-undo"></i>
                     </button>
                 </div>
-                <div class="col-auto ms-auto d-flex align-items-center gap-2">
-                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-3 text-nowrap">
+                <div class="col-md-auto ms-auto d-flex align-items-center gap-2">
+                    <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-4">
                         <i class="fas fa-file-import me-1"></i> {{ __('Bulk Admission') }}
                     </a>
-                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-3 text-nowrap">
+                    <a href="/admin/admissions/print/blank" target="_blank"
+                        class="btn btn-outline-primary shadow-sm px-4">
                         <i class="fas fa-print me-1"></i> {{ __('Print Blank Form') }}
                     </a>
-                    <button type="button" class="btn btn-success shadow-sm px-3 text-nowrap" id="createNewStudent">
+                    <button type="button" class="btn btn-success shadow-sm px-4" id="createNewStudent">
                         <i class="fas fa-user-plus me-1"></i> {{ __('New Admission') }}
                     </button>
                 </div>
@@ -110,7 +114,8 @@
 </div>
 
 <!-- Admission Modal -->
-<div class="modal fade" id="admissionModal" tabindex="-1" role="dialog" aria-labelledby="admissionModalLabel" aria-hidden="true">
+<div class="modal fade" id="admissionModal" tabindex="-1" role="dialog" aria-labelledby="admissionModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0 shadow-lg">
             <form id="admissionForm" name="admissionForm">
@@ -126,51 +131,63 @@
                     <input type="hidden" name="student_id" id="student_id">
                     <div class="row">
                         @if(auth()->user()->isMasterAdmin())
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Select Admin Name') }} <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="school_id" name="school_id" required style="width: 100%;">
-                                    <option value="">{{ __('Choose Admin...') }}</option>
-                                    @foreach($admins as $admin)
-                                        <option value="{{ $admin->school_id }}">{{ $admin->name }} ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-bold">{{ __('Select Admin Name') }} <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-control select2" id="school_id" name="school_id" required
+                                        style="width: 100%;">
+                                        <option value="">{{ __('Choose Admin...') }}</option>
+                                        @foreach($admins as $admin)
+                                            <option value="{{ $admin->school_id }}">{{ $admin->name }}
+                                                ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                         @else
                             <input type="hidden" name="school_id" id="school_id" value="{{ auth()->user()->school_id }}">
                         @endif
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Assigned Class') }} <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="grade_id" name="grade_id" required style="width: 100%;">
+                                <label class="font-weight-bold">{{ __('Assigned Class') }} <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control select2" id="grade_id" name="grade_id" required
+                                    style="width: 100%;">
                                     <option value="">{{ __('Choose Class...') }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Section') }} <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="section_id" name="section_id" required style="width: 100%;">
+                                <label class="font-weight-bold">{{ __('Section') }} <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control select2" id="section_id" name="section_id" required
+                                    style="width: 100%;">
                                     <option value="">{{ __('Choose Section...') }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Full Name') }} <span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">{{ __('Full Name') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-user text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="name" name="name" required placeholder="{{ __('Enter full name') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="name" name="name" required placeholder="{{ __('Enter full name') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Gender') }} <span class="text-danger">*</span></label>
-                                <select class="form-control select2" id="gender" name="gender" required style="width: 100%;">
+                                <label class="font-weight-bold">{{ __('Gender') }} <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control select2" id="gender" name="gender" required
+                                    style="width: 100%;">
                                     <option value="">{{ __('Select Gender...') }}</option>
                                     <option value="Male">{{ __('Male') }}</option>
                                     <option value="Female">{{ __('Female') }}</option>
@@ -180,45 +197,59 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Email Address') }} <span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">{{ __('Email Address') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-envelope text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-envelope text-muted"></i></span>
                                     </div>
-                                    <input type="email" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="email" name="email" required placeholder="{{ __('john@example.com') }}">
+                                    <input type="email" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="email" name="email" required placeholder="{{ __('john@example.com') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Roll Number') }} <span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">{{ __('Roll Number') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-hashtag text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-hashtag text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="roll_number" name="roll_number" required>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="roll_number" name="roll_number" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Date of Birth') }} <span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">{{ __('Date of Birth') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-calendar-alt text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="form_dob" name="dob" required placeholder="{{ __('YYYY-MM-DD') }}" autocomplete="off">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="form_dob" name="dob" required placeholder="{{ __('YYYY-MM-DD') }}"
+                                        autocomplete="off">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Admission Date') }} <span class="text-danger">*</span></label>
+                                <label class="font-weight-bold">{{ __('Admission Date') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-calendar-check text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-calendar-check text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="form_admission_date" name="admission_date" required placeholder="{{ __('YYYY-MM-DD') }}" autocomplete="off">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="form_admission_date" name="admission_date" required
+                                        placeholder="{{ __('YYYY-MM-DD') }}" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -227,9 +258,11 @@
                                 <label class="font-weight-bold">{{ __('Father Name') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user-tie text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-user-tie text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="father_name" name="father_name" placeholder="{{ __('Enter father name') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="father_name" name="father_name" placeholder="{{ __('Enter father name') }}">
                                 </div>
                             </div>
                         </div>
@@ -238,9 +271,12 @@
                                 <label class="font-weight-bold">{{ __('Father Phone Number') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-phone text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-phone text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="father_phone" name="father_phone" placeholder="{{ __('Enter father phone number') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="father_phone" name="father_phone"
+                                        placeholder="{{ __('Enter father phone number') }}">
                                 </div>
                             </div>
                         </div>
@@ -249,9 +285,11 @@
                                 <label class="font-weight-bold">{{ __('Mother Name') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-user text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-user text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="mother_name" name="mother_name" placeholder="{{ __('Enter mother name') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="mother_name" name="mother_name" placeholder="{{ __('Enter mother name') }}">
                                 </div>
                             </div>
                         </div>
@@ -260,9 +298,12 @@
                                 <label class="font-weight-bold">{{ __('Mother Phone Number') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-phone text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-phone text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="mother_phone" name="mother_phone" placeholder="{{ __('Enter mother phone number') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="mother_phone" name="mother_phone"
+                                        placeholder="{{ __('Enter mother phone number') }}">
                                 </div>
                             </div>
                         </div>
@@ -271,9 +312,11 @@
                                 <label class="font-weight-bold">{{ __('Caste') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-users text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-users text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="caste" name="caste" placeholder="{{ __('Enter caste') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="caste" name="caste" placeholder="{{ __('Enter caste') }}">
                                 </div>
                             </div>
                         </div>
@@ -282,9 +325,12 @@
                                 <label class="font-weight-bold">{{ __('Previous School Name') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-school text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-school text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="previous_school" name="previous_school" placeholder="{{ __('Enter previous school name') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="previous_school" name="previous_school"
+                                        placeholder="{{ __('Enter previous school name') }}">
                                 </div>
                             </div>
                         </div>
@@ -293,9 +339,12 @@
                                 <label class="font-weight-bold">{{ __('Adhaar Number') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-id-card text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-id-card text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="adhaar_number" name="adhaar_number" placeholder="{{ __('Enter Adhaar number') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="adhaar_number" name="adhaar_number"
+                                        placeholder="{{ __('Enter Adhaar number') }}">
                                 </div>
                             </div>
                         </div>
@@ -304,9 +353,11 @@
                                 <label class="font-weight-bold">{{ __('Apaar ID') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i class="fas fa-id-badge text-muted"></i></span>
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-id-badge text-muted"></i></span>
                                     </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="apaar_id" name="apaar_id" placeholder="{{ __('Enter Apaar ID') }}">
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="apaar_id" name="apaar_id" placeholder="{{ __('Enter Apaar ID') }}">
                                 </div>
                             </div>
                         </div>
@@ -319,8 +370,11 @@
                                 </div>
                                 <div id="photoContainer" class="mt-3" style="display:none;">
                                     <div class="position-relative d-inline-block">
-                                        <img id="previewImg" src="" class="img-thumbnail" width="100" style="border-radius: 10px;">
-                                        <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm" style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;" id="removePhotoBtn" title="{{ __('Remove Photo') }}">
+                                        <img id="previewImg" src="" class="img-thumbnail" width="100"
+                                            style="border-radius: 10px;">
+                                        <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm"
+                                            style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;"
+                                            id="removePhotoBtn" title="{{ __('Remove Photo') }}">
                                             <i class="fas fa-times" style="font-size: 12px;"></i>
                                         </button>
                                     </div>
@@ -330,8 +384,10 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-light border-0 px-4 py-3">
-                    <button type="button" class="btn btn-secondary px-4 shadow-sm" data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <button type="submit" class="btn btn-primary px-4 shadow-sm" id="saveBtn">{{ __('Save Record') }}</button>
+                    <button type="button" class="btn btn-secondary px-4 shadow-sm"
+                        data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="submit" class="btn btn-primary px-4 shadow-sm"
+                        id="saveBtn">{{ __('Save Record') }}</button>
                 </div>
             </form>
         </div>
@@ -344,10 +400,12 @@
         border-radius: 0.25rem !important;
         height: calc(2.25rem + 2px) !important;
     }
+
     .dataTables_wrapper .dataTables_paginate .paginate_button {
         padding: 0 !important;
         margin: 0 !important;
     }
+
     #studentsTable thead th {
         font-weight: 600;
         text-transform: uppercase;
@@ -355,17 +413,21 @@
         letter-spacing: 0.5px;
         color: #4a5568;
     }
+
     .input-group-text {
         background-color: #f8fafc;
         border-color: #e2e8f0;
     }
+
     .form-control {
         border-color: #e2e8f0;
     }
+
     .form-control:focus {
         box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
         border-color: #63b3ed;
     }
+
     .custom-file-input:lang(en)~.custom-file-label::after {
         content: "{{ __('Browse') }}";
     }
@@ -425,51 +487,51 @@
                 dataSrc: ""
             },
             columns: [
-                {data: 'id', name: 'id'},
+                { data: 'id', name: 'id' },
                 {
                     data: 'photo',
                     name: 'photo',
-                    render: function(data, type, row) {
+                    render: function (data, type, row) {
                         return row.photo_url ? `<img src="${row.photo_url}" class="rounded-circle shadow-sm" width="40" height="40" alt="{{ __('Student Photo') }}">` : `<div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center shadow-sm text-white" style="width: 40px; height: 40px;"><i class="fas fa-user"></i></div>`;
                     },
                     orderable: false,
                     searchable: false
                 },
                 {
-                    data: 'roll_number', 
-                    render: function(data) {
+                    data: 'roll_number',
+                    render: function (data) {
                         return `<span class="badge badge-pill badge-info px-3 py-2 shadow-sm font-weight-normal">${data}</span>`;
                     }
                 },
                 {
                     data: 'name',
-                    render: function(data) {
+                    render: function (data) {
                         return `<div class="font-weight-bold text-dark">${data}</div>`;
                     }
                 },
                 {
                     data: 'father_name',
-                    render: function(data) {
+                    render: function (data) {
                         return `<div class="text-muted">${data || "{{ __('N/A') }}"}</div>`;
                     }
                 },
                 {
                     data: 'mother_name',
-                    render: function(data) {
+                    render: function (data) {
                         return `<div class="text-muted">${data || "{{ __('N/A') }}"}</div>`;
                     }
                 },
                 {
-                    data: 'school', 
+                    data: 'school',
                     name: 'school',
-                    render: function(data) {
+                    render: function (data) {
                         return data ? `<span class="badge badge-light border text-secondary font-weight-500"><i class="fas fa-school mr-1 small"></i>${data.name}</span>` : "{{ __('N/A') }}";
                     }
                 },
                 {
-                    data: 'grade', 
+                    data: 'grade',
                     name: 'grade',
-                    render: function(data, type, row) {
+                    render: function (data, type, row) {
                         let sectionName = row.section ? row.section.name : "{{ __('N/A') }}";
                         return data ? `<span class="text-primary font-weight-500"><i class="fas fa-chalkboard-teacher mr-1 small"></i>${data.name} - ${sectionName}</span>` : "{{ __('N/A') }}";
                     }
@@ -496,16 +558,16 @@
                     searchable: false
                 }
             ],
-            rowId: function(a) { return 'student_' + a.id; },
+            rowId: function (a) { return 'student_' + a.id; },
             dom: '<"d-flex justify-content-between mb-3"lf>rt<"d-flex justify-content-between mt-3"ip>'
         });
 
         // Student photo preview
-        $('#photo').on('change', function() {
+        $('#photo').on('change', function () {
             var file = this.files[0];
             if (file) {
                 var reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#previewImg').attr('src', e.target.result);
                     $('#photoContainer').show();
                     $('#remove_photo').val(0); // New file selected, so don't remove
@@ -514,16 +576,16 @@
             }
         });
 
-        $(document).on('click', '#removePhotoBtn', function(e) {
+        $(document).on('click', '#removePhotoBtn', function (e) {
             e.preventDefault();
             let studentId = $('#student_id').val();
-            
+
             if (studentId) {
                 if (confirm("{{ __('Are you sure you want to delete this photo permanently?') }}")) {
                     $.ajax({
                         url: `/admin/admissions/${studentId}/delete-photo`,
                         type: 'DELETE',
-                        success: function(data) {
+                        success: function (data) {
                             $('#photo').val('');
                             $('.custom-file-label').html("{{ __('Choose file') }}");
                             $('#previewImg').attr('src', '');
@@ -531,7 +593,7 @@
                             table.ajax.reload();
                             Swal.fire("{{ __('Deleted!') }}", data.success, 'success');
                         },
-                        error: function() {
+                        error: function () {
                             Swal.fire("{{ __('Error') }}", "{{ __('Failed to delete photo') }}", 'error');
                         }
                     });
@@ -570,12 +632,12 @@
             $('#admissionModalLabel').html('<i class="fas fa-user-plus mr-2"></i>{{ __("New Student Admission") }}');
         }
 
-        $('#filterForm').submit(function(e) {
+        $('#filterForm').submit(function (e) {
             e.preventDefault();
             table.ajax.reload();
         });
 
-        $('#resetFilter').click(function() {
+        $('#resetFilter').click(function () {
             $('#filterForm').trigger("reset");
             $('.select2').val('').trigger('change.select2');
             table.ajax.reload();
@@ -583,23 +645,23 @@
 
         $('#createNewStudent').click(function () {
             resetAdmissionModal();
-            
-            $.get("{{ route('admissions.index') }}", { next_roll: 1 }, function(data) {
+
+            $.get("{{ route('admissions.index') }}", { next_roll: 1 }, function (data) {
                 $('#roll_number').val(data.next_roll);
             });
 
             @if(!auth()->user()->isMasterAdmin())
-            // For non-master admin, automatically load grades for their school
-            let schoolId = $('#school_id').val();
-            if(schoolId) {
-                $.get("{{ route('grades.index') }}", { school_id: schoolId }, function(data) {
-                    let options = '<option value="">{{ __('Choose Class...') }}</option>';
-                    data.forEach(grade => {
-                        options += `<option value="${grade.id}">${grade.name}</option>`;
+                // For non-master admin, automatically load grades for their school
+                let schoolId = $('#school_id').val();
+                if (schoolId) {
+                    $.get("{{ route('grades.index') }}", { school_id: schoolId }, function (data) {
+                        let options = '<option value="">{{ __('Choose Class...') }}</option>';
+                        data.forEach(grade => {
+                            options += `<option value="${grade.id}">${grade.name}</option>`;
+                        });
+                        $('#grade_id').html(options);
                     });
-                    $('#grade_id').html(options);
-                });
-            }
+                }
             @endif
 
             $('#admissionModal').modal('show');
@@ -610,7 +672,7 @@
             let id = $('#student_id').val();
             // Use POST for both creating and updating (using _method for put) when uploading files
             let url = id ? `/admin/admissions/${id}` : "{{ route('admissions.store') }}";
-            
+
             let formData = new FormData(this);
             if (id) {
                 formData.append('_method', 'PUT');
@@ -639,7 +701,7 @@
                 error: function (data) {
                     let errors = data.responseJSON.errors;
                     let errorMsg = '';
-                    $.each(errors, function(key, value) {
+                    $.each(errors, function (key, value) {
                         errorMsg += value + '<br>';
                     });
                     Swal.fire("{{ __('Validation Error') }}", errorMsg, 'error');
@@ -650,14 +712,14 @@
         $('body').on('click', '.editStudent', function () {
             let id = $(this).data('id');
             resetAdmissionModal(); // Clear before loading
-            
+
             $.get(`/admin/admissions/${id}`, function (data) {
                 $('#admissionModalLabel').html('<i class="fas fa-edit mr-2"></i>{{ __('Edit Student Profile') }}');
                 $('#student_id').val(data.id);
                 $('#name').val(data.name);
                 $('#email').val(data.email);
                 $('#roll_number').val(data.roll_number);
-                
+
                 // Set DOB via Flatpickr API so the calendar display updates correctly
                 if (data.dob) {
                     let dob = data.dob;
@@ -677,14 +739,14 @@
                         $('#form_dob').val(dob);
                     }
                 }
-                
+
                 $('#father_name').val(data.father_name || '');
                 $('#mother_name').val(data.mother_name || '');
                 $('#gender').val(data.gender || '').trigger('change.select2');
                 $('#caste').val(data.caste || '');
                 $('#father_phone').val(data.father_phone || '');
                 $('#mother_phone').val(data.mother_phone || '');
-                
+
                 if (data.admission_date) {
                     admissionDatePicker.setDate(data.admission_date, true);
                 } else {
@@ -694,21 +756,21 @@
                 $('#previous_school').val(data.previous_school || '');
                 $('#adhaar_number').val(data.adhaar_number || '');
                 $('#apaar_id').val(data.apaar_id || '');
-                
+
                 // Set School (UI only to avoid triggering change scripts that clear things)
                 $('#school_id').val(data.school_id).trigger('change.select2');
-                
+
                 // Load Class and Section sequentially to ensure correct selection
                 if (data.school_id) {
-                     $.get("{{ route('grades.index') }}", { school_id: data.school_id }, function(grades) {
+                    $.get("{{ route('grades.index') }}", { school_id: data.school_id }, function (grades) {
                         let options = '<option value="">{{ __('Choose Class...') }}</option>';
                         grades.forEach(grade => {
                             options += `<option value="${grade.id}" ${grade.id == data.grade_id ? 'selected' : ''}>${grade.name}</option>`;
                         });
                         $('#grade_id').html(options).trigger('change.select2');
-                        
-                        if(data.grade_id) {
-                             $.get("{{ route('sections.index') }}", { grade_id: data.grade_id }, function(sections) {
+
+                        if (data.grade_id) {
+                            $.get("{{ route('sections.index') }}", { grade_id: data.grade_id }, function (sections) {
                                 let options = '<option value="">{{ __('Choose Section...') }}</option>';
                                 sections.forEach(sec => {
                                     options += `<option value="${sec.id}" ${sec.id == data.section_id ? 'selected' : ''}>${sec.name}</option>`;
@@ -719,11 +781,11 @@
                     });
                 }
 
-                if(data.photo_url) {
+                if (data.photo_url) {
                     $('#previewImg').attr('src', data.photo_url);
                     $('#photoContainer').show();
                 }
-                
+
                 $('#admissionModal').modal('show');
             });
         });
@@ -805,12 +867,12 @@
                         </div>
                     </div>
                 `;
-                
+
                 // Remove existing modal if any
                 $('#viewStudentModal').remove();
                 $('body').append(modalHtml);
                 $('#viewStudentModal').modal('show');
-                
+
                 // Clean up modal when hidden
                 $('#viewStudentModal').on('hidden.bs.modal', function () {
                     $(this).remove();
@@ -821,9 +883,9 @@
         // Dependent Dropdowns Logic (Global)
         // 1. School -> Grade (Filter & Modal)
         // 1. School -> Grade (Filter & Modal)
-        
+
         // Modal School Change -> AJAX fetch Grades
-        $('#school_id').change(function() {
+        $('#school_id').change(function () {
             let schoolId = $(this).val();
             let $gradeSelect = $('#grade_id');
             let $sectionSelect = $('#section_id');
@@ -832,11 +894,11 @@
             $gradeSelect.html('<option value="">{{ __('Choose Class...') }}</option>');
             $sectionSelect.html('<option value="">{{ __('Choose Section...') }}</option>');
 
-            if(!schoolId) {
+            if (!schoolId) {
                 return;
             }
 
-            $.get("{{ route('grades.index') }}", { school_id: schoolId }, function(data) {
+            $.get("{{ route('grades.index') }}", { school_id: schoolId }, function (data) {
                 let options = '<option value="">{{ __('Choose Class...') }}</option>';
                 data.forEach(grade => {
                     options += `<option value="${grade.id}">${grade.name}</option>`;
@@ -846,7 +908,7 @@
         });
 
         // Filter School Change -> Update Grades
-        $('#filter_school_id').change(function() {
+        $('#filter_school_id').change(function () {
             let schoolId = $(this).val();
             let $gradeSelect = $('#filter_grade_id');
             let $sectionSelect = $('#filter_section_id');
@@ -859,7 +921,7 @@
                 return;
             }
 
-            $.get("{{ route('grades.index') }}", { school_id: schoolId }, function(data) {
+            $.get("{{ route('grades.index') }}", { school_id: schoolId }, function (data) {
                 let options = '<option value="">{{ __("All Classes") }}</option>';
                 data.forEach(grade => {
                     options += `<option value="${grade.id}">${grade.name}</option>`;
@@ -869,16 +931,16 @@
         });
 
         // Modal Grade Change -> AJAX fetch Sections
-        $('#grade_id').change(function() {
+        $('#grade_id').change(function () {
             let gradeId = $(this).val();
             let $sectionSelect = $('#section_id');
-            
-            if(!gradeId) {
+
+            if (!gradeId) {
                 $sectionSelect.html('<option value="">{{ __("Choose Section...") }}</option>');
                 return;
             }
 
-            $.get("{{ route('sections.index') }}", { grade_id: gradeId }, function(data) {
+            $.get("{{ route('sections.index') }}", { grade_id: gradeId }, function (data) {
                 let options = '<option value="">{{ __("Choose Section...") }}</option>';
                 data.forEach(sec => {
                     options += `<option value="${sec.id}">${sec.name}</option>`;
@@ -888,17 +950,17 @@
         });
 
         // Filter Grade Change -> Update Sections
-        $('#filter_grade_id').change(function() {
+        $('#filter_grade_id').change(function () {
             let gradeId = $(this).val();
             let $sectionSelect = $('#filter_section_id');
-            
+
             $sectionSelect.html('<option value="">{{ __("All Sections") }}</option>');
 
             if (!gradeId) {
                 return;
             }
 
-            $.get("{{ route('sections.index') }}", { grade_id: gradeId }, function(data) {
+            $.get("{{ route('sections.index') }}", { grade_id: gradeId }, function (data) {
                 let options = '<option value="">{{ __("All Sections") }}</option>';
                 data.forEach(sec => {
                     options += `<option value="${sec.id}">${sec.name}</option>`;
@@ -906,7 +968,7 @@
                 $sectionSelect.html(options).trigger('change.select2');
             });
         });
-        
+
     });
 </script>
 @stop
