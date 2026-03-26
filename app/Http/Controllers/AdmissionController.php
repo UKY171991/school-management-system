@@ -256,10 +256,6 @@ class AdmissionController extends Controller
                 continue;
             }
 
-            $name = trim($data[0]);
-            $email = trim($data[1]);
-            $roll = trim($data[2]);
-            $dob = trim($data[3]);
             $gender = trim($data[4]);
             $adm_date = trim($data[5]);
             $father = trim($data[6] ?? '');
@@ -328,10 +324,15 @@ class AdmissionController extends Controller
         return view('admissions.print', compact('student'));
     }
 
-    public function printBlank()
+    public function printBlank(Request $request)
     {
         $student = new \App\Models\Student();
-        // Get some defaults if needed, or just leave empty
+        if ($request->has('school_id') && !empty($request->school_id)) {
+            $student->school = \App\Models\School::find($request->school_id);
+            if ($student->school) {
+                $student->school_id = $student->school->id;
+            }
+        }
         return view('admissions.print', compact('student'));
     }
 }

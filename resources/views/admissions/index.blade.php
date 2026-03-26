@@ -67,7 +67,7 @@
                     <a href="{{ route('admissions.bulk') }}" class="btn btn-outline-success shadow-sm px-3">
                         <i class="fas fa-cloud-upload-alt me-1"></i> {{ __('Bulk') }}
                     </a>
-                    <a href="/admin/admissions/print/blank" target="_blank" class="btn btn-outline-primary shadow-sm px-3">
+                    <a href="{{ route('admissions.print-blank') }}" id="printBlankLink" target="_blank" class="btn btn-outline-primary shadow-sm px-3">
                         <i class="fas fa-print me-1"></i> {{ __('Print Blank') }}
                     </a>
                     <button type="button" class="btn btn-success shadow-sm px-4 font-weight-bold" id="createNewStudent">
@@ -650,8 +650,40 @@
         $('#resetFilter').click(function () {
             $('#filterForm').trigger("reset");
             $('.select2').val('').trigger('change.select2');
+            updatePrintBlankLink();
             table.ajax.reload();
         });
+
+        // Dynamic Print Blank Link Logic
+        function updatePrintBlankLink() {
+            let schoolId = $('#filter_school_id').val();
+            let baseUrl = "{{ route('admissions.print-blank') }}";
+            let $link = $('#printBlankLink');
+
+            @if(auth()->user()->isMasterAdmin())
+                if (schoolId) {
+                    $link.attr('href', baseUrl + '?school_id=' + schoolId);
+                    $link.removeClass('disabled opacity-50');
+                } else {
+                    $link.attr('href', 'javascript:void(0)');
+                    $link.addClass('disabled opacity-50');
+                }
+            @else
+                $link.attr('href', baseUrl + '?school_id={{ auth()->user()->school_id }}');
+            @endif
+        }
+
+        @if(auth()->user()->isMasterAdmin())
+            $('#filter_school_id').on('change', function() {
+                updatePrintBlankLink();
+            });
+            // Click handler for disabled link
+            $(document).on('click', '#printBlankLink.disabled', function(e) {
+                e.preventDefault();
+                Swal.fire("{{ __('Information') }}", "{{ __('Please select a School/Admin first to print its blank admission form.') }}", 'info');
+            });
+            updatePrintBlankLink(); // Initial check
+        @endif
 
         $('#createNewStudent').click(function () {
             resetAdmissionModal();
