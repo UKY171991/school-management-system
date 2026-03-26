@@ -64,17 +64,21 @@
     <div class="form-container">
         <div class="header-container d-flex justify-content-between align-items-start mb-4">
             <div class="logo-box" style="width: 120px;">
-                @if($student->school && $student->school->logo_url)
-                    <img src="{{ $student->school->logo_url }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
+                @php $activeSchool = $student->school ?? ($school ?? null); @endphp
+                @if($activeSchool && $activeSchool->logo_url)
+                    <img src="{{ $activeSchool->logo_url }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
                 @endif
             </div>
 
             <div class="header text-center flex-grow-1 border-0 mb-0 pb-0">
-                <h1 class="school-name">{{ $student->school->name ?? 'School Management System' }}</h1>
-                <p class="mb-0">{{ $student->school->address ?? 'Main Campus, Academic Square' }}</p>
-                <p class="mb-0">Contact: {{ $student->school->phone ?? 'XXXX-XXXXXX' }}</p>
-                @if($student->school && $student->school->email)
-                    <p class="mb-0">Email: {{ $student->school->email }}</p>
+                <h1 class="school-name">{{ ($student->school ?? ($school ?? null))->name ?? 'School Management System' }}</h1>
+                <p class="mb-0">{{ ($student->school ?? ($school ?? null))->address ?? 'Main Campus, Academic Square' }}</p>
+                <p class="mb-0">Contact: {{ ($student->school ?? ($school ?? null))->phone ?? 'XXXX-XXXXXX' }}</p>
+                @if(isset($student->school) || isset($school))
+                    @php $activeSchool = $student->school ?? $school; @endphp
+                    @if($activeSchool && $activeSchool->email)
+                        <p class="mb-0">Email: {{ $activeSchool->email }}</p>
+                    @endif
                 @endif
             </div>
 
@@ -107,6 +111,7 @@
                 <div class="field-row">
                     <span class="field-label">Roll Number:</span>
                     <span class="field-value">{{ $student->roll_number }}</span>
+                    <div class="ml-2 small font-italic text-muted" style="min-width: 120px; white-space: nowrap;">(Only for Office Use)</div>
                 </div>
             </div>
         </div>

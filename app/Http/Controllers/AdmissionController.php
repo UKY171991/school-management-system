@@ -340,12 +340,14 @@ class AdmissionController extends Controller
     public function printBlank(Request $request)
     {
         $student = new \App\Models\Student();
+        $school = null;
         if ($request->has('school_id') && !empty($request->school_id)) {
-            $student->school = \App\Models\School::find($request->school_id);
-            if ($student->school) {
-                $student->school_id = $student->school->id;
+            $school = \App\Models\School::find($request->school_id);
+            if ($school) {
+                $student->setRelation('school', $school);
+                $student->school_id = $school->id;
             }
         }
-        return view('admissions.print', compact('student'));
+        return view('admissions.print', compact('student', 'school'));
     }
 }
