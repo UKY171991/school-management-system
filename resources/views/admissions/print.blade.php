@@ -182,6 +182,9 @@
                 <div class="field-row">
                     <span class="field-label">Roll Number:</span>
                     <span class="field-value">{{ $student->roll_number }}</span>
+                    @if(!$student->roll_number)
+                        <div class="ml-2 small font-italic text-danger font-weight-bold" style="min-width: 140px; white-space: nowrap;">(OFFICE USE ONLY)</div>
+                    @endif
                 </div>
             </div>
         </div>
