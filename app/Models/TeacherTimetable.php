@@ -9,6 +9,8 @@ class TeacherTimetable extends Model
     protected $fillable = [
         'teacher_id',
         'section_id',
+        'grade_id',
+        'school_id',
         'subject_id',
         'exam_date',
         'user_id',
@@ -35,5 +37,10 @@ class TeacherTimetable extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
     }
 }

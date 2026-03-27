@@ -43,7 +43,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('teacher-profiles/{id}/delete-asset', [App\Http\Controllers\TeacherController::class, 'deleteAsset'])->name('teacher-profiles.delete-asset');
     Route::resource('teacher-profiles', App\Http\Controllers\TeacherController::class);
     Route::resource('staff-attendance', App\Http\Controllers\StaffAttendanceController::class);
+    Route::get('teacher-timetable/routine', [App\Http\Controllers\TeacherTimetableController::class, 'routine'])->name('teacher-timetable.routine');
+    Route::post('update-grades-order', [App\Http\Controllers\TeacherTimetableController::class, 'updateGradesOrder']);
     Route::resource('teacher-timetable', App\Http\Controllers\TeacherTimetableController::class);
+    Route::resource('timetable-slots', App\Http\Controllers\TimetableSlotController::class);
     Route::resource('payroll', App\Http\Controllers\PayrollController::class);
 
     // 3. Academic
