@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $student->exists ? 'Admission Form - ' . $student->name : 'Blank Admission Form' }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit:300,400,600,700&display=swap">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Outfit', sans-serif;
-            background: #fff;
-            color: #333;
+            background: #f8f9fa;
+            color: #2c3e50;
         }
 
         .no-print {
@@ -26,6 +26,7 @@
             }
 
             body {
+                background: #fff;
                 margin: 0;
                 padding: 0;
             }
@@ -35,21 +36,23 @@
                 margin: 0 !important;
                 width: 100% !important;
                 max-width: none !important;
+                box-shadow: none !important;
             }
         }
 
         .form-container {
             max-width: 900px;
-            margin: 20px auto;
-            padding: 40px;
-            border: 2px solid #333;
+            margin: 30px auto;
+            padding: 50px;
+            border: 1px solid #dee2e6;
             background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 8px;
         }
 
         .header-container {
-            border-bottom: 2px solid #333;
             padding-bottom: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         .school-name {
@@ -161,97 +164,70 @@
                 @endif
             </div>
         </div>
+        <div class="d-flex justify-content-between mb-3 px-1" style="padding: 5px 0;">
+            <div style="font-size: 16px; font-weight: 700;">Registration No: <span style="font-weight: 600; color: #d32f2f; margin-left: 5px;">{{ $student->registration_number }}</span></div>
+            <div style="font-size: 16px; font-weight: 700;">Session Year: <span style="font-weight: 600; color: #1a237e; margin-left: 5px;">{{ $student->session_year }}</span></div>
+        </div>
 
-        <div class="form-title">ADMISSION REGISTRATION FORM</div>
+        <div class="form-title" style="margin-top: 10px; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">ADMISSION REGISTRATION FORM</div>
 
         <div class="section-title">STUDENT DETAILS</div>
 
-        <div class="field-row" style="margin-right: 150px;">
-            <span class="field-label">Student Name:</span>
-            <span class="field-value">{{ $student->name }}</span>
+        <div class="row">
+            <div class="col-12">
+                <div class="field-row">
+                    <span class="field-label">Student Name:</span>
+                    <span class="field-value">{{ $student->name }}</span>
+                </div>
+            </div>
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-3">
                 <div class="field-row">
-                    <span class="field-label">Gender:</span>
+                    <span class="field-label" style="min-width: 60px;">Gender:</span>
                     <span class="field-value">{{ $student->gender }}</span>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 <div class="field-row">
-                    <span class="field-label">Roll Number:</span>
-                    <span class="field-value">{{ $student->roll_number }}</span>
-                    @if(!$student->roll_number)
-                        <div class="ml-2 small font-italic text-danger font-weight-bold" style="min-width: 140px; white-space: nowrap;">(OFFICE USE ONLY)</div>
-                    @endif
+                    <span class="field-label" style="min-width: 50px;">Caste:</span>
+                    <span class="field-value">{{ $student->caste }}</span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="field-row">
+                    <span class="field-label" style="min-width: 50px;">Class:</span>
+                    <span class="field-value">{{ $student->grade->name ?? '' }}</span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="field-row">
+                    <span class="field-label" style="min-width: 60px;">Section:</span>
+                    <span class="field-value">{{ $student->section->name ?? '' }}</span>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="field-row">
-                    <span class="field-label">Registration No:</span>
-                    <span class="field-value">{{ $student->registration_number }}</span>
-                    @if(!$student->registration_number)
-                        <div class="ml-2 small font-italic text-danger font-weight-bold" style="min-width: 140px; white-space: nowrap;">(OFFICE USE ONLY)</div>
-                    @endif
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="field-row">
-                    <span class="field-label">Session Year:</span>
-                    <span class="field-value">{{ $student->session_year }}</span>
-                    @if(!$student->session_year)
-                        <div class="ml-2 small font-italic text-danger font-weight-bold" style="min-width: 140px; white-space: nowrap;">(OFFICE USE ONLY)</div>
-                    @endif
-                </div>
-            </div>
-        </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="field-row">
-                    <span class="field-label">Date of Birth:</span>
+                    <span class="field-label" style="min-width: 100px;">Date of Birth:</span>
                     <span class="field-value">{{ $student->dob ? date('d-m-Y', strtotime($student->dob)) : '' }}</span>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="field-row">
-                    <span class="field-label">Admission Date:</span>
+                    <span class="field-label" style="min-width: 120px;">Admission Date:</span>
                     <span
                         class="field-value">{{ $student->admission_date ? date('d-m-Y', strtotime($student->admission_date)) : '' }}</span>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="field-row">
-                    <span class="field-label">Caste:</span>
-                    <span class="field-value">{{ $student->caste }}</span>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="field-row">
-                    <span class="field-label">Email:</span>
+                    <span class="field-label" style="min-width: 60px;">Email:</span>
                     <span class="field-value">{{ $student->email }}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <div class="field-row">
-                    <span class="field-label">Class:</span>
-                    <span class="field-value">{{ $student->grade->name ?? '' }}</span>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="field-row">
-                    <span class="field-label">Section:</span>
-                    <span class="field-value">{{ $student->section->name ?? '' }}</span>
                 </div>
             </div>
         </div>

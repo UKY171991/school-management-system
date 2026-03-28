@@ -399,6 +399,24 @@ class AdmissionController extends Controller
                 $student->school_id = $school->id;
             }
         }
+
+        // Auto-fill Session Year
+        $currentMonth = date('n');
+        if ($currentMonth >= 4) {
+            $sessionYear = date('Y') . '-' . (date('y') + 1);
+        } else {
+            $sessionYear = (date('Y') - 1) . '-' . date('y');
+        }
+        $student->session_year = $sessionYear;
+
+        // Auto-fill Registration Number (Suggested Next)
+        $lastStudent = \App\Models\Student::where('school_id', $schoolId)->orderBy('id', 'desc')->first();
+        if ($lastStudent && is_numeric($lastStudent->registration_number)) {
+            $student->registration_number = $lastStudent->registration_number + 1;
+        } else {
+            $student->registration_number = (date('Y') % 100) . '0001'; // Default format: 260001
+        }
+
         return view('admissions.print', compact('student'));
     }
 }
