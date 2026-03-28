@@ -4,9 +4,19 @@
 
 @section('css')
 <style>
-    .ls-1 { letter-spacing: 0.5px; }
-    .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important; }
+    .ls-1 {
+        letter-spacing: 0.5px;
+    }
+
+    .hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+
     .custom-select-fancy {
         border-radius: 8px !important;
         border: 1px solid #e2e8f0 !important;
@@ -15,17 +25,38 @@
         background-color: #f8fafc !important;
         transition: all 0.2s ease;
     }
+
     .custom-select-fancy:focus {
         border-color: #3b82f6 !important;
         background-color: #fff !important;
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.1) !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
     }
-    .btn-white { background: #fff; color: #475569; }
-    .btn-white:hover { background: #f1f5f9; color: #1e293b; }
-    .rounded-lg { border-radius: 12px !important; }
-    .gap-1 { gap: 0.25rem; }
-    .gap-2 { gap: 0.5rem; }
-    .border-light-2 { border-color: #f1f5f9 !important; }
+
+    .btn-white {
+        background: #fff;
+        color: #475569;
+    }
+
+    .btn-white:hover {
+        background: #f1f5f9;
+        color: #1e293b;
+    }
+
+    .rounded-lg {
+        border-radius: 12px !important;
+    }
+
+    .gap-1 {
+        gap: 0.25rem;
+    }
+
+    .gap-2 {
+        gap: 0.5rem;
+    }
+
+    .border-light-2 {
+        border-color: #f1f5f9 !important;
+    }
 </style>
 @stop
 
@@ -50,13 +81,19 @@
                     <i class="fas fa-search mr-2 text-primary"></i>{{ __('Search & Actions') }}
                 </h5>
                 <div class="d-flex align-items-center gap-2">
-                    <a href="{{ route('admissions.bulk') }}" class="btn btn-white border shadow-sm btn-sm px-3 rounded-pill hover-lift" title="{{ __('Bulk Import') }}">
+                    <a href="{{ route('admissions.bulk') }}"
+                        class="btn btn-white border shadow-sm btn-sm px-3 rounded-pill hover-lift"
+                        title="{{ __('Bulk Import') }}">
                         <i class="fas fa-cloud-upload-alt text-success"></i>
                     </a>
-                    <a href="{{ route('admissions.print-blank') }}" id="printBlankLink" target="_blank" class="btn btn-white border shadow-sm btn-sm px-3 rounded-pill hover-lift" title="{{ __('Print Blank Form') }}">
+                    <a href="{{ route('admissions.print-blank') }}" id="printBlankLink" target="_blank"
+                        class="btn btn-white border shadow-sm btn-sm px-3 rounded-pill hover-lift"
+                        title="{{ __('Print Blank Form') }}">
                         <i class="fas fa-print text-primary"></i>
                     </a>
-                    <button type="button" class="btn btn-success shadow-sm btn-sm px-4 rounded-pill font-weight-bold ml-2 hover-lift" id="createNewStudent">
+                    <button type="button"
+                        class="btn btn-success shadow-sm btn-sm px-4 rounded-pill font-weight-bold ml-2 hover-lift"
+                        id="createNewStudent">
                         <i class="fas fa-plus-circle mr-1"></i> {{ __('New Admission') }}
                     </button>
                 </div>
@@ -64,29 +101,33 @@
             <div class="p-4">
                 <form id="filterForm" class="row align-items-end">
                     @if(auth()->user()->isMasterAdmin())
-                    <div class="col-lg-4 col-md-6 mb-3 mb-lg-0">
-                        <div class="form-group mb-0">
-                            <label class="small font-weight-bold text-muted mb-2 text-uppercase ls-1">
-                                <i class="fas fa-university mr-1 text-primary"></i> {{ __('School / Admin') }}
-                            </label>
-                            <select class="form-control select2 custom-select-fancy" id="filter_school_id" name="school_id">
-                                <option value="">{{ __('All Admins') }}</option>
-                                @foreach($admins as $admin)
-                                    <option value="{{ $admin->school_id }}">{{ $admin->name }} ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
-                                @endforeach
-                            </select>
+                        <div class="col-lg-4 col-md-6 mb-3 mb-lg-0">
+                            <div class="form-group mb-0">
+                                <label class="small font-weight-bold text-muted mb-2 text-uppercase ls-1">
+                                    <i class="fas fa-university mr-1 text-primary"></i> {{ __('School / Admin') }}
+                                </label>
+                                <select class="form-control select2 custom-select-fancy" id="filter_school_id"
+                                    name="school_id">
+                                    <option value="">{{ __('All Admins') }}</option>
+                                    @foreach($admins as $admin)
+                                        <option value="{{ $admin->school_id }}">{{ $admin->name }}
+                                            ({{ $admin->school ? $admin->school->name : __('No School') }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
                     @endif
                     <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
                         <div class="form-group mb-0">
                             <label class="small font-weight-bold text-muted mb-2 text-uppercase ls-1">
                                 <i class="fas fa-graduation-cap mr-1 text-info"></i> {{ __('Class') }}
                             </label>
-                            <select class="form-control select2 custom-select-fancy" id="filter_grade_id" name="grade_id">
+                            <select class="form-control select2 custom-select-fancy" id="filter_grade_id"
+                                name="grade_id">
                                 <option value="">{{ __('All Classes') }}</option>
                                 @foreach($grades as $grade)
-                                    <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">{{ $grade->name }}</option>
+                                    <option value="{{ $grade->id }}" data-school="{{ $grade->school_id }}">
+                                        {{ $grade->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -96,10 +137,12 @@
                             <label class="small font-weight-bold text-muted mb-2 text-uppercase ls-1">
                                 <i class="fas fa-layer-group mr-1 text-warning"></i> {{ __('Section') }}
                             </label>
-                            <select class="form-control select2 custom-select-fancy" id="filter_section_id" name="section_id">
+                            <select class="form-control select2 custom-select-fancy" id="filter_section_id"
+                                name="section_id">
                                 <option value="">{{ __('All Sections') }}</option>
                                 @foreach($sections as $section)
-                                    <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">{{ $section->name }}</option>
+                                    <option value="{{ $section->id }}" data-grade="{{ $section->grade_id }}">
+                                        {{ $section->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -109,7 +152,8 @@
                             <button type="submit" class="btn btn-primary btn-block shadow-sm py-2 rounded-lg">
                                 <i class="fas fa-filter mr-1"></i> {{ __('Filter') }}
                             </button>
-                            <button type="button" class="btn btn-light border shadow-sm px-3 py-2 rounded-lg" id="resetFilter" title="{{ __('Reset Filters') }}">
+                            <button type="button" class="btn btn-light border shadow-sm px-3 py-2 rounded-lg"
+                                id="resetFilter" title="{{ __('Reset Filters') }}">
                                 <i class="fas fa-sync-alt text-secondary"></i>
                             </button>
                         </div>
@@ -192,7 +236,8 @@
                                     style="width: 100%;">
                                     <option value="">{{ __('Choose Branch...') }}</option>
                                     @foreach($branches as $branch)
-                                        <option value="{{ $branch->id }}" data-school="{{ $branch->school_id }}">{{ $branch->name }}</option>
+                                        <option value="{{ $branch->id }}" data-school="{{ $branch->school_id }}">
+                                            {{ $branch->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -297,7 +342,8 @@
                                                 class="fas fa-id-card text-muted"></i></span>
                                     </div>
                                     <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
-                                        id="registration_number" name="registration_number" placeholder="{{ __('Enter registration number') }}">
+                                        id="registration_number" name="registration_number"
+                                        placeholder="{{ __('Enter registration number') }}">
                                 </div>
                             </div>
                         </div>
@@ -389,8 +435,8 @@
                                         <span class="input-group-text bg-white border-right-0"><i
                                                 class="fas fa-map-marker-alt text-muted"></i></span>
                                     </div>
-                                    <textarea class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="address" name="address"
-                                        rows="2" placeholder="{{ __('Enter full address') }}"></textarea>
+                                    <textarea class="form-control border-left-0 pl-0 mt-0 h-auto py-2" id="address"
+                                        name="address" rows="2" placeholder="{{ __('Enter full address') }}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -774,12 +820,12 @@
         }
 
         @if(auth()->user()->isMasterAdmin())
-            $('#filter_school_id').on('change', function() {
+            $('#filter_school_id').on('change', function () {
                 updatePrintBlankLink();
             });
 
             // Click handler for alert if no school selected
-            $(document).on('click', '#printBlankLink', function(e) {
+            $(document).on('click', '#printBlankLink', function (e) {
                 let schoolId = $('#filter_school_id').val();
                 if (!schoolId && $(this).hasClass('disabled')) {
                     e.preventDefault();
@@ -1092,7 +1138,7 @@
                 $('#viewStudentModal').on('hidden.bs.modal', function () {
                     $(this).remove();
                 });
-            }).fail(function(err) {
+            }).fail(function (err) {
                 console.error("View Ajax Error:", err);
                 Swal.fire("{{ __('Connection Error') }}", "{{ __('Failed to fetch student details. Please try again later.') }}", 'error');
             });
