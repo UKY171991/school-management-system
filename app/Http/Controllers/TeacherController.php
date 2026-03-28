@@ -153,4 +153,10 @@ class TeacherController extends Controller
         
         return response()->json(['success' => __(ucfirst($type)) . ' ' . __('deleted successfully.')]);
     }
+
+    public function printIdCard(string $id)
+    {
+        $teacher = Teacher::with('school')->findOrFail($id);
+        return view('teacher-profiles.id-card', compact('teacher'));
+    }
 }

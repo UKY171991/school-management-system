@@ -174,6 +174,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="#" id="printIdCardBtn" target="_blank" class="btn btn-primary px-4 shadow-sm">
+                    <i class="fas fa-id-card mr-2"></i> {{ __('Print ID Card') }}
+                </a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
@@ -248,7 +251,10 @@
                     data: 'id',
                     render: function(data) {
                         return `
-                            <button class="btn btn-info btn-sm viewTeacher" data-id="${data}" title="{{ __('View Details') }}">
+                            <a href="/admin/teacher-profiles/${data}/id-card" target="_blank" class="btn btn-info btn-sm" title="{{ __('Print ID Card') }}">
+                                <i class="fas fa-id-card"></i>
+                            </a>
+                            <button class="btn btn-primary btn-sm viewTeacher" data-id="${data}" title="{{ __('View Details') }}">
                                 <i class="fas fa-eye"></i>
                             </button>
                             <button class="btn btn-warning btn-sm editTeacher" data-id="${data}" title="{{ __('Edit') }}">
@@ -397,6 +403,7 @@
                     $('#viewSignatureContainer').html('<div class="text-muted p-2 border rounded"><small>{{ __('No Signature Available') }}</small></div>');
                 }
 
+                $('#printIdCardBtn').attr('href', `/admin/teacher-profiles/${data.id}/id-card`);
                 $('#viewTeacherModal').modal('show');
             });
         });

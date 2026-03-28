@@ -65,7 +65,7 @@
                 <table class="table table-hover align-middle" id="profilesTable" style="width:100%">
                     <thead class="bg-light">
                         <tr>
-                            <th class="border-top-0">{{ __('Roll #') }}</th>
+                            <th class="border-top-0">{{ __('Reg #') }}</th>
                             <th class="border-top-0">{{ __('School') }}</th>
                             <th class="border-top-0">{{ __('Student Name') }}</th>
                             <th class="border-top-0">{{ __('Class / Section') }}</th>
@@ -188,9 +188,9 @@
             },
             columns: [
                 {
-                    data: 'roll_number',
+                    data: 'registration_number',
                     render: function(data) {
-                        return `<span class="badge badge-pill badge-info px-3 py-2 font-weight-normal shadow-xs">${data}</span>`;
+                        return `<span class="badge badge-pill badge-info px-3 py-2 font-weight-normal shadow-xs">${data || "{{ __('N/A') }}"}</span>`;
                     }
                 },
                 {
@@ -251,9 +251,10 @@
                 $('#modalTitle').html(`<i class="fas fa-folder-open mr-2 text-white"></i> {{ __('Documents for') }} ${data.name}`);
                 
                 $('#studentInfo').html(`
-                    <div class="col-md-4 mb-2"><span class="text-muted small d-block">{{ __('Email') }}</span> <strong>${data.email}</strong></div>
-                    <div class="col-md-4 mb-2"><span class="text-muted small d-block">{{ __('Roll Number') }}</span> <strong>${data.roll_number}</strong></div>
-                    <div class="col-md-4 mb-2"><span class="text-muted small d-block">{{ __('Date of Birth') }}</span> <strong>${data.dob || '{{ __('N/A') }}'}</strong></div>
+                    <div class="col-md-3 mb-2"><span class="text-muted small d-block">{{ __('Email') }}</span> <strong>${data.email}</strong></div>
+                    <div class="col-md-3 mb-2"><span class="text-muted small d-block">{{ __('Reg #') }}</span> <strong>${data.registration_number || 'N/A'}</strong></div>
+                    <div class="col-md-3 mb-2"><span class="text-muted small d-block">{{ __('Session') }}</span> <strong>${data.session_year || 'N/A'}</strong></div>
+                    <div class="col-md-3 mb-2"><span class="text-muted small d-block">{{ __('Date of Birth') }}</span> <strong>${data.dob || '{{ __('N/A') }}'}</strong></div>
                 `);
                 
                 let docRows = '';

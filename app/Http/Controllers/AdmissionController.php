@@ -16,7 +16,28 @@ class AdmissionController extends Controller
         if ($request->ajax()) {
             if ($request->has('next_roll')) {
                 $lastRoll = \App\Models\Student::max('roll_number');
-                return response()->json(['next_roll' => ($lastRoll ? (int) $lastRoll + 1 : 1001)]);
+                
+                // Registration Logic
+                $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
+                $latestStud = \App\Models\Student::where('school_id', $school_id)
+                                ->orderBy('registration_number', 'desc')
+                                ->first();
+                $lastReg = $latestStud ? intval(preg_replace('/[^0-9]/', '', $latestStud->registration_number)) : 260000;
+                
+                // Session Logic
+                $currentMonth = date('n');
+                $currentYear = date('Y');
+                if ($currentMonth >= 4) {
+                    $session = $currentYear . '-' . ($currentYear + 1 - 2000);
+                } else {
+                    $session = ($currentYear - 1) . '-' . ($currentYear - 2000);
+                }
+                
+                return response()->json([
+                    'next_roll' => ($lastRoll ? (int) $lastRoll + 1 : 1001),
+                    'next_registration' => $lastReg + 1,
+                    'current_session' => $session
+                ]);
             }
             $query = \App\Models\Student::with(['grade', 'section', 'school', 'branch'])->latest();
 

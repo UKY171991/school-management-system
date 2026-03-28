@@ -41,6 +41,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     // 2. Teacher & Staff
     Route::delete('teacher-profiles/{id}/delete-asset', [App\Http\Controllers\TeacherController::class, 'deleteAsset'])->name('teacher-profiles.delete-asset');
+    Route::get('teacher-profiles/{id}/id-card', [App\Http\Controllers\TeacherController::class, 'printIdCard'])->name('teacher-profiles.id-card');
     Route::resource('teacher-profiles', App\Http\Controllers\TeacherController::class);
     Route::resource('staff-attendance', App\Http\Controllers\StaffAttendanceController::class);
     Route::get('teacher-timetable/routine', [App\Http\Controllers\TeacherTimetableController::class, 'routine'])->name('teacher-timetable.routine');

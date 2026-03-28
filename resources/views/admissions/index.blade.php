@@ -132,7 +132,7 @@
                         <tr>
                             <th class="border-top-0">{{ __('ID') }}</th>
                             <th class="border-top-0">{{ __('Photo') }}</th>
-                            <th class="border-top-0">{{ __('Roll #') }}</th>
+                            <th class="border-top-0">{{ __('Reg #') }}</th>
                             <th class="border-top-0">{{ __('Full Name') }}</th>
                             <th class="border-top-0">{{ __('Father Name') }}</th>
                             <th class="border-top-0">{{ __('Mother Name') }}</th>
@@ -244,7 +244,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Roll Number') }} <span
                                         class="text-danger">*</span></label>
@@ -599,9 +599,9 @@
                     searchable: false
                 },
                 {
-                    data: 'roll_number',
+                    data: 'registration_number',
                     render: function (data) {
-                        return `<span class="badge badge-pill badge-info px-3 py-2 shadow-sm font-weight-normal">${data}</span>`;
+                        return `<span class="badge badge-pill badge-primary px-3 py-2 shadow-sm font-weight-normal">${data || "{{ __('N/A') }}"}</span>`;
                     }
                 },
                 {
@@ -733,6 +733,9 @@
             $('.custom-file-label').html("{{ __('Choose file') }}");
             $('#previewImg').attr('src', '');
             $('#photoContainer').hide();
+            $('#registration_number').val('');
+            $('#session_year').val('');
+            $('#btn_auto_fill_reg').show(); // Show if hidden before
             $('#admissionModalLabel').html('<i class="fas fa-user-plus mr-2"></i>{{ __("New Student Admission") }}');
         }
 
@@ -791,8 +794,11 @@
         $('#createNewStudent').click(function () {
             resetAdmissionModal();
 
-            $.get("{{ route('admissions.index') }}", { next_roll: 1 }, function (data) {
+            let schoolId = $('#school_id').val();
+            $.get("{{ route('admissions.index') }}", { next_roll: 1, school_id: schoolId }, function (data) {
                 $('#roll_number').val(data.next_roll);
+                $('#registration_number').val(data.next_registration);
+                $('#session_year').val(data.current_session);
             });
 
             @if(!auth()->user()->isMasterAdmin())
@@ -995,7 +1001,7 @@
                                                 <div class="col-md-4 text-center border-right">
                                                     ${data.photo_url ? `<img src="${data.photo_url}" class="rounded-circle shadow-lg mb-3 border border-light" width="140" height="140" alt="{{ __('Student Photo') }}" style="object-fit:cover;">` : '<div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center shadow-lg mb-3 mx-auto" style="width: 140px; height: 140px;"><i class="fas fa-user-circle fa-4x text-white-50"></i></div>'}
                                                     <h5 class="font-weight-bold text-dark mb-0">${data.name}</h5>
-                                                    <span class="badge badge-pill badge-primary px-3 py-2 mt-2 font-weight-normal shadow-sm">Roll: ${data.roll_number}</span>
+                                                    <span class="badge badge-pill badge-primary px-3 py-2 mt-2 font-weight-normal shadow-sm">Reg: ${data.registration_number || 'N/A'}</span>
                                                 </div>
                                                 <div class="col-md-8 pl-md-4">
                                                     <div class="row g-3">
