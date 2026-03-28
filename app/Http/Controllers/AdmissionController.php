@@ -440,4 +440,10 @@ class AdmissionController extends Controller
 
         return view('admissions.print', compact('student'));
     }
+
+    public function printIdCard(string $id)
+    {
+        $student = \App\Models\Student::with(['grade', 'section', 'school'])->findOrFail($id);
+        return view('admissions.id-card', compact('student'));
+    }
 }

@@ -223,6 +223,9 @@
                     className: 'text-center',
                     render: function (data) {
                         return `
+                            <a href="/admin/admissions/${data}/id-card" target="_blank" class="btn btn-outline-secondary btn-sm shadow-xs border-0 mr-1" title="{{ __('Print ID Card') }}">
+                                <i class="fas fa-id-card mr-1"></i> {{ __('ID Card') }}
+                            </a>
                             <button class="btn btn-outline-info btn-sm viewDocs shadow-xs border-0" data-id="${data}">
                                 <i class="fas fa-folder-open mr-1"></i> {{ __('Manage Docs') }}
                             </button>

@@ -644,17 +644,20 @@
                     className: 'text-center',
                     render: function (data, type, row) {
                         return `
-                            <div class="btn-group">
-                                <button class="btn btn-outline-info btn-sm border-0 viewStudent" data-id="${data}" title="{{ __('View Details') }}">
-                                    <i class="fas fa-eye"></i> {{ __('View') }}
-                                </button>
-                                <button class="btn btn-outline-warning btn-sm border-0 editStudent" data-id="${data}" title="{{ __('Edit') }}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-outline-danger btn-sm border-0 deleteStudent" data-id="${data}" title="{{ __('Delete') }}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-info btn-sm border-0 viewStudent" data-id="${data}" title="{{ __('View Details') }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <a href="/admin/admissions/${data}/id-card" target="_blank" class="btn btn-outline-secondary btn-sm border-0" title="{{ __('Print ID Card') }}">
+                                        <i class="fas fa-id-card"></i>
+                                    </a>
+                                    <button class="btn btn-outline-warning btn-sm border-0 editStudent" data-id="${data}" title="{{ __('Edit') }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm border-0 deleteStudent" data-id="${data}" title="{{ __('Delete') }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                         `;
                     },
                     orderable: false,
@@ -1068,6 +1071,9 @@
                                     <div class="d-flex gap-2 w-100">
                                         <a href="/admin/admissions/print/${data.id}" target="_blank" class="btn btn-primary px-4 shadow-sm">
                                             <i class="fas fa-print mr-2"></i> {{ __('Print Record Form') }}
+                                        </a>
+                                        <a href="/admin/admissions/${data.id}/id-card" target="_blank" class="btn btn-info px-4 shadow-sm ml-2">
+                                            <i class="fas fa-id-card mr-2 text-white"></i> {{ __('Print ID Card') }}
                                         </a>
                                         <button type="button" class="btn btn-light border px-4 ms-auto" data-dismiss="modal">{{ __('Close Panel') }}</button>
                                     </div>

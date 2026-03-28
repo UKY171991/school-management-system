@@ -28,6 +28,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('admissions/download-sample', [App\Http\Controllers\AdmissionController::class, 'downloadSample'])->name('admissions.download-sample');
     Route::get('admissions/print/blank', [App\Http\Controllers\AdmissionController::class, 'printBlank'])->name('admissions.print-blank');
     Route::get('admissions/print/{id}', [App\Http\Controllers\AdmissionController::class, 'print'])->name('admissions.print');
+    Route::get('admissions/{id}/id-card', [App\Http\Controllers\AdmissionController::class, 'printIdCard'])->name('admissions.id-card');
     Route::resource('admissions', App\Http\Controllers\AdmissionController::class);
     Route::get('students', [App\Http\Controllers\AdmissionController::class, 'index'])->name('students.index');
     Route::resource('student-profiles', App\Http\Controllers\StudentProfileController::class);
