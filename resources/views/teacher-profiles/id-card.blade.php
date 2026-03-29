@@ -142,9 +142,43 @@
             object-fit: contain;
         }
 
-        /* HIDE shield on vertical, SHOW on horizontal */
+        /* Watermarks */
+        .vertical-card .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15rem;
+            height: 15rem;
+            transform: translate(-50%, -50%);
+            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .horizontal-card .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 120px;
+            height: 120px;
+            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top right;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* HIDE shield on both for now as per last request for background logo only */
         .vertical-card .shield-logo { display: none; }
-        .horizontal-card .shield-logo { display: flex; }
+        .horizontal-card .shield-logo { display: none; }
 
         .header-bg::after {
             content: '';
@@ -454,13 +488,6 @@
                             <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                             <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                             <div class="contact">{{ $teacher->school->phone ?? '9711447614' }}</div>
-                        </div>
-                        <div class="shield-logo">
-                            @if(isset($teacher->school->logo_url))
-                                <img src="{{ $teacher->school->logo_url }}" alt="Logo">
-                            @else
-                                <i class="fa fa-university fa-2x text-success"></i>
-                            @endif
                         </div>
                     </div>
 
