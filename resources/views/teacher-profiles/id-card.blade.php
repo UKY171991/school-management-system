@@ -157,29 +157,6 @@
             font-weight: 500;
         }
 
-        .shield-logo {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            width: 65px;
-            height: 75px;
-            background: white;
-            padding: 5px;
-            border-radius: 4px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .shield-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
         .teacher-photo {
             border: 1px solid #ddd;
             padding: 2px;
@@ -380,13 +357,6 @@
                         {{ $teacher->school->phone ?? '9711447614' }} | {{ $teacher->school->email ?? 'info@thewebbrain.in' }}
                     </div>
                 </div>
-                <div class="shield-logo">
-                    @if(isset($teacher->school->logo_url))
-                        <img src="{{ $teacher->school->logo_url }}" alt="Logo">
-                    @else
-                         <i class="fa fa-university fa-2x text-success"></i>
-                    @endif
-                </div>
             </div>
 
             <div class="v-photo-section">
@@ -449,13 +419,6 @@
                             <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                             <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                             <div class="contact">{{ $teacher->school->phone ?? '9711447614' }}</div>
-                        </div>
-                        <div class="shield-logo">
-                            @if(isset($teacher->school->logo_url))
-                                <img src="{{ $teacher->school->logo_url }}" alt="Logo">
-                            @else
-                                <i class="fa fa-university fa-2x text-success"></i>
-                            @endif
                         </div>
                     </div>
 
