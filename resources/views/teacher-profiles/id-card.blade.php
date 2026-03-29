@@ -101,6 +101,25 @@
             overflow: hidden;
         }
 
+        /* Watermark ONLY for vertical */
+        .vertical-card .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            transform: translate(-50%, -50%);
+            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Shield Badge Style */
         .shield-logo {
             position: absolute;
             top: 15px;
@@ -118,11 +137,9 @@
             z-index: 10;
         }
 
-        .shield-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        /* HIDE shield on vertical, SHOW on horizontal */
+        .vertical-card .shield-logo { display: none; }
+        .horizontal-card .shield-logo { display: flex; }
 
         .header-bg::after {
             content: '';
