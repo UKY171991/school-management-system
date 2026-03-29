@@ -122,19 +122,24 @@
         /* Shield Badge Style */
         .shield-logo {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            width: 65px;
-            height: 75px;
+            top: 20px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
             background: white;
-            padding: 5px;
-            border-radius: 4px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10;
+        }
+
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* HIDE shield on vertical, SHOW on horizontal */
