@@ -151,23 +151,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-gold) 100%);
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .student-photo {
             width: 130px;
             height: 130px;
             border-radius: 50%;
-            border: 5px solid var(--school-gold);
+            border: 3px solid #fff; /* White inner ring like reference */
             object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            background: #fff;
+            background: #f8f9fa;
         }
 
         .student-name {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--school-blue);
             margin: 10px 0 5px;
+            letter-spacing: -0.5px;
         }
 
         .info-row {
