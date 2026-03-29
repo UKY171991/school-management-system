@@ -240,27 +240,20 @@
 
         .v-body {
             flex: 1;
-            padding: 0;
+            padding: 10px 15px;
             text-align: center;
-        }
-
-        .v-visual-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-            padding: 0 10px;
         }
 
         .v-info-list {
             text-align: left;
-            padding: 0 25px;
-            margin-top: 10px;
+            padding: 0 10px;
+            margin-top: 15px;
         }
 
-        .v-qr-section {
-            margin-top: 0; /* Align with photo */
+        .v-qr-code-img {
+            width: 110px;
+            height: 110px;
+            margin-bottom: 5px;
         }
 
         .v-qr-code-img {
@@ -369,18 +362,21 @@
             </div>
 
             <div class="v-body">
-                <div class="v-visual-section">
-                    <div class="student-photo-wrapper">
-                        @if($student->photo_url)
-                            <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
-                        @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
-                        @endif
+                <div class="row align-items-center justify-content-center mb-3">
+                    <div class="col-6 d-flex justify-content-center">
+                        <div class="student-photo-wrapper">
+                            @if($student->photo_url)
+                                <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
+                            @endif
+                        </div>
                     </div>
-
-                    <div class="qr-section v-qr-section">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=student:{{ $student->id }}" class="qr-code-img" style="width: 110px; height: 110px;" alt="QR Code">
-                        <div class="qr-label">Scan for attendance</div>
+                    <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="qr-section">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=student:{{ $student->id }}" class="qr-code-img" style="width: 110px; height: 110px;" alt="QR Code">
+                            <div class="qr-label">Scan for attendance</div>
+                        </div>
                     </div>
                 </div>
 
