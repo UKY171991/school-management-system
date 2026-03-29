@@ -240,19 +240,27 @@
 
         .v-body {
             flex: 1;
-            padding-top: 20px;
+            padding: 0;
             text-align: center;
+        }
+
+        .v-visual-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 0 10px;
         }
 
         .v-info-list {
             text-align: left;
             padding: 0 25px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .v-qr-section {
-            margin-top: 15px;
-            margin-bottom: 15px;
+            margin-top: 0; /* Align with photo */
         }
 
         .v-qr-code-img {
@@ -361,12 +369,19 @@
             </div>
 
             <div class="v-body">
-                <div class="student-photo-wrapper">
-                    @if($student->photo_url)
-                        <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
-                    @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
-                    @endif
+                <div class="v-visual-section">
+                    <div class="student-photo-wrapper">
+                        @if($student->photo_url)
+                            <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
+                        @endif
+                    </div>
+
+                    <div class="qr-section v-qr-section">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=student:{{ $student->id }}" class="qr-code-img" style="width: 110px; height: 110px;" alt="QR Code">
+                        <div class="qr-label">Scan for attendance</div>
+                    </div>
                 </div>
 
                 <h1 class="student-name">{{ $student->name }}</h1>
@@ -388,11 +403,6 @@
                         <span class="info-label">Address :</span>
                         <span class="info-value">{{ $student->address ?? 'N/A' }}</span>
                     </div>
-                </div>
-
-                <div class="qr-section v-qr-section">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=student:{{ $student->id }}" class="qr-code-img v-qr-code-img" alt="QR Code">
-                    <div class="qr-label">Scan for attendance</div>
                 </div>
             </div>
 
