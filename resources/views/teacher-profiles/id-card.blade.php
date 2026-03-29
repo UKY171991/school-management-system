@@ -91,9 +91,11 @@
 
         .header-bg {
             background: var(--school-green);
-            background-image: linear-gradient(135deg, var(--school-green) 0%, var(--school-green-light) 100%);
+            background-image: 
+                linear-gradient(135deg, var(--school-green) 0%, var(--school-green-light) 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm66-3c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-40-39c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm20-40c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM10 50c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm80 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-40 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 10c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
             position: relative;
-            padding: 15px 20px;
+            padding: 20px 20px 25px;
             color: #fff;
             text-align: center;
         }
@@ -105,46 +107,48 @@
             left: 0;
             width: 100%;
             height: 15px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
             clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%);
         }
 
         .school-info .school-name {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             text-transform: uppercase;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .school-info .location {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            margin-top: 2px;
+            font-size: 0.85rem;
+            opacity: 0.95;
+            margin-top: 4px;
+            font-weight: 600;
         }
 
         .school-info .contact {
             font-size: 0.75rem;
-            opacity: 0.8;
-            margin-top: 4px;
+            opacity: 0.9;
+            margin-top: 6px;
             font-weight: 500;
         }
 
         .shield-logo {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            width: 50px;
-            height: 55px;
+            top: 15px;
+            right: 20px;
+            width: 65px;
+            height: 75px;
             background: white;
-            padding: 4px;
+            padding: 5px;
             border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 50% 100%, 0% 80%);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 5;
+            z-index: 10;
         }
 
         .shield-logo img {
@@ -154,10 +158,11 @@
         }
 
         .teacher-photo {
-            border: 2px solid #ddd;
+            border: 1px solid #ddd;
             padding: 2px;
-            background: white;
+            background: #f8f9fa;
             object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         .designation-badge {

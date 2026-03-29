@@ -13,12 +13,12 @@ class Teacher extends Model
 
     public function getPhotoUrlAttribute()
     {
-        return $this->photo ? asset('storage/' . $this->photo) : null;
+        return ($this->photo && file_exists(public_path('storage/' . $this->photo))) ? asset('storage/' . $this->photo) : null;
     }
 
     public function getSignatureUrlAttribute()
     {
-        return $this->signature ? asset('storage/' . $this->signature) : null;
+        return ($this->signature && file_exists(public_path('storage/' . $this->signature))) ? asset('storage/' . $this->signature) : null;
     }
 
     public function school()
