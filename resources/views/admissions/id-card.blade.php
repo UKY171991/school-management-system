@@ -82,44 +82,57 @@
             border-bottom: 4px solid var(--school-gold);
         }
 
+        .school-info {
+            position: relative;
+            z-index: 2;
+            padding-right: 75px; /* Reserve space for the badge */
+            text-align: center;
+        }
+
         .school-info .school-name {
             font-size: 1.4rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: var(--school-gold-light);
+            line-height: 1.1;
         }
 
         .school-info .location {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.9;
-            margin-top: 2px;
+            margin-top: 3px;
             font-weight: 500;
+            line-height: 1.2;
         }
 
         .school-info .contact {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             opacity: 0.8;
-            margin-top: 5px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 5px;
+            margin-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 4px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
 
         .school-badge {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
-            width: 55px;
-            height: 65px;
+            width: 60px;
+            height: 70px;
             background: #fff;
-            padding: 4px;
-            border-radius: 2px;
+            padding: 5px;
+            border-radius: 4px;
             clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid var(--school-gold);
+            z-index: 10;
         }
 
         .school-badge img {
