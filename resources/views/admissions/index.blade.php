@@ -289,7 +289,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6 d-none">
+                        <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Roll Number') }} <span
                                         class="text-danger">*</span></label>
@@ -852,7 +852,6 @@
 
             @if(!auth()->user()->isMasterAdmin())
                 // For non-master admin, automatically load grades for their school
-                let schoolId = $('#school_id').val();
                 if (schoolId) {
                     $.get("{{ route('grades.index') }}", { school_id: schoolId }, function (data) {
                         let options = '<option value="">{{ __('Choose Class...') }}</option>';

@@ -183,28 +183,22 @@
         </div>
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
                 <div class="field-row">
                     <span class="field-label" style="min-width: 60px;">Gender:</span>
                     <span class="field-value">{{ $student->gender }}</span>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <div class="field-row">
                     <span class="field-label" style="min-width: 50px;">Caste:</span>
                     <span class="field-value">{{ $student->caste }}</span>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <div class="field-row">
                     <span class="field-label" style="min-width: 50px;">Class:</span>
                     <span class="field-value">{{ $student->grade->name ?? '' }}</span>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="field-row">
-                    <span class="field-label" style="min-width: 60px;">Section:</span>
-                    <span class="field-value">{{ $student->section->name ?? '' }}</span>
                 </div>
             </div>
         </div>
