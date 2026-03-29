@@ -6,290 +6,476 @@
     <title>Teacher ID Card - {{ $teacher->name }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit:300,400,600,700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --school-green: #2e7d32;
+            --school-green-light: #4caf50;
+            --school-green-dark: #1b5e20;
+            --premium-gray: #f8f9fa;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
-            background: #f0f2f5;
+            background: #eef2f7;
+            margin: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
         }
 
-        @media print {
-            body { background: white; }
-            .no-print { display: none; }
-            .card-wrapper { box-shadow: none !important; margin: 0 !important; }
-        }
-
-        .no-print {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .card-wrapper {
-            width: 380px;
-            height: 580px;
+        /* --- UI Controls --- */
+        .controls {
+            margin-bottom: 30px;
             background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            position: relative;
-            border: 1px solid #eee;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #1a237e 0%, #303f9f 100%);
-            height: 180px;
-            padding: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-            text-align: center;
-            border-bottom: 5px solid #ffca28;
-            position: relative;
+            gap: 15px;
+            z-index: 100;
         }
 
-        .school-logo {
-            width: 50px;
-            height: 50px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            padding: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .school-name {
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .school-address {
-            font-size: 10px;
-            opacity: 0.8;
-            font-weight: 300;
-        }
-
-        .photo-container {
-            width: 150px;
-            height: 150px;
-            margin: -75px auto 15px;
-            position: relative;
-            z-index: 5;
-            border: 6px solid #fff;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            background: #f8f9fa;
-        }
-
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .teacher-info {
-            padding: 0 30px 20px;
-            text-align: center;
-        }
-
-        .teacher-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a237e;
-            margin-bottom: 5px;
-        }
-
-        .designation {
-            font-size: 14px;
+        .nav-pills .nav-link {
+            border-radius: 8px;
+            padding: 8px 20px;
             font-weight: 600;
-            color: #ffca28;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            background: #1a237e;
-            padding: 4px 15px;
-            display: inline-block;
-            border-radius: 20px;
+            color: #555;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .details-grid {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .nav-pills .nav-link.active {
+            background-color: var(--school-green);
+            color: #fff;
         }
 
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px dashed #e0e0e0;
-            padding: 8px 5px;
-        }
-
-        .detail-label {
-            font-size: 11px;
-            color: #777;
-            font-weight: 700;
-            text-transform: uppercase;
+        .btn-print {
+            background-color: var(--school-green-dark);
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 8px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .detail-label i {
-            color: #1a237e;
-            width: 14px;
+        .btn-print:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* --- Card Styles --- */
+        .card-container {
+            display: none;
+            perspective: 1000px;
+        }
+
+        .card-container.active {
+            display: block;
+        }
+
+        /* Common Elements */
+        .id-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .header-bg {
+            background: var(--school-green);
+            background-image: linear-gradient(135deg, var(--school-green) 0%, var(--school-green-light) 100%);
+            position: relative;
+            padding: 15px 20px;
+            color: #fff;
             text-align: center;
         }
 
-        .detail-value {
-            font-size: 13px;
-            color: #1a237e;
+        .header-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: rgba(255,255,255,0.2);
+            clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%);
+        }
+
+        .school-info .school-name {
+            font-size: 1.25rem;
             font-weight: 700;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
         }
 
-        .card-footer {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 30px 30px;
+        .school-info .location {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 2px;
         }
 
-        .qr-code {
-            width: 70px;
-            height: 70px;
-            background: #f8f9fa;
-            border: 1px solid #eee;
+        .school-info .contact {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .shield-logo {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 50px;
+            height: 55px;
+            background: white;
+            padding: 4px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 50% 100%, 0% 80%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8px;
-            color: #ccc;
+            z-index: 5;
         }
 
-        .signature-box {
-            text-align: center;
+        .shield-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
-        .signature-img {
-            max-width: 100px;
-            max-height: 40px;
-            margin-bottom: 5px;
+        .teacher-photo {
+            border: 2px solid #ddd;
+            padding: 2px;
+            background: white;
+            object-fit: cover;
         }
 
-        .sig-label {
-            font-size: 10px;
+        .designation-badge {
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #888;
-            text-transform: uppercase;
-            border-top: 1px solid #ddd;
-            padding-top: 3px;
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 2px;
+            text-transform: capitalize;
         }
 
-        .watermark {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            font-size: 100px;
-            opacity: 0.03;
-            font-weight: 900;
-            color: #1a237e;
-            z-index: 1;
-            pointer-events: none;
+        .id-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 15px;
         }
 
-        .id-strip {
+        .info-grid {
+            text-align: left;
+            padding: 0 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .footer-banner {
+            background-color: var(--school-green-light);
+            background-image: linear-gradient(90deg, #81c784 0%, #a5d6a7 100%);
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 10px;
-            background: #1a237e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+
+        /* Vertical Specific */
+        .vertical-card {
+            width: 330px;
+            height: 520px;
+        }
+
+        .v-photo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px 25px 0;
+            gap: 15px;
+        }
+
+        .v-teacher-photo {
+            width: 130px;
+            height: 140px;
+        }
+
+        .v-qr-code {
+            width: 110px;
+            height: 110px;
+        }
+
+        .v-body {
+            text-align: center;
+        }
+
+        /* Horizontal Specific */
+        .horizontal-card {
+            width: 500px;
+            height: 315px;
+        }
+
+        .h-layout {
+            display: flex;
+            height: calc(100% - 30px); /* Adjust for footer */
+        }
+
+        .h-left {
+            width: 160px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-right: 1px solid #f0f0f0;
+            align-items: center;
+        }
+
+        .h-right {
+            flex: 1;
+            position: relative;
+        }
+
+        .h-header {
+            padding-right: 70px; /* Room for logo */
+            text-align: left;
+        }
+
+        .h-teacher-photo {
+            width: 120px;
+            height: 130px;
+        }
+
+        .h-qr-code {
+            width: 80px;
+            height: 80px;
+        }
+
+        .h-body {
+            padding: 10px 20px;
+            text-align: left;
+        }
+
+        .h-name-group {
+            margin-bottom: 10px;
+        }
+
+        .h-designation {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .h-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .h-info-grid {
+            padding: 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            body { 
+                background: white; 
+                padding: 0;
+                margin: 0;
+            }
+            .controls { display: none !important; }
+            .card-container:not(.active) { display: none !important; }
+            .id-card { 
+                box-shadow: none !important; 
+                border: 1px solid #ddd !important;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="no-print">
-        <button onclick="window.print()" class="btn btn-primary shadow-lg px-4 py-2 rounded-pill">
-            <i class="fas fa-print mr-2"></i>Print ID Card
+
+    <div class="controls no-print">
+        <div class="nav nav-pills" role="tablist">
+            <button class="nav-link active" onclick="switchTab('vertical')">Vertical Card</button>
+            <button class="nav-link" onclick="switchTab('horizontal')">Horizontal Card</button>
+        </div>
+        <button onclick="window.print()" class="btn-print">
+            <i class="fa fa-print"></i> Print Card
         </button>
-        <button onclick="window.close()" class="btn btn-outline-secondary ml-2 rounded-pill">
-            Close
+        <button onclick="window.close()" class="btn btn-outline-secondary">
+            <i class="fa fa-times"></i> Close
         </button>
     </div>
 
-    <div class="card-wrapper">
-        <div class="card-header">
-            <h2 class="school-name">{{ $teacher->school->name ?? 'SCHOOL MANAGEMENT SYSTEM' }}</h2>
-            <div class="school-address text-truncate px-3">{{ $teacher->school->address ?? 'Main Campus, Academic Square' }}</div>
-        </div>
-
-        <div class="photo-container">
-            @if($teacher->photo_url)
-                <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="profile-photo">
-            @else
-                <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=1a237e&size=150" alt="{{ $teacher->name }}" class="profile-photo">
-            @endif
-        </div>
-
-        <div class="teacher-info">
-            <h1 class="teacher-name">{{ $teacher->name }}</h1>
-            <div class="designation">{{ $teacher->specialization ?? 'FACULTY MEMBER' }}</div>
-
-            <div class="details-grid">
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-id-badge"></i>Employee ID</span>
-                    <span class="detail-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
+    <!-- Vertical Card -->
+    <div id="vertical-container" class="card-container active">
+        <div class="id-card vertical-card">
+            <div class="header-bg">
+                <div class="school-info">
+                    <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
+                    <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
+                    <div class="contact">
+                        {{ $teacher->school->phone ?? '9711447614' }} | {{ $teacher->school->email ?? 'info@thewebbrain.in' }}
+                    </div>
                 </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-phone"></i>Phone Number</span>
-                    <span class="detail-value">{{ $teacher->phone ?? 'N/A' }}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-envelope"></i>Email Address</span>
-                    <span class="detail-value text-truncate" style="max-width: 150px;">{{ $teacher->email }}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fas fa-calendar-alt"></i>Join Date</span>
-                    <span class="detail-value">{{ $teacher->created_at->format('d-M, Y') }}</span>
+                <div class="shield-logo">
+                    @if(isset($teacher->school->logo_url))
+                        <img src="{{ $teacher->school->logo_url }}" alt="Logo">
+                    @else
+                         <i class="fa fa-university fa-2x text-success"></i>
+                    @endif
                 </div>
             </div>
-        </div>
 
-        <div class="card-footer">
-            <div class="signature-box w-100">
-                @if($teacher->signature_url)
-                    <img src="{{ $teacher->signature_url }}" alt="Signature" class="signature-img">
+            <div class="v-photo-section">
+                @if($teacher->photo_url)
+                    <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="teacher-photo v-teacher-photo">
                 @else
-                    <div style="height: 40px; margin-bottom: 5px; opacity: 0.3; font-size: 10px; padding-top: 15px;">Pending Sign</div>
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=2e7d32&size=200" alt="{{ $teacher->name }}" class="teacher-photo v-teacher-photo">
                 @endif
-                <div class="sig-label mx-auto">Authorized Sign</div>
+                
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=teacher:{{ $teacher->id }}" class="v-qr-code" alt="QR Code">
+            </div>
+
+            <div class="v-body">
+                <div class="designation-badge">Teacher</div>
+                <div class="id-name">{{ $teacher->name }}</div>
+
+                <div class="info-grid">
+                    <div class="info-row">
+                        <span class="info-label">Employee ID:</span>
+                        <span class="info-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">{{ $teacher->phone ?? '+91 XXXXXXXXX' }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">{{ $teacher->email }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Join Date:</span>
+                        <span class="info-value">{{ $teacher->created_at ? $teacher->created_at->format('d-M, Y') : date('d-M, Y') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-banner">
+                <i class="fa fa-pencil-alt"></i> Scan for attendance
             </div>
         </div>
-
-        <div class="watermark">TEACHER</div>
-        <div class="id-strip"></div>
     </div>
 
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Horizontal Card -->
+    <div id="horizontal-container" class="card-container">
+        <div class="id-card horizontal-card">
+            <div class="h-layout">
+                <div class="h-left">
+                    @if($teacher->photo_url)
+                        <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="teacher-photo h-teacher-photo">
+                    @else
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=2e7d32&size=200" alt="{{ $teacher->name }}" class="teacher-photo h-teacher-photo">
+                    @endif
+                    
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=teacher:{{ $teacher->id }}" class="h-qr-code" alt="QR Code">
+                </div>
+                
+                <div class="h-right">
+                    <div class="header-bg h-header">
+                        <div class="school-info">
+                            <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
+                            <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
+                            <div class="contact">{{ $teacher->school->phone ?? '9711447614' }}</div>
+                        </div>
+                        <div class="shield-logo">
+                            @if(isset($teacher->school->logo_url))
+                                <img src="{{ $teacher->school->logo_url }}" alt="Logo">
+                            @else
+                                <i class="fa fa-university fa-2x text-success"></i>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="h-body">
+                        <div class="h-name-group">
+                            <h3 class="h-designation">Teacher</h3>
+                            <h2 class="h-name">{{ $teacher->name }}</h2>
+                        </div>
+
+                        <div class="info-grid h-info-grid">
+                            <div class="info-row">
+                                <span class="info-label">Employee ID:</span>
+                                <span class="info-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Phone:</span>
+                                <span class="info-value">{{ $teacher->phone ?? '+91 XXXXX' }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Email:</span>
+                                <span class="info-value" style="font-size: 0.75rem;">{{ $teacher->email }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Join Date:</span>
+                                <span class="info-value">{{ $teacher->created_at ? $teacher->created_at->format('d-M, Y') : date('d-M, Y') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-banner">
+                <i class="fa fa-pencil-alt"></i> Scan for attendance
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(type) {
+            // Update buttons
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update containers
+            document.querySelectorAll('.card-container').forEach(c => c.classList.remove('active'));
+            document.getElementById(type + '-container').classList.add('active');
+        }
+    </script>
 </body>
 </html>
+
