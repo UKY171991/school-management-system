@@ -228,12 +228,16 @@ class AdmissionController extends Controller
 
     public function bulkAdmission()
     {
-        $grades = \App\Models\Grade::orderBy('name', 'asc')->get();
         if (auth()->user()->isMasterAdmin()) {
             $schools = \App\Models\School::all();
-            return view('admissions.bulk', compact('grades', 'schools'));
+            $branches = collect();
+            $grades = collect();
+            return view('admissions.bulk', compact('grades', 'schools', 'branches'));
         }
-        return view('admissions.bulk', compact('grades'));
+        $school_id = auth()->user()->school_id;
+        $branches = \App\Models\Branch::where('school_id', $school_id)->get();
+        $grades = \App\Models\Grade::where('school_id', $school_id)->orderBy('name', 'asc')->get();
+        return view('admissions.bulk', compact('grades', 'branches'));
     }
 
     public function downloadSample()
@@ -282,11 +286,11 @@ class AdmissionController extends Controller
                 '9876543210',
                 'Jane Doe',
                 '9876543211',
-                'General',
-                '123 Main St, Springfield',
-                'ABC School',
-                '123456789012',
-                'APAAR-123'
+                '123 Main St, Springfield', // Address (index 12)
+                'General',                  // Caste (index 13)
+                'ABC School',               // Previous School
+                '123456789012',            // Adhaar
+                'APAAR-123'                // Apaar
             ]);
             fclose($file);
         };
@@ -297,10 +301,11 @@ class AdmissionController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'csv_file' => 'required|mimes:csv,txt,xlsx',
+            'csv_file' => 'required|mimes:csv,txt',
             'grade_id' => 'required|exists:grades,id',
             'section_id' => 'required|exists:sections,id',
             'school_id' => auth()->user()->isMasterAdmin() ? 'required|exists:schools,id' : 'nullable',
+            'branch_id' => 'nullable|exists:branches,id',
         ]);
 
         $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
@@ -341,12 +346,12 @@ class AdmissionController extends Controller
             $adhaar = trim($data[15] ?? '');
             $apaar = trim($data[16] ?? '');
 
-            if (empty($name) || empty($email) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
-                $errors[] = "Row {$row_num}: Required fields (Name, Email, Roll, DOB, Gender, Admission Date) are empty.";
+            if (empty($name) || empty($roll) || empty($dob) || empty($gender) || empty($adm_date)) {
+                $errors[] = "Row {$row_num}: Required fields (Name, Roll, DOB, Gender, Admission Date) are empty.";
                 continue;
             }
 
-            if (\App\Models\Student::where('email', $email)->exists()) {
+            if (!empty($email) && \App\Models\Student::where('email', $email)->exists()) {
                 $errors[] = "Row {$row_num}: Email already exists.";
                 continue;
             }
@@ -357,8 +362,12 @@ class AdmissionController extends Controller
             }
 
             try {
+                $dob_parsed = !empty($dob) ? \Carbon\Carbon::parse($dob)->format('Y-m-d') : null;
+                $adm_date_parsed = !empty($adm_date) ? \Carbon\Carbon::parse($adm_date)->format('Y-m-d') : null;
+
                 \App\Models\Student::create([
                     'school_id' => $school_id,
+                    'branch_id' => $request->branch_id,
                     'grade_id' => $request->grade_id,
                     'section_id' => $request->section_id,
                     'name' => $name,
@@ -366,9 +375,9 @@ class AdmissionController extends Controller
                     'roll_number' => $roll,
                     'registration_number' => $reg_no,
                     'session_year' => $session,
-                    'dob' => $dob,
+                    'dob' => $dob_parsed,
                     'gender' => $gender,
-                    'admission_date' => $adm_date,
+                    'admission_date' => $adm_date_parsed,
                     'father_name' => $father,
                     'father_phone' => $f_phone,
                     'mother_name' => $mother,

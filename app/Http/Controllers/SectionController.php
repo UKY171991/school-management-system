@@ -21,6 +21,9 @@ class SectionController extends Controller
             if ($request->has('grade_id') && !empty($request->grade_id)) {
                 $query->where('grade_id', $request->grade_id);
             }
+            if ($request->has('branch_id') && !empty($request->branch_id)) {
+                $query->where('branch_id', $request->branch_id);
+            }
             $sections = $query->get();
             return response()->json($sections);
         }

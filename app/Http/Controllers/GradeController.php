@@ -22,6 +22,9 @@ class GradeController extends Controller
             if ($request->has('teacher_id') && !empty($request->teacher_id)) {
                 $query->where('teacher_id', $request->teacher_id);
             }
+            if ($request->has('branch_id') && !empty($request->branch_id)) {
+                $query->where('branch_id', $request->branch_id);
+            }
             $grades = $query->get();
             return response()->json($grades);
         }
