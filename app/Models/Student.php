@@ -28,7 +28,7 @@ class Student extends Model
 
     public function getPhotoUrlAttribute()
     {
-        return $this->photo ? asset('storage/' . $this->photo) : null;
+        return ($this->photo && file_exists(public_path('storage/' . $this->photo))) ? asset('storage/' . $this->photo) : null;
     }
 
     public function school()
