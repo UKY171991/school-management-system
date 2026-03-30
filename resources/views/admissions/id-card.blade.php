@@ -236,12 +236,14 @@
         .card-footer {
             background: var(--school-blue);
             color: white;
-            padding: 8px 20px;
+            padding: 10px 25px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-size: 0.85rem;
             font-weight: 700;
             border-top: 4px solid var(--school-gold);
+            margin-top: auto;
         }
 
         /* Vertical Card Specific */
@@ -250,6 +252,7 @@
             height: 520px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .v-body {
@@ -278,14 +281,16 @@
         /* Horizontal Card Specific */
         .horizontal-card {
             width: 530px;
-            height: 330px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
         }
 
         .h-body {
             display: flex;
             padding: 15px;
-            align-items: stretch;
-            height: 195px; /* Fixed height for middle section */
+            align-items: center;
+            flex: 1;
         }
 
         .h-photo-col {

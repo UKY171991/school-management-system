@@ -287,17 +287,16 @@
         .footer-banner {
             background-color: var(--school-green-light);
             background-image: linear-gradient(90deg, #81c784 0%, #a5d6a7 100%);
-            padding: 8px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            position: absolute;
-            bottom: 0;
             width: 100%;
             font-size: 0.9rem;
             font-weight: 600;
             color: #1b5e20;
+            margin-top: auto;
         }
 
         /* Vertical Specific */
@@ -331,7 +330,7 @@
         /* Horizontal Specific */
         .horizontal-card {
             width: 500px;
-            height: 315px;
+            height: 340px;
         }
 
         .h-layout {
