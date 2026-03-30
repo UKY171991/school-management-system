@@ -498,7 +498,7 @@
                     <div class="text-center mb-3">
                         <h1 class="student-name h-student-name" style="margin-bottom: 0;">{{ $student->name }}</h1>
                         <span class="student-label" style="font-size: 0.8rem; margin-bottom: 5px;">Student</span>
-                        <div style="width: 100%; border-bottom: 1px solid #eee;"></div>
+                        <div style="border-bottom: 1.5px solid #eee; margin-top: 8px; width: 100%;"></div>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Class :</span>

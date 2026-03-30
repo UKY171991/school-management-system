@@ -489,7 +489,7 @@
                     <div class="text-center mb-3">
                         <h1 class="id-name" style="margin-bottom: 0;">{{ $teacher->name }}</h1>
                         <span class="designation-label" style="font-size: 0.8rem; margin-bottom: 5px;">Teacher</span>
-                        <div style="width: 100%; border-bottom: 1px solid #eee;"></div>
+                        <div style="border-bottom: 1.5px solid #eee; margin-top: 8px; width: 100%;"></div>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Employee ID :</span>
