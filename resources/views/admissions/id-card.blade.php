@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,7 @@
         :root {
             --school-blue: #0d244f;
             --school-gold: #c5a059;
-            --school-gold-light: #f1dca7;
-            --info-label: #8c6a2c;
+            --school-gold-light: #e6c88f;
         }
 
         body {
@@ -32,13 +32,13 @@
             background: #fff;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             display: flex;
             gap: 15px;
             z-index: 100;
         }
 
-        .btn-check:checked + .btn-outline-primary {
+        .btn-check:checked+.btn-outline-primary {
             background-color: var(--school-blue);
             border-color: var(--school-blue);
         }
@@ -68,7 +68,7 @@
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             position: relative;
             border: 2px solid var(--school-blue);
         }
@@ -76,69 +76,62 @@
         /* Header Style */
         .card-header {
             background: var(--school-blue);
-            background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0%, transparent 40%),
-                              linear-gradient(135deg, var(--school-blue) 0%, #1a3a7a 100%);
             color: white;
             text-align: center;
-            padding: 15px 20px 12px;
+            padding: 15px 20px 10px;
             position: relative;
-            border-bottom: 3px solid var(--school-gold);
+            border-bottom: 4px solid var(--school-gold);
         }
 
         .school-info {
             position: relative;
             z-index: 2;
-            padding-right: 85px; 
+            padding-right: 75px;
+            /* Reserve space for the badge */
             text-align: center;
         }
 
         .school-info .school-name {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: var(--school-gold-light);
             line-height: 1.1;
         }
 
         .school-info .location {
             font-size: 0.85rem;
-            opacity: 0.95;
+            opacity: 0.9;
             margin-top: 3px;
             font-weight: 500;
             line-height: 1.2;
-            color: #fff;
         }
 
         .school-info .contact {
-            font-size: 0.75rem;
-            opacity: 1;
-            margin-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 8px;
+            font-size: 0.68rem;
+            opacity: 0.9;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            color: #fff;
+            flex-wrap: nowrap;
+            gap: 8px;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             white-space: nowrap;
         }
 
-        .contact-item i {
-            color: #fff;
-            font-size: 0.8rem;
-        }
-
-        .contact-sep {
-            opacity: 0.6;
-            margin: 0 5px;
+        .contact-item+.contact-item {
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 12px;
         }
 
         .school-badge {
@@ -157,7 +150,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         /* Content Sections */
@@ -170,105 +163,87 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px;
+            padding: 4px;
             background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-gold) 100%);
             border-radius: 50%;
-            width: 140px;
-            height: 140px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            border: 2px solid #fff;
+            width: 110px;
+            height: 110px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         .student-photo {
-            width: 130px;
-            height: 130px;
+            width: 102px;
+            height: 102px;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 2px solid #fff;
             object-fit: cover;
-            background: #fff;
+            background: #f8f9fa;
         }
 
         .student-name {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--school-blue);
-            margin: 10px 0 2px;
+            margin: 10px 0 5px;
             letter-spacing: -0.5px;
-        }
-
-        .student-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--school-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: block;
         }
 
         .info-row {
             display: flex;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
             line-height: 1.2;
-            border-bottom: 1px dotted #eee;
-            padding-bottom: 4px;
         }
 
         .info-label {
-            color: var(--info-label);
+            color: var(--school-gold);
             font-weight: 700;
-            width: 120px;
+            width: 110px;
             flex-shrink: 0;
         }
 
         .info-value {
-            color: var(--school-blue);
-            font-weight: 700;
+            color: #333;
+            font-weight: 600;
         }
 
         .qr-section {
-            border: 1px solid #f0f0f0;
-            padding: 10px;
-            background: #fff;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .qr-code-img {
             width: 120px;
             height: 120px;
+            border: 1px solid #eee;
             padding: 5px;
+            background: #fff;
         }
 
         .qr-label {
             font-size: 0.7rem;
-            font-weight: 800;
-            color: var(--school-blue);
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #eee;
+            font-weight: 600;
+            color: #666;
+            margin-top: 5px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         /* Footer Style */
         .card-footer {
             background: var(--school-blue);
-            background-image: linear-gradient(to right, var(--school-blue), #1a3a7a);
             color: white;
-            padding: 10px 25px;
+            padding: 8px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            border-top: 4px solid var(--school-gold);
+            border-top: 3px solid var(--school-gold);
             margin-top: auto;
             position: relative;
             z-index: 5;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         /* Vertical Card Specific */
@@ -344,7 +319,9 @@
             border-left: 1px solid #f0f0f0;
         }
 
-        .h-info-row .info-label { width: 90px; }
+        .h-info-row .info-label {
+            width: 90px;
+        }
 
         .h-student-name {
             margin: 0 0 10px 0;
@@ -353,11 +330,22 @@
 
         /* Print Styles */
         @media print {
-            body { background: white; padding: 0; margin: 0; }
-            .controls { display: none !important; }
-            .card-container:not(.active) { display: none !important; }
-            .id-card { 
-                box-shadow: none !important; 
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .controls {
+                display: none !important;
+            }
+
+            .card-container:not(.active) {
+                display: none !important;
+            }
+
+            .id-card {
+                box-shadow: none !important;
                 margin: 0 auto;
                 border: 2px solid var(--school-blue) !important;
                 -webkit-print-color-adjust: exact;
@@ -365,6 +353,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="controls no-print">
@@ -375,11 +364,11 @@
             <input type="radio" class="btn-check" name="layout" id="h-radio" onclick="switchTab('horizontal')">
             <label class="btn btn-outline-primary" for="h-radio">Horizontal Layout</label>
         </div>
-        
+
         <button onclick="window.print()" class="btn-print">
             <i class="fa fa-print"></i> Print ID Card
         </button>
-        
+
         <button onclick="window.close()" class="btn btn-outline-secondary">
             <i class="fa fa-times"></i> Close
         </button>
@@ -396,7 +385,6 @@
                         <span class="contact-item">
                             <i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }}
                         </span>
-                        <span class="contact-sep">|</span>
                         <span class="contact-item">
                             <i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}
                         </span>
@@ -412,31 +400,33 @@
             </div>
 
             <div class="v-body">
-                <div class="row g-0 align-items-center justify-content-between mb-3 px-3">
-                    <div class="col-auto">
+                <div class="row align-items-center justify-content-center mb-3">
+                    <div class="col-6 d-flex justify-content-center">
                         <div class="student-photo-wrapper">
                             @if($student->photo_url)
                                 <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
                             @else
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200"
+                                    alt="{{ $student->name }}" class="student-photo">
                             @endif
                         </div>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="qr-section">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=student:{{ $student->id }}" class="qr-code-img" alt="QR Code">
-                            <div class="qr-label">SCAN FOR ATTENDANCE</div>
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=student:{{ $student->id }}"
+                                class="qr-code-img" style="width: 110px; height: 110px;" alt="QR Code">
+                            <div class="qr-label">Scan for attendance</div>
                         </div>
                     </div>
                 </div>
 
                 <h1 class="student-name">{{ $student->name }}</h1>
-                <span class="student-label">Student</span>
 
                 <div class="v-info-list">
                     <div class="info-row">
                         <span class="info-label">Class :</span>
-                        <span class="info-value">{{ $student->grade->name ?? 'N/A' }}{{ $student->section ? ' - ' . $student->section->name : '' }}</span>
+                        <span
+                            class="info-value">{{ $student->grade->name ?? 'N/A' }}{{ $student->section ? ' - ' . $student->section->name : '' }}</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Date of Birth :</span>
@@ -454,7 +444,7 @@
             </div>
 
             <div class="card-footer">
-                <span>SESSION: {{ $student->session_year ?? date('Y') . '-' . (date('y')+1) }}</span>
+                <span>SESSION: {{ $student->session_year ?? date('Y') . '-' . (date('y') + 1) }}</span>
                 <span>ID No: {{ $student->roll_number ?? str_pad($student->id, 4, '0', STR_PAD_LEFT) }}</span>
             </div>
         </div>
@@ -468,13 +458,11 @@
                     <h2 class="school-name">{{ $student->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                     <div class="location">{{ $student->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                     <div class="contact">
-                        <span class="contact-item">
-                            <i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }}
-                        </span>
-                        <span class="contact-sep">|</span>
-                        <span class="contact-item">
-                            <i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}
-                        </span>
+                        <span class="contact-item"><i class="fa fa-phone"></i>
+                            {{ $student->school->phone ?? '+91 9711447614' }}</span>
+                        <span class="contact-separator">|</span>
+                        <span class="contact-item"><i class="fa fa-envelope"></i> {{ $student->school->email ??
+                            'info@thewebbrain.in' }}</span>
                     </div>
                 </div>
                 <div class="school-badge">
@@ -488,21 +476,18 @@
 
             <div class="h-body">
                 <div class="h-photo-col">
-                    <div class="student-photo-wrapper" style="width: 130px; height: 130px;">
+                    <div class="student-photo-wrapper">
                         @if($student->photo_url)
-                            <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo" style="width: 120px; height: 120px;">
+                            <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
                         @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo" style="width: 120px; height: 120px;">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200"
+                                alt="{{ $student->name }}" class="student-photo">
                         @endif
                     </div>
                 </div>
 
                 <div class="h-info-col">
-                    <div class="text-center mb-3">
-                        <h1 class="student-name h-student-name" style="margin-bottom: 0;">{{ $student->name }}</h1>
-                        <span class="student-label" style="font-size: 0.8rem; margin-bottom: 5px;">Student</span>
-                        <div style="width: 100%; border-bottom: 1px solid #eee;"></div>
-                    </div>
+                    <h1 class="student-name h-student-name">{{ $student->name }}</h1>
                     <div class="h-info-row info-row">
                         <span class="info-label">Class :</span>
                         <span class="info-value">{{ $student->grade->name ?? 'N/A' }}</span>
@@ -513,7 +498,8 @@
                     </div>
                     <div class="h-info-row info-row">
                         <span class="info-label">Father's Name :</span>
-                        <span class="info-value text-truncate" style="max-width: 150px;">{{ $student->father_name ?? 'N/A' }}</span>
+                        <span class="info-value text-truncate"
+                            style="max-width: 150px;">{{ $student->father_name ?? 'N/A' }}</span>
                     </div>
                     <div class="h-info-row info-row">
                         <span class="info-label">Phone :</span>
@@ -521,20 +507,22 @@
                     </div>
                     <div class="h-info-row info-row">
                         <span class="info-label">Address :</span>
-                        <span class="info-value text-truncate" style="max-width: 150px;">{{ $student->address ?? 'N/A' }}</span>
+                        <span class="info-value text-truncate"
+                            style="max-width: 150px;">{{ $student->address ?? 'N/A' }}</span>
                     </div>
                 </div>
 
                 <div class="h-qr-col">
                     <div class="qr-section">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=student:{{ $student->id }}" class="qr-code-img" alt="QR Code">
-                        <div class="qr-label">SCAN FOR ATTENDANCE</div>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=student:{{ $student->id }}"
+                            class="qr-code-img" style="width: 150px; height: 150px;" alt="QR Code">
+                        <div class="qr-label">Scan for attendance</div>
                     </div>
                 </div>
             </div>
 
             <div class="card-footer">
-                <span>SESSION: {{ $student->session_year ?? date('Y') . '-' . (date('y')+1) }}</span>
+                <span>SESSION: {{ $student->session_year ?? date('Y') . '-' . (date('y') + 1) }}</span>
                 <span>ID No: {{ $student->roll_number ?? str_pad($student->id, 4, '0', STR_PAD_LEFT) }}</span>
             </div>
         </div>
@@ -547,5 +535,5 @@
         }
     </script>
 </body>
-</html>
 
+</html>
