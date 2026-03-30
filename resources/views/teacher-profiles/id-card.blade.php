@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --school-green: #2e7d32;
-            --school-green-light: #4caf50;
-            --school-green-dark: #1b5e20;
-            --premium-gray: #f8f9fa;
+            --school-blue: #0d244f;
+            --school-gold: #c5a059;
+            --school-gold-light: #f1dca7;
+            --info-label: #8c6a2c;
         }
 
         body {
@@ -48,12 +48,12 @@
         }
 
         .nav-pills .nav-link.active {
-            background-color: var(--school-green);
+            background-color: var(--school-blue);
             color: #fff;
         }
 
         .btn-print {
-            background-color: var(--school-green-dark);
+            background-color: var(--school-blue);
             color: white;
             border: none;
             padding: 8px 25px;
@@ -89,37 +89,73 @@
             border: 1px solid #ddd;
         }
 
-        .header-bg {
-            background: var(--school-green);
-            background-image: 
-                linear-gradient(135deg, var(--school-green) 0%, var(--school-green-light) 100%),
-                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm66-3c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-40-39c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm20-40c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM10 50c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm80 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-40 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 10c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            position: relative;
-            padding: 25px 20px 30px;
-            color: #fff;
+        .card-header {
+            background: var(--school-blue);
+            background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0%, transparent 40%),
+                              linear-gradient(135deg, var(--school-blue) 0%, #1a3a7a 100%);
+            color: white;
             text-align: center;
-            overflow: hidden;
+            padding: 15px 20px 12px;
+            position: relative;
+            border-bottom: 3px solid var(--school-gold);
         }
 
-        /* Watermark ONLY for vertical */
-        .vertical-card .header-bg::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150px;
-            height: 150px;
-            transform: translate(-50%, -50%);
-            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.12;
-            z-index: 0;
-            pointer-events: none;
+        .school-info {
+            position: relative;
+            z-index: 2;
+            padding-right: 85px; 
+            text-align: center;
         }
 
-        /* Shield Badge Style */
+        .school-info .school-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1px;
+            color: var(--school-gold-light);
+            line-height: 1.1;
+        }
+
+        .school-info .location {
+            font-size: 0.85rem;
+            opacity: 0.95;
+            margin-top: 3px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .school-info .contact {
+            font-size: 0.75rem;
+            opacity: 1;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .contact-item i {
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        .contact-sep {
+            opacity: 0.6;
+            margin: 0 5px;
+        }
+
         .shield-logo {
             position: absolute;
             top: 20px;
@@ -140,53 +176,112 @@
         }
 
         /* Watermarks */
-        .vertical-card .header-bg::before {
-            content: '';
+        .school-badge {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 15rem;
-            height: 15rem;
-            transform: translate(-50%, -50%);
-            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.12;
-            z-index: 0;
-            pointer-events: none;
+            top: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
 
-        .horizontal-card .header-bg::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            right: 15px;
+        .school-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .student-photo-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-gold) 100%);
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: 2px solid #fff;
+        }
+
+        .student-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            object-fit: cover;
+            background: #fff;
+        }
+
+        .student-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--school-blue);
+            margin: 10px 0 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .student-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--school-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            line-height: 1.2;
+            border-bottom: 1px dotted #eee;
+            padding-bottom: 4px;
+        }
+
+        .info-label {
+            color: var(--info-label);
+            font-weight: 700;
+            width: 120px;
+            flex-shrink: 0;
+            text-align: left;
+        }
+
+        .info-value {
+            color: var(--school-blue);
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .qr-section {
+            border: 1px solid #f0f0f0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .qr-code-img {
             width: 120px;
             height: 120px;
-            background-image: url("{{ $teacher->school->logo_url ?? '' }}");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: top right;
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
+            padding: 5px;
         }
 
-        /* HIDE shield on both for now as per last request for background logo only */
-        .vertical-card .shield-logo { display: none; }
-        .horizontal-card .shield-logo { display: none; }
-
-        .header-bg::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 15px;
-            background: rgba(255,255,255,0.1);
-            clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%);
-            z-index: 1;
+        .qr-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--school-blue);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .school-info {
@@ -282,18 +377,21 @@
         }
 
         .footer-banner {
-            background-color: var(--school-green-light);
-            background-image: linear-gradient(90deg, #81c784 0%, #a5d6a7 100%);
-            padding: 10px 0;
+            background: var(--school-blue);
+            background-image: linear-gradient(to right, var(--school-blue), #1a3a7a);
+            color: white;
+            padding: 10px 25px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
             font-size: 0.9rem;
-            font-weight: 600;
-            color: #1b5e20;
+            font-weight: 700;
+            border-top: 4px solid var(--school-gold);
             margin-top: auto;
+            position: relative;
+            z-index: 5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Vertical Specific */
@@ -428,60 +526,74 @@
     <!-- Vertical Card -->
     <div id="vertical-container" class="card-container active">
         <div class="id-card vertical-card">
-            <div class="header-bg">
+            <div class="card-header">
                 <div class="school-info">
                     <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                     <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                     <div class="contact">
-                        <span class="contact-item"><i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}</span>
-                        <span class="contact-item"><i class="fa fa-envelope"></i> {{ $teacher->school->email ?? 'info@thewebbrain.in' }}</span>
+                        <span class="contact-item">
+                            <i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}
+                        </span>
+                        <span class="contact-sep">|</span>
+                        <span class="contact-item">
+                            <i class="fa fa-envelope"></i> {{ $teacher->school->email ?? 'info@thewebbrain.in' }}
+                        </span>
                     </div>
                 </div>
-                <div class="shield-logo">
+                <div class="school-badge">
                     @if(isset($teacher->school->logo_url))
                         <img src="{{ $teacher->school->logo_url }}" alt="Logo">
                     @else
-                         <i class="fa fa-university fa-2x text-success"></i>
+                         <i class="fa fa-university fa-2x text-white"></i>
                     @endif
                 </div>
             </div>
 
-            <div class="v-photo-section">
-                @if($teacher->photo_url)
-                    <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="teacher-photo v-teacher-photo">
-                @else
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=2e7d32&size=200" alt="{{ $teacher->name }}" class="teacher-photo v-teacher-photo">
-                @endif
-                
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=teacher:{{ $teacher->id }}" class="v-qr-code" alt="QR Code">
-            </div>
+            <div class="v-body" style="flex: 1; padding: 10px 15px; text-align: center;">
+                <div class="row g-0 align-items-center justify-content-between mb-3 px-3">
+                    <div class="col-auto">
+                        <div class="student-photo-wrapper">
+                            @if($teacher->photo_url)
+                                <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="student-photo">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $teacher->name }}" class="student-photo">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="qr-section">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=teacher:{{ $teacher->id }}" class="qr-code-img" alt="QR Code">
+                            <div class="qr-label">SCAN FOR ATTENDANCE</div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="v-body">
-                <div class="designation-badge">Teacher</div>
-                <div class="id-name">{{ $teacher->name }}</div>
+                <h1 class="student-name">{{ $teacher->name }}</h1>
+                <span class="student-label">Teacher</span>
 
-                <div class="info-grid">
+                <div class="v-info-list" style="text-align: left; padding: 0 10px; margin-top: 15px;">
                     <div class="info-row">
-                        <span class="info-label">Employee ID:</span>
+                        <span class="info-label">Employee ID :</span>
                         <span class="info-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Phone:</span>
+                        <span class="info-label">Phone :</span>
                         <span class="info-value">{{ $teacher->phone ?? '+91 XXXXXXXXX' }}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Email:</span>
-                        <span class="info-value">{{ $teacher->email }}</span>
+                        <span class="info-label">Email :</span>
+                        <span class="info-value" style="font-size: 0.8rem;">{{ $teacher->email }}</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Join Date:</span>
+                        <span class="info-label">Join Date :</span>
                         <span class="info-value">{{ $teacher->created_at ? $teacher->created_at->format('d-M, Y') : date('d-M, Y') }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="footer-banner">
-                <i class="fa fa-pencil-alt"></i> Scan for attendance
+                <span>SESSION: {{ date('Y') . '-' . (date('y')+1) }}</span>
+                <span>ID No: {{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
             </div>
         </div>
     </div>
@@ -489,58 +601,75 @@
     <!-- Horizontal Card -->
     <div id="horizontal-container" class="card-container">
         <div class="id-card horizontal-card">
-            <div class="h-layout">
-                <div class="h-left">
-                    @if($teacher->photo_url)
-                        <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="teacher-photo h-teacher-photo">
-                    @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=2e7d32&size=200" alt="{{ $teacher->name }}" class="teacher-photo h-teacher-photo">
-                    @endif
-                    
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=teacher:{{ $teacher->id }}" class="h-qr-code" alt="QR Code">
-                </div>
-                
-                <div class="h-right">
-                    <div class="header-bg h-header">
-                        <div class="school-info">
-                            <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
-                            <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
-                            <div class="contact">
-                                <span class="contact-item"><i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}</span>
-                            </div>
-                        </div>
+            <div class="card-header">
+                <div class="school-info" style="padding-right: 85px;">
+                    <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
+                    <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
+                    <div class="contact">
+                        <span class="contact-item">
+                            <i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}
+                        </span>
+                        <span class="contact-sep">|</span>
+                        <span class="contact-item">
+                            <i class="fa fa-envelope"></i> {{ $teacher->school->email ?? 'info@thewebbrain.in' }}
+                        </span>
                     </div>
+                </div>
+                <div class="shield-logo">
+                    @if(isset($teacher->school->logo_url))
+                        <img src="{{ $teacher->school->logo_url }}" alt="Logo">
+                    @else
+                          <i class="fa fa-university fa-2x text-white"></i>
+                    @endif
+                </div>
+            </div>
 
-                    <div class="h-body">
-                        <div class="h-name-group">
-                            <h3 class="h-designation">Teacher</h3>
-                            <h2 class="h-name">{{ $teacher->name }}</h2>
-                        </div>
+            <div class="h-body">
+                <div class="h-photo-col" style="width: 140px;">
+                    <div class="student-photo-wrapper" style="width: 120px; height: 120px;">
+                        @if($teacher->photo_url)
+                            <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="student-photo" style="width: 112px; height: 112px;">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $teacher->name }}" class="student-photo" style="width: 112px; height: 112px;">
+                        @endif
+                    </div>
+                </div>
 
-                        <div class="info-grid h-info-grid">
-                            <div class="info-row">
-                                <span class="info-label">Employee ID:</span>
-                                <span class="info-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Phone:</span>
-                                <span class="info-value">{{ $teacher->phone ?? '+91 XXXXX' }}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Email:</span>
-                                <span class="info-value" style="font-size: 0.75rem;">{{ $teacher->email }}</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Join Date:</span>
-                                <span class="info-value">{{ $teacher->created_at ? $teacher->created_at->format('d-M, Y') : date('d-M, Y') }}</span>
-                            </div>
-                        </div>
+                <div class="h-info-col">
+                    <div class="text-center mb-3">
+                        <h1 class="student-name h-student-name" style="margin-bottom: 0; text-align: center;">{{ $teacher->name }}</h1>
+                        <span class="student-label" style="font-size: 0.8rem; margin-bottom: 5px; text-align: center;">Teacher</span>
+                        <div style="width: 100%; border-bottom: 1px solid #eee;"></div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Employee ID :</span>
+                        <span class="info-value">EMP-{{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone :</span>
+                        <span class="info-value">{{ $teacher->phone ?? '+91 XXXXX' }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email :</span>
+                        <span class="info-value" style="font-size: 0.85rem;">{{ $teacher->email }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Join Date :</span>
+                        <span class="info-value">{{ $teacher->created_at ? $teacher->created_at->format('d-M, Y') : date('d-M, Y') }}</span>
+                    </div>
+                </div>
+
+                <div class="h-qr-col">
+                    <div class="qr-section">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=teacher:{{ $teacher->id }}" class="qr-code-img" alt="QR Code">
+                        <div class="qr-label">SCAN FOR ATTENDANCE</div>
                     </div>
                 </div>
             </div>
 
             <div class="footer-banner">
-                <i class="fa fa-pencil-alt"></i> Scan for attendance
+                <span>SESSION: {{ date('Y') . '-' . (date('y')+1) }}</span>
+                <span>ID No: {{ str_pad($teacher->id, 4, '0', STR_PAD_LEFT) }}</span>
             </div>
         </div>
     </div>
