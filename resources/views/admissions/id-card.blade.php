@@ -314,12 +314,13 @@
         }
 
         .h-qr-col {
-            width: 140px;
+            width: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             border-left: 1px solid #f0f0f0;
+            padding-right: 15px;
         }
 
         .h-info-row .info-label {
@@ -529,8 +530,8 @@
 
                 <div class="h-qr-col">
                     <div class="qr-section">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=student:{{ $student->id }}"
-                            class="qr-code-img" style="width: 150px; height: 150px;" alt="QR Code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=student:{{ $student->id }}"
+                            class="qr-code-img" style="width: 90px; height: 90px;" alt="QR Code">
                         <div class="qr-label">Scan for attendance</div>
                     </div>
                 </div>
