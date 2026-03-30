@@ -213,7 +213,7 @@
         }
 
         .school-info .contact {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             opacity: 0.9;
             margin-top: 8px;
             border-top: 1px solid rgba(255,255,255,0.2);
@@ -221,8 +221,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            flex-wrap: nowrap;
+            gap: 8px;
             font-weight: 500;
         }
 
