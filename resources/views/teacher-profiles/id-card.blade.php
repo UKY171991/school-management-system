@@ -123,13 +123,9 @@
         .shield-logo {
             position: absolute;
             top: 20px;
-            right: 25px;
+            right: 15px;
             width: 70px;
             height: 70px;
-            background: white;
-            padding: 8px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -140,6 +136,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
         }
 
         /* Watermarks */

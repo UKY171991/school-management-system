@@ -134,18 +134,13 @@
 
         .school-badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 60px;
+            top: 20px;
+            right: 20px;
+            width: 70px;
             height: 70px;
-            background: #fff;
-            padding: 5px;
-            border-radius: 4px;
-            clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--school-gold);
             z-index: 10;
         }
 
@@ -153,6 +148,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         /* Content Sections */
