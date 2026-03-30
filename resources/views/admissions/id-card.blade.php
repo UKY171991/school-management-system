@@ -92,13 +92,14 @@
         }
 
         .school-info .school-name {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
             letter-spacing: 0.5px;
             color: var(--school-gold-light);
             line-height: 1.1;
+            white-space: nowrap;
         }
 
         .school-info .location {
@@ -190,15 +191,17 @@
 
         .info-row {
             display: flex;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             line-height: 1.2;
+            border-bottom: 1px dotted #eee;
+            padding-bottom: 4px;
         }
 
         .info-label {
             color: var(--school-gold);
             font-weight: 700;
-            width: 110px;
+            width: 120px;
             flex-shrink: 0;
         }
 
@@ -433,6 +436,10 @@
                         <span class="info-value">{{ $student->dob }}</span>
                     </div>
                     <div class="info-row">
+                        <span class="info-label">Father's Name :</span>
+                        <span class="info-value">{{ $student->father_name ?? 'N/A' }}</span>
+                    </div>
+                    <div class="info-row">
                         <span class="info-label">Phone :</span>
                         <span class="info-value">{{ $student->father_phone ?? 'N/A' }}</span>
                     </div>
@@ -487,14 +494,22 @@
                 </div>
 
                 <div class="h-info-col">
-                    <h1 class="student-name h-student-name">{{ $student->name }}</h1>
-                    <div class="h-info-row info-row">
-                        <span class="info-label">Class :</span>
-                        <span class="info-value">{{ $student->grade->name ?? 'N/A' }}</span>
+                    <div class="text-center mb-3">
+                        <h1 class="student-name h-student-name" style="margin-bottom: 0;">{{ $student->name }}</h1>
+                        <span class="student-label" style="font-size: 0.8rem; margin-bottom: 5px;">Student</span>
+                        <div style="width: 100%; border-bottom: 1px solid #eee;"></div>
                     </div>
-                    <div class="h-info-row info-row">
+                    <div class="info-row">
+                        <span class="info-label">Class :</span>
+                        <span class="info-value">{{ $student->grade->name ?? 'N/A' }}{{ $student->section ? ' - ' . $student->section->name : '' }}</span>
+                    </div>
+                    <div class="info-row">
                         <span class="info-label">Date of Birth :</span>
                         <span class="info-value">{{ $student->dob }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Father's Name :</span>
+                        <span class="info-value">{{ $student->father_name ?? 'N/A' }}</span>
                     </div>
                     <div class="h-info-row info-row">
                         <span class="info-label">Father's Name :</span>
