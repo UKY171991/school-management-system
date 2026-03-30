@@ -165,19 +165,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px;
+            padding: 4px;
             background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-gold) 100%);
             border-radius: 50%;
-            width: 140px;
-            height: 140px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 110px;
+            height: 110px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .student-photo {
-            width: 130px;
-            height: 130px;
+            width: 102px;
+            height: 102px;
             border-radius: 50%;
-            border: 3px solid #fff; /* White inner ring like reference */
+            border: 2px solid #fff;
             object-fit: cover;
             background: #f8f9fa;
         }
@@ -289,10 +289,10 @@
         }
 
         .h-photo-col {
-            width: 150px;
+            width: 120px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
         }
 
@@ -452,11 +452,13 @@
 
             <div class="h-body">
                 <div class="h-photo-col">
-                    @if($student->photo_url)
-                        <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
-                    @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
-                    @endif
+                    <div class="student-photo-wrapper">
+                        @if($student->photo_url)
+                            <img src="{{ $student->photo_url }}" alt="{{ $student->name }}" class="student-photo">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($student->name) }}&background=f0f2f5&color=0d244f&size=200" alt="{{ $student->name }}" class="student-photo">
+                        @endif
+                    </div>
                 </div>
 
                 <div class="h-info-col">

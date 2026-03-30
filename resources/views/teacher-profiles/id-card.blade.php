@@ -315,8 +315,8 @@
         }
 
         .v-teacher-photo {
-            width: 130px;
-            height: 140px;
+            width: 100px;
+            height: 110px;
         }
 
         .v-qr-code {
@@ -340,13 +340,13 @@
         }
 
         .h-left {
-            width: 160px;
-            padding: 20px;
+            width: 130px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 15px;
             border-right: 1px solid #f0f0f0;
-            align-items: center;
+            align-items: flex-start;
         }
 
         .h-right {
@@ -360,8 +360,8 @@
         }
 
         .h-teacher-photo {
-            width: 120px;
-            height: 130px;
+            width: 100px;
+            height: 110px;
         }
 
         .h-qr-code {
