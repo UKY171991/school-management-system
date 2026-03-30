@@ -213,10 +213,29 @@
         }
 
         .school-info .contact {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             opacity: 0.9;
-            margin-top: 6px;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
             font-weight: 500;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .contact-item + .contact-item {
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 12px;
         }
 
         .teacher-photo {
@@ -416,7 +435,8 @@
                     <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                     <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                     <div class="contact">
-                        {{ $teacher->school->phone ?? '9711447614' }} | {{ $teacher->school->email ?? 'info@thewebbrain.in' }}
+                        <span class="contact-item"><i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}</span>
+                        <span class="contact-item"><i class="fa fa-envelope"></i> {{ $teacher->school->email ?? 'info@thewebbrain.in' }}</span>
                     </div>
                 </div>
                 <div class="shield-logo">
@@ -487,7 +507,9 @@
                         <div class="school-info">
                             <h2 class="school-name">{{ $teacher->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                             <div class="location">{{ $teacher->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
-                            <div class="contact">{{ $teacher->school->phone ?? '9711447614' }}</div>
+                            <div class="contact">
+                                <span class="contact-item"><i class="fa fa-phone"></i> {{ $teacher->school->phone ?? '9711447614' }}</span>
+                            </div>
                         </div>
                     </div>
 

@@ -108,14 +108,28 @@
         }
 
         .school-info .contact {
-            font-size: 0.7rem;
-            opacity: 0.8;
-            margin-top: 6px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 4px;
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 6px;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .contact-item + .contact-item {
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 12px;
         }
 
         .school-badge {
@@ -349,7 +363,12 @@
                     <h2 class="school-name">{{ $student->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                     <div class="location">{{ $student->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                     <div class="contact">
-                        <i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }} | <i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}
+                        <span class="contact-item">
+                            <i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }}
+                        </span>
+                        <span class="contact-item">
+                            <i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}
+                        </span>
                     </div>
                 </div>
                 <div class="school-badge">
@@ -417,7 +436,9 @@
                     <h2 class="school-name">{{ $student->school->name ?? 'DEMO PUBLIC SCHOOL' }}</h2>
                     <div class="location">{{ $student->school->address ?? 'Lucknow, Uttar Pradesh' }}</div>
                     <div class="contact">
-                        <i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }} | <i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}
+                        <span class="contact-item"><i class="fa fa-phone"></i> {{ $student->school->phone ?? '+91 9711447614' }}</span>
+                        <span class="contact-separator">|</span>
+                        <span class="contact-item"><i class="fa fa-envelope"></i> {{ $student->school->email ?? 'info@thewebbrain.in' }}</span>
                     </div>
                 </div>
                 <div class="school-badge">
