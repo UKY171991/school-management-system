@@ -197,7 +197,7 @@
             z-index: 2;
         }
         .school-info .school-name {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
@@ -330,7 +330,9 @@
         /* Horizontal Specific */
         .horizontal-card {
             width: 500px;
-            height: 340px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
         }
 
         .h-layout {

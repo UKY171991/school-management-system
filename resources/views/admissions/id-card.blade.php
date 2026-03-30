@@ -90,7 +90,7 @@
         }
 
         .school-info .school-name {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
@@ -236,14 +236,16 @@
         .card-footer {
             background: var(--school-blue);
             color: white;
-            padding: 10px 25px;
+            padding: 8px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            border-top: 4px solid var(--school-gold);
+            border-top: 3px solid var(--school-gold);
             margin-top: auto;
+            position: relative;
+            z-index: 5;
         }
 
         /* Vertical Card Specific */
@@ -281,7 +283,7 @@
         /* Horizontal Card Specific */
         .horizontal-card {
             width: 530px;
-            height: 350px;
+            height: 380px;
             display: flex;
             flex-direction: column;
         }
