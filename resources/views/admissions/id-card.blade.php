@@ -513,11 +513,6 @@
                         <span class="info-value">{{ $student->father_name ?? 'N/A' }}</span>
                     </div>
                     <div class="h-info-row info-row">
-                        <span class="info-label">Father's Name :</span>
-                        <span class="info-value text-truncate"
-                            style="max-width: 150px;">{{ $student->father_name ?? 'N/A' }}</span>
-                    </div>
-                    <div class="h-info-row info-row">
                         <span class="info-label">Phone :</span>
                         <span class="info-value">{{ $student->father_phone ?? 'N/A' }}</span>
                     </div>
