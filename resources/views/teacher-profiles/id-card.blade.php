@@ -97,19 +97,19 @@
         .school-info {
             position: relative;
             z-index: 2;
-            padding-right: 85px; 
+            padding-right: 80px; 
             text-align: center;
         }
 
         .school-info .school-name {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
             letter-spacing: 0.5px;
             color: var(--school-gold-light);
             line-height: 1.1;
-            white-space: nowrap;
+            white-space: normal;
         }
 
         .school-info .location {

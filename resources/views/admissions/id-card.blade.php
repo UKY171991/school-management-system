@@ -86,20 +86,20 @@
         .school-info {
             position: relative;
             z-index: 2;
-            padding-right: 75px;
+            padding-right: 80px;
             /* Reserve space for the badge */
             text-align: center;
         }
 
         .school-info .school-name {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0;
             letter-spacing: 0.5px;
             color: var(--school-gold-light);
             line-height: 1.1;
-            white-space: nowrap;
+            white-space: normal;
         }
 
         .school-info .location {
