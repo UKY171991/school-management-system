@@ -283,8 +283,8 @@
 
         /* Horizontal Card Specific */
         .horizontal-card {
-            width: 530px;
-            height: 380px;
+            width: 560px;
+            height: 400px;
             display: flex;
             flex-direction: column;
         }
