@@ -203,11 +203,13 @@
             font-weight: 700;
             width: 120px;
             flex-shrink: 0;
+            font-size: 0.9rem;
         }
 
         .info-value {
-            color: #333;
-            font-weight: 600;
+            color: var(--school-blue);
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         .qr-section {
@@ -234,10 +236,10 @@
         }
 
         /* Footer Style */
-        .card-footer {
+        .id-card .card-footer {
             background: var(--school-blue);
             color: white;
-            padding: 8px 25px;
+            padding: 10px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -247,12 +249,13 @@
             margin-top: auto;
             position: relative;
             z-index: 5;
+            text-transform: uppercase;
         }
 
         /* Vertical Card Specific */
         .vertical-card {
             width: 330px;
-            height: 520px;
+            height: 550px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
