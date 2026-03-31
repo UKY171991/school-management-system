@@ -176,20 +176,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px;
+            padding: 4px;
             background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-gold) 100%);
             border-radius: 50%;
-            width: 140px;
-            height: 140px;
+            width: 110px;
+            height: 110px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
             border: 2px solid #fff;
         }
 
         .id-photo {
-            width: 130px;
-            height: 130px;
+            width: 102px;
+            height: 102px;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 2px solid #fff;
             object-fit: cover;
             background: #fff;
         }
@@ -203,13 +203,17 @@
         }
 
         .designation-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--school-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--school-gold);
+            padding: 3px 20px;
+            border-radius: 50px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            display: block;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(197, 160, 89, 0.3);
         }
 
         .info-row {
@@ -223,16 +227,18 @@
 
         .info-label {
             color: var(--info-label);
-            font-weight: 700;
-            width: 120px;
+            font-weight: 600;
+            width: 110px;
             flex-shrink: 0;
             text-align: left;
+            font-size: 0.85rem;
         }
 
         .info-value {
             color: var(--school-blue);
             font-weight: 700;
             text-align: left;
+            font-size: 0.9rem;
         }
 
         .qr-section {
@@ -244,8 +250,8 @@
         }
 
         .qr-code-img {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             padding: 5px;
         }
 
@@ -400,8 +406,8 @@
             </div>
 
             <div class="v-body">
-                <div class="row g-0 align-items-center justify-content-between mb-3 px-3">
-                    <div class="col-auto">
+                <div class="row g-0 align-items-center justify-content-center mb-3">
+                    <div class="col-6 d-flex justify-content-center">
                         <div class="photo-wrapper">
                             @if($teacher->photo_url)
                                 <img src="{{ $teacher->photo_url }}" alt="{{ $teacher->name }}" class="id-photo">
@@ -410,7 +416,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="qr-section">
                             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=teacher:{{ $teacher->id }}" class="qr-code-img" alt="QR Code">
                             <div class="qr-label">SCAN FOR ATTENDANCE</div>
