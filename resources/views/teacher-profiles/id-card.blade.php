@@ -267,7 +267,7 @@
         }
 
         /* Footer Style */
-        .card-footer {
+        .id-card .card-footer {
             background: var(--school-blue);
             background-image: linear-gradient(to right, var(--school-blue), #1a3a7a);
             color: white;
@@ -275,9 +275,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            border-top: 4px solid var(--school-gold);
+            border-top: 3px solid var(--school-gold);
             margin-top: auto;
             position: relative;
             z-index: 5;
@@ -288,7 +288,7 @@
         /* Vertical Card Specific */
         .vertical-card {
             width: 330px;
-            height: 520px;
+            height: 540px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
