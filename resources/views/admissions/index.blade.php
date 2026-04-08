@@ -508,6 +508,7 @@
                                         id="apaar_id" name="apaar_id" placeholder="{{ __('Enter Apaar ID') }}">
                                 </div>
                             </div>
+                        </div>
                         <div class="col-md-12">
                             <h6 class="text-primary font-weight-bold mb-3 border-bottom pb-2 mt-4">
                                 <i class="fas fa-file-alt mr-2"></i>{{ __('DOCUMENTS ATTACHMENT') }}
@@ -576,24 +577,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group mb-4">
                                         <label class="small font-weight-bold text-muted">{{ __('Student Photo') }}</label>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="photo" name="photo">
                                             <label class="custom-file-label small" for="photo">{{ __('Choose file') }}</label>
                                         </div>
-                                        <div id="photoContainer" class="mt-3" style="display:none;">
-                                            <div class="position-relative d-inline-block">
-                                                <img id="previewImg" src="" class="img-thumbnail" width="100"
-                                                    style="border-radius: 10px;">
-                                                <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm"
-                                                    style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;"
-                                                    id="removePhotoBtn" title="{{ __('Remove Photo') }}">
-                                                    <i class="fas fa-times" style="font-size: 12px;"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div id="photoContainer" class="col-md-12 mt-2" style="display:none;">
+                                    <div class="position-relative d-inline-block">
+                                        <img id="previewImg" src="" class="img-thumbnail" width="100"
+                                            style="border-radius: 10px;">
+                                        <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm"
+                                            style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;"
+                                            id="removePhotoBtn" title="{{ __('Remove Photo') }}">
+                                            <i class="fas fa-times" style="font-size: 12px;"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
