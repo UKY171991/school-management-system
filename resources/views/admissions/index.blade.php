@@ -177,6 +177,7 @@
                             <th class="border-top-0">{{ __('ID') }}</th>
                             <th class="border-top-0">{{ __('Photo') }}</th>
                             <th class="border-top-0">{{ __('Adm #') }}</th>
+                            <th class="border-top-0">{{ __('Roll No') }}</th>
                             <th class="border-top-0">{{ __('Full Name') }}</th>
                             <th class="border-top-0">{{ __('Father Name') }}</th>
                             <th class="border-top-0">{{ __('Mother Name') }}</th>
@@ -507,6 +508,41 @@
                                         id="apaar_id" name="apaar_id" placeholder="{{ __('Enter Apaar ID') }}">
                                 </div>
                             </div>
+                        <div class="col-md-12">
+                            <h6 class="text-primary font-weight-bold mb-3 border-bottom pb-2 mt-2">
+                                <i class="fas fa-paperclip mr-2"></i>{{ __('DOCUMENTS ATTACHMENT') }}
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Student's Aadhar/Birth Certificate") }}</label>
+                                    <input type="file" name="doc_aadhar_birth" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Father's Aadhar") }}</label>
+                                    <input type="file" name="doc_father_aadhar" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Mother's Aadhar") }}</label>
+                                    <input type="file" name="doc_mother_aadhar" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Last Class Marksheet") }}</label>
+                                    <input type="file" name="doc_marksheet" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Transfer Certificate (T.C.)") }}</label>
+                                    <input type="file" name="doc_tc" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Admission Form (Offline)") }}</label>
+                                    <input type="file" name="doc_admission_form" class="form-control-file">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small font-weight-bold">{{ __("Declaration Form (Offline)") }}</label>
+                                    <input type="file" name="doc_declaration_form" class="form-control-file">
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-4">
@@ -662,6 +698,12 @@
                     data: 'registration_number',
                     render: function (data) {
                         return `<span class="badge badge-pill badge-primary px-3 py-2 shadow-sm font-weight-normal">${data || "{{ __('N/A') }}"}</span>`;
+                    }
+                },
+                {
+                    data: 'roll_number',
+                    render: function (data) {
+                        return `<div class="text-dark font-weight-500">${data || "{{ __('N/A') }}"}</div>`;
                     }
                 },
                 {
@@ -1127,6 +1169,30 @@
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Previous Class') }}:</strong> <span>${data.previous_class || 'N/A'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('P.E.N. Number') }}:</strong> <span>${data.pen_number || 'N/A'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Apaar ID') }}:</strong> <span>${data.apaar_id || 'N/A'}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-sm border-0 rounded-lg mt-0">
+                                        <div class="card-header bg-white border-bottom-0 pb-0">
+                                            <h6 class="font-weight-bold text-success mb-0"><i class="fas fa-paperclip mr-2"></i>{{ __('Attached Documents') }}</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="mb-2 small"><strong>Aadhar/Birth:</strong> ${data.doc_aadhar_birth ? `<a href="/storage/${data.doc_aadhar_birth}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                        <li class="mb-2 small"><strong>Father Aadhar:</strong> ${data.doc_father_aadhar ? `<a href="/storage/${data.doc_father_aadhar}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                        <li class="mb-2 small"><strong>Mother Aadhar:</strong> ${data.doc_mother_aadhar ? `<a href="/storage/${data.doc_mother_aadhar}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                        <li class="mb-2 small"><strong>Marksheet:</strong> ${data.doc_marksheet ? `<a href="/storage/${data.doc_marksheet}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="mb-2 small"><strong>TC:</strong> ${data.doc_tc ? `<a href="/storage/${data.doc_tc}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                        <li class="mb-2 small"><strong>Admission Form:</strong> ${data.doc_admission_form ? `<a href="/storage/${data.doc_admission_form}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
+                                                        <li class="mb-2 small"><strong>Declaration Form:</strong> ${data.doc_declaration_form ? `<a href="/storage/${data.doc_declaration_form}" target="_blank" class="text-primary ml-2"><i class="fas fa-download"></i> View</a>` : '<span class="text-muted ml-2">N/A</span>'}</li>
                                                     </ul>
                                                 </div>
                                             </div>

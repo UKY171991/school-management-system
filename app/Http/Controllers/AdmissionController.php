@@ -132,6 +132,13 @@ class AdmissionController extends Controller
             'pen_number' => 'nullable|string|max:255',
             'previous_class' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
+            'doc_aadhar_birth' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_father_aadhar' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_mother_aadhar' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_marksheet' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_tc' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_admission_form' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_declaration_form' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
         ]);
 
         if (empty($validated['roll_number'])) {
@@ -162,6 +169,20 @@ class AdmissionController extends Controller
             $filename = time() . '_photo.' . $file->getClientOriginalExtension();
             $file->move(public_path('storage/students'), $filename);
             $validated['photo'] = 'students/' . $filename;
+        }
+
+        $docFields = [
+            'doc_aadhar_birth', 'doc_father_aadhar', 'doc_mother_aadhar', 
+            'doc_marksheet', 'doc_tc', 'doc_admission_form', 'doc_declaration_form'
+        ];
+
+        foreach ($docFields as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $filename = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/students/docs'), $filename);
+                $validated[$field] = 'students/docs/' . $filename;
+            }
         }
 
         $student = \App\Models\Student::create($validated);
@@ -211,6 +232,13 @@ class AdmissionController extends Controller
             'pen_number' => 'nullable|string|max:255',
             'previous_class' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
+            'doc_aadhar_birth' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_father_aadhar' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_mother_aadhar' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_marksheet' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_tc' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_admission_form' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
+            'doc_declaration_form' => 'nullable|file|mimes:pdf,jpeg,png,jpg,doc,docx|max:5120',
         ]);
 
         if (!auth()->user()->isMasterAdmin()) {
@@ -225,6 +253,23 @@ class AdmissionController extends Controller
             $filename = time() . '_photo.' . $file->getClientOriginalExtension();
             $file->move(public_path('storage/students'), $filename);
             $validated['photo'] = 'students/' . $filename;
+        }
+
+        $docFields = [
+            'doc_aadhar_birth', 'doc_father_aadhar', 'doc_mother_aadhar', 
+            'doc_marksheet', 'doc_tc', 'doc_admission_form', 'doc_declaration_form'
+        ];
+
+        foreach ($docFields as $field) {
+            if ($request->hasFile($field)) {
+                if ($student->$field && file_exists(public_path('storage/' . $student->$field))) {
+                    @unlink(public_path('storage/' . $student->$field));
+                }
+                $file = $request->file($field);
+                $filename = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/students/docs'), $filename);
+                $validated[$field] = 'students/docs/' . $filename;
+            }
         }
 
         $student->update($validated);
