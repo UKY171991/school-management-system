@@ -195,18 +195,6 @@
                     <span class="field-value">{{ $student->caste }}</span>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="field-row">
-                    <span class="field-label" style="min-width: 50px;">Section:</span>
-                    <span class="field-value">{{ $student->section->name ?? '' }}</span>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="field-row">
-                    <span class="field-label" style="min-width: 140px;">Applying For Class:</span>
-                    <span class="field-value">{{ $student->grade->name ?? '' }}</span>
-                </div>
-            </div>
         </div>
 
         <div class="row">
