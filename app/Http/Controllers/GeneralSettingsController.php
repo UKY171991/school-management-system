@@ -33,6 +33,7 @@ class GeneralSettingsController extends Controller
             'school_phone' => 'nullable|string|max:20',
             'school_email' => 'nullable|email|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
+            'start_roll_number' => 'required|integer|min:1',
         ];
 
         if (auth()->user()->isMasterAdmin()) {
@@ -53,6 +54,7 @@ class GeneralSettingsController extends Controller
                 'address' => $request->input('school_address', $school->address),
                 'phone' => $request->input('school_phone', $school->phone),
                 'email' => $request->input('school_email', $school->email),
+                'start_roll_number' => $request->input('start_roll_number', $school->start_roll_number),
             ];
 
             if ($request->hasFile('logo')) {
@@ -81,6 +83,7 @@ class GeneralSettingsController extends Controller
             'school_email',
             'footer_text',
             'currency_symbol',
+            'start_roll_number',
         ]);
 
         if ($request->hasFile('logo')) {

@@ -44,6 +44,13 @@
                             <input type="email" class="form-control" id="school_email" name="school_email" value="{{ $settings->school_email }}">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="start_roll_number" class="col-sm-2 col-form-label">{{ __('Start Roll Number') }}</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="start_roll_number" name="start_roll_number" value="{{ $settings->start_roll_number ?? 1001 }}" min="1">
+                            <small class="text-muted">{{ __('Initial roll number for new student admissions.') }}</small>
+                        </div>
+                    </div>
                     @if(auth()->user()->isMasterAdmin())
                     <div class="form-group row">
                         <label for="currency_symbol" class="col-sm-2 col-form-label">{{ __('Currency Symbol') }}</label>

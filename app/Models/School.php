@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
-    protected $fillable = ['name', 'address', 'phone', 'email', 'logo', 'principal_signature', 'domain_name'];
+    protected $fillable = ['name', 'address', 'phone', 'email', 'logo', 'principal_signature', 'domain_name', 'start_roll_number'];
 
     protected $appends = ['logo_url', 'signature_url'];
 

@@ -289,20 +289,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Roll Number') }} <span
-                                        class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white border-right-0"><i
-                                                class="fas fa-hashtag text-muted"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
-                                        id="roll_number" name="roll_number" required>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Roll Number hidden as per request -->
+                        <input type="hidden" id="roll_number" name="roll_number">
                         <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Date of Birth') }} <span

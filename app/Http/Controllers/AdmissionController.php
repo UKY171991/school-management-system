@@ -14,11 +14,22 @@ class AdmissionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            if ($request->has('next_roll')) {
-                $lastRoll = \App\Models\Student::max('roll_number');
+                $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
+                $lastRoll = \App\Models\Student::where('school_id', $school_id)->max('roll_number');
+
+                // Get Start Roll from Settings
+                $startRoll = 1001;
+                $school = \App\Models\School::find($school_id);
+                if ($school && $school->start_roll_number) {
+                    $startRoll = $school->start_roll_number;
+                } else {
+                    $gs = \App\Models\GeneralSetting::first();
+                    if ($gs && $gs->start_roll_number) {
+                        $startRoll = $gs->start_roll_number;
+                    }
+                }
                 
                 // Registration Logic
-                $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
                 $latestStud = \App\Models\Student::where('school_id', $school_id)
                                 ->orderBy('registration_number', 'desc')
                                 ->first();
@@ -34,7 +45,7 @@ class AdmissionController extends Controller
                 }
                 
                 return response()->json([
-                    'next_roll' => ($lastRoll ? (int) $lastRoll + 1 : 1001),
+                    'next_roll' => ($lastRoll ? (int) $lastRoll + 1 : $startRoll),
                     'next_registration' => $lastReg + 1,
                     'current_session' => $session
                 ]);
@@ -98,13 +109,7 @@ class AdmissionController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|unique:students,email',
-            'roll_number' => [
-                'required',
-                'string',
-                Rule::unique('students')->where(function ($query) use ($school_id) {
-                    return $query->where('school_id', $school_id);
-                })
-            ],
+            'roll_number' => 'nullable|string',
             'registration_number' => 'nullable|string|max:50',
             'session_year' => 'nullable|string|max:20',
             'dob' => 'required|date',
@@ -127,6 +132,25 @@ class AdmissionController extends Controller
             'previous_class' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
         ]);
+
+        if (empty($validated['roll_number'])) {
+            $lastRoll = \App\Models\Student::where('school_id', $school_id)->max('roll_number');
+            if ($lastRoll) {
+                $validated['roll_number'] = (int) $lastRoll + 1;
+            } else {
+                $startRoll = 1001;
+                $school = \App\Models\School::find($school_id);
+                if ($school && $school->start_roll_number) {
+                    $startRoll = $school->start_roll_number;
+                } else {
+                    $gs = \App\Models\GeneralSetting::first();
+                    if ($gs && $gs->start_roll_number) {
+                        $startRoll = $gs->start_roll_number;
+                    }
+                }
+                $validated['roll_number'] = $startRoll;
+            }
+        }
 
         if (!auth()->user()->isMasterAdmin()) {
             $validated['school_id'] = auth()->user()->school_id;

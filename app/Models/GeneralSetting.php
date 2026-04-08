@@ -15,6 +15,7 @@ class GeneralSetting extends Model
         'favicon',
         'footer_text',
         'currency_symbol',
+        'start_roll_number',
     ];
 
     protected $appends = ['logo_url', 'favicon_url'];

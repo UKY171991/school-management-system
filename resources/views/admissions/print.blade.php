@@ -212,15 +212,6 @@
         <div class="row">
             <div class="col-4">
                 <div class="field-row">
-                    <span class="field-label" style="min-width: 60px;">Roll No:</span>
-                    <span class="field-value">{{ $student->roll_number }}</span>
-                </div>
-            </div>
-
-
-        <div class="row">
-            <div class="col-4">
-                <div class="field-row">
                     <span class="field-label" style="min-width: 100px;">Date of Birth:</span>
                     <span class="field-value">{{ $student->dob ? date('d-m-Y', strtotime($student->dob)) : '' }}</span>
                 </div>
