@@ -230,7 +230,7 @@
                         @else
                             <input type="hidden" name="school_id" id="school_id" value="{{ auth()->user()->school_id }}">
                         @endif
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Branch') }}</label>
                                 <select class="form-control select2" id="branch_id" name="branch_id"
@@ -403,7 +403,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Email Address') }}</label>
                                 <div class="input-group">
@@ -416,7 +416,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="font-weight-bold">{{ __('Permanent Address') }}</label>
                                 <div class="input-group">
