@@ -509,61 +509,96 @@
                                 </div>
                             </div>
                         <div class="col-md-12">
-                            <h6 class="text-primary font-weight-bold mb-3 border-bottom pb-2 mt-2">
-                                <i class="fas fa-paperclip mr-2"></i>{{ __('DOCUMENTS ATTACHMENT') }}
+                            <h6 class="text-primary font-weight-bold mb-3 border-bottom pb-2 mt-4">
+                                <i class="fas fa-file-alt mr-2"></i>{{ __('DOCUMENTS ATTACHMENT') }}
                             </h6>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Student's Aadhar/Birth Certificate") }}</label>
-                                    <input type="file" name="doc_aadhar_birth" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Student's Aadhar/Birth Certificate") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_aadhar_birth" id="doc_aadhar_birth">
+                                            <label class="custom-file-label small" for="doc_aadhar_birth">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Father's Aadhar") }}</label>
-                                    <input type="file" name="doc_father_aadhar" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Father's Aadhar") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_father_aadhar" id="doc_father_aadhar">
+                                            <label class="custom-file-label small" for="doc_father_aadhar">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Mother's Aadhar") }}</label>
-                                    <input type="file" name="doc_mother_aadhar" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Mother's Aadhar") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_mother_aadhar" id="doc_mother_aadhar">
+                                            <label class="custom-file-label small" for="doc_mother_aadhar">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Last Class Marksheet") }}</label>
-                                    <input type="file" name="doc_marksheet" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Last Class Marksheet") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_marksheet" id="doc_marksheet">
+                                            <label class="custom-file-label small" for="doc_marksheet">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Transfer Certificate (T.C.)") }}</label>
-                                    <input type="file" name="doc_tc" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Transfer Certificate (T.C.)") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_tc" id="doc_tc">
+                                            <label class="custom-file-label small" for="doc_tc">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Admission Form (Offline)") }}</label>
-                                    <input type="file" name="doc_admission_form" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Admission Form (Offline)") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_admission_form" id="doc_admission_form">
+                                            <label class="custom-file-label small" for="doc_admission_form">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="small font-weight-bold">{{ __("Declaration Form (Offline)") }}</label>
-                                    <input type="file" name="doc_declaration_form" class="form-control-file">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="small font-weight-bold text-muted">{{ __("Declaration Form (Offline)") }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="doc_declaration_form" id="doc_declaration_form">
+                                            <label class="custom-file-label small" for="doc_declaration_form">{{ __('Choose file') }}</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Student Photo') }}</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="photo" name="photo">
-                                    <label class="custom-file-label" for="photo">{{ __('Choose file') }}</label>
-                                </div>
-                                <div id="photoContainer" class="mt-3" style="display:none;">
-                                    <div class="position-relative d-inline-block">
-                                        <img id="previewImg" src="" class="img-thumbnail" width="100"
-                                            style="border-radius: 10px;">
-                                        <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm"
-                                            style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;"
-                                            id="removePhotoBtn" title="{{ __('Remove Photo') }}">
-                                            <i class="fas fa-times" style="font-size: 12px;"></i>
-                                        </button>
+                                <div class="col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="small font-weight-bold text-muted">{{ __('Student Photo') }}</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="photo" name="photo">
+                                            <label class="custom-file-label small" for="photo">{{ __('Choose file') }}</label>
+                                        </div>
+                                        <div id="photoContainer" class="mt-3" style="display:none;">
+                                            <div class="position-relative d-inline-block">
+                                                <img id="previewImg" src="" class="img-thumbnail" width="100"
+                                                    style="border-radius: 10px;">
+                                                <button type="button" class="btn btn-danger btn-sm position-absolute shadow-sm"
+                                                    style="top: -8px; right: -8px; border-radius: 50%; width: 25px; height: 25px; padding: 0; line-height: 25px;"
+                                                    id="removePhotoBtn" title="{{ __('Remove Photo') }}">
+                                                    <i class="fas fa-times" style="font-size: 12px;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light border-0 px-4 py-3">
