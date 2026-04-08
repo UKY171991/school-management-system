@@ -14,6 +14,7 @@ class AdmissionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            if ($request->has('next_roll')) {
                 $school_id = auth()->user()->isMasterAdmin() ? $request->school_id : auth()->user()->school_id;
                 $lastRoll = \App\Models\Student::where('school_id', $school_id)->max('roll_number');
 
@@ -49,6 +50,7 @@ class AdmissionController extends Controller
                     'next_registration' => $lastReg + 1,
                     'current_session' => $session
                 ]);
+            }
             $query = \App\Models\Student::with(['grade', 'section', 'school', 'branch'])->latest();
 
             if (auth()->user()->isMasterAdmin() && $request->has('school_id') && !empty($request->school_id)) {
