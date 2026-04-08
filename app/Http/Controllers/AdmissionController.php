@@ -49,7 +49,6 @@ class AdmissionController extends Controller
                     'next_registration' => $lastReg + 1,
                     'current_session' => $session
                 ]);
-            }
             $query = \App\Models\Student::with(['grade', 'section', 'school', 'branch'])->latest();
 
             if (auth()->user()->isMasterAdmin() && $request->has('school_id') && !empty($request->school_id)) {
