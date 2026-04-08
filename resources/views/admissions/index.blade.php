@@ -62,7 +62,7 @@
 
 @section('content_header')
 <div class="d-flex justify-content-between align-items-center">
-    <h1>{{ __('Student Admission & Registration') }}</h1>
+    <h1>{{ __('Student Admission') }}</h1>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
@@ -176,7 +176,7 @@
                         <tr>
                             <th class="border-top-0">{{ __('ID') }}</th>
                             <th class="border-top-0">{{ __('Photo') }}</th>
-                            <th class="border-top-0">{{ __('Reg #') }}</th>
+                            <th class="border-top-0">{{ __('Adm #') }}</th>
                             <th class="border-top-0">{{ __('Full Name') }}</th>
                             <th class="border-top-0">{{ __('Father Name') }}</th>
                             <th class="border-top-0">{{ __('Mother Name') }}</th>
@@ -335,7 +335,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="font-weight-bold">{{ __('Registration Number') }}</label>
+                                <label class="font-weight-bold">{{ __('Admission Number') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-white border-right-0"><i
@@ -343,7 +343,7 @@
                                     </div>
                                     <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
                                         id="registration_number" name="registration_number"
-                                        placeholder="{{ __('Enter registration number') }}">
+                                        placeholder="{{ __('Enter admission number') }}">
                                 </div>
                             </div>
                         </div>
@@ -464,6 +464,32 @@
                                     <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
                                         id="previous_school" name="previous_school"
                                         placeholder="{{ __('Enter previous school name') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('Previous Class') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-graduation-cap text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="previous_class" name="previous_class" placeholder="{{ __('Enter previous class') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">{{ __('P.E.N. Number') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-white border-right-0"><i
+                                                class="fas fa-id-card text-muted"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control border-left-0 pl-0 mt-0 h-auto py-2"
+                                        id="pen_number" name="pen_number" placeholder="{{ __('Enter P.E.N. number') }}">
                                 </div>
                             </div>
                         </div>
@@ -778,6 +804,8 @@
             $('#previous_school').val('');
             $('#adhaar_number').val('');
             $('#apaar_id').val('');
+            $('#pen_number').val('');
+            $('#previous_class').val('');
             $('#photo').val('');
             $('.custom-file-label').html("{{ __('Choose file') }}");
             $('#previewImg').attr('src', '');
@@ -956,6 +984,8 @@
                 }
 
                 $('#previous_school').val(data.previous_school || '');
+                $('#pen_number').val(data.pen_number || '');
+                $('#previous_class').val(data.previous_class || '');
                 $('#adhaar_number').val(data.adhaar_number || '');
                 $('#apaar_id').val(data.apaar_id || '');
 
@@ -1049,7 +1079,7 @@
                                                 <div class="col-md-4 text-center border-right">
                                                     ${data.photo_url ? `<img src="${data.photo_url}" class="rounded-circle shadow-lg mb-3 border border-light" width="140" height="140" alt="{{ __('Student Photo') }}" style="object-fit:cover;">` : '<div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center shadow-lg mb-3 mx-auto" style="width: 140px; height: 140px;"><i class="fas fa-user-circle fa-4x text-white-50"></i></div>'}
                                                     <h5 class="font-weight-bold text-dark mb-0">${data.name}</h5>
-                                                    <span class="badge badge-pill badge-primary px-3 py-2 mt-2 font-weight-normal shadow-sm">Reg: ${data.registration_number || 'N/A'}</span>
+                                                    <span class="badge badge-pill badge-primary px-3 py-2 mt-2 font-weight-normal shadow-sm">Adm: ${data.registration_number || 'N/A'}</span>
                                                 </div>
                                                 <div class="col-md-8 pl-md-4">
                                                     <div class="row g-3">
@@ -1103,8 +1133,11 @@
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('School') }}:</strong> <span class="text-truncate" style="max-width: 150px;">${data.school ? data.school.name : 'N/A'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Branch') }}:</strong> <span>${data.branch ? data.branch.name : 'Main'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Class - Section') }}:</strong> <span class="badge badge-light-primary">${data.grade ? data.grade.name : 'N/A'} - ${data.section ? data.section.name : 'N/A'}</span></li>
-                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Registration #') }}:</strong> <span>${data.registration_number || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Roll No') }}:</strong> <span>${data.roll_number || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Admission #') }}:</strong> <span>${data.registration_number || 'N/A'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Session') }}:</strong> <span>${data.session_year || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('Previous Class') }}:</strong> <span>${data.previous_class || 'N/A'}</span></li>
+                                                        <li class="d-flex justify-content-between mb-2"><strong>{{ __('P.E.N. Number') }}:</strong> <span>${data.pen_number || 'N/A'}</span></li>
                                                         <li class="d-flex justify-content-between mb-2"><strong>{{ __('Apaar ID') }}:</strong> <span>${data.apaar_id || 'N/A'}</span></li>
                                                     </ul>
                                                 </div>

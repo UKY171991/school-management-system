@@ -165,11 +165,11 @@
             </div>
         </div>
         <div class="d-flex justify-content-between mb-3 px-1" style="padding: 5px 0;">
-            <div style="font-size: 16px; font-weight: 700;">Registration No: <span style="font-weight: 600; color: #d32f2f; margin-left: 5px;">{{ $student->registration_number }}</span></div>
+            <div style="font-size: 16px; font-weight: 700;">Admission No: <span style="font-weight: 600; color: #d32f2f; margin-left: 5px;">{{ $student->registration_number }}</span></div>
             <div style="font-size: 16px; font-weight: 700;">Session Year: <span style="font-weight: 600; color: #1a237e; margin-left: 5px;">{{ $student->session_year }}</span></div>
         </div>
 
-        <div class="form-title" style="margin-top: 10px; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">ADMISSION REGISTRATION FORM</div>
+        <div class="form-title" style="margin-top: 10px; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">ADMISSION FORM</div>
 
         <div class="section-title">STUDENT DETAILS</div>
 
@@ -197,11 +197,25 @@
             </div>
             <div class="col-4">
                 <div class="field-row">
-                    <span class="field-label" style="min-width: 50px;">Class:</span>
+                    <span class="field-label" style="min-width: 50px;">Section:</span>
+                    <span class="field-value">{{ $student->section->name ?? '' }}</span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="field-row">
+                    <span class="field-label" style="min-width: 140px;">Applying For Class:</span>
                     <span class="field-value">{{ $student->grade->name ?? '' }}</span>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="field-row">
+                    <span class="field-label" style="min-width: 60px;">Roll No:</span>
+                    <span class="field-value">{{ $student->roll_number }}</span>
+                </div>
+            </div>
 
 
         <div class="row">
@@ -267,6 +281,21 @@
         <div class="field-row">
             <span class="field-label">Previous School:</span>
             <span class="field-value">{{ $student->previous_school }}</span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="field-row">
+                    <span class="field-label">P.E.N. Number:</span>
+                    <span class="field-value">{{ $student->pen_number }}</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="field-row">
+                    <span class="field-label">Previous Class:</span>
+                    <span class="field-value">{{ $student->previous_class }}</span>
+                </div>
+            </div>
         </div>
 
         <div class="row">

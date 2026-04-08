@@ -123,6 +123,8 @@ class AdmissionController extends Controller
             'previous_school' => 'nullable|string|max:255',
             'adhaar_number' => 'nullable|string|max:20',
             'apaar_id' => 'nullable|string|max:255',
+            'pen_number' => 'nullable|string|max:255',
+            'previous_class' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
         ]);
 
@@ -181,6 +183,8 @@ class AdmissionController extends Controller
             'previous_school' => 'nullable|string|max:255',
             'adhaar_number' => 'nullable|string|max:20',
             'apaar_id' => 'nullable|string|max:255',
+            'pen_number' => 'nullable|string|max:255',
+            'previous_class' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp|max:2048',
         ]);
 
